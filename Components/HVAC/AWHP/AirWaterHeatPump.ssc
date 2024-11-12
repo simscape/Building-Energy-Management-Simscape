@@ -1,0 +1,104 @@
+% This component was automatically generated using 'subsystem2ssc'. 
+%   Subsystem: HeatPump/AirWaterHeatPump 
+%   MATLAB version: 24.1 
+%   Simulink version: 24.1 
+%   Simscape version: 24.1 
+%   Generated on: 05-Sep-2024 15:18:09
+
+component (Propagation = blocks) AirWaterHeatPump
+  parameters
+    elecHeaterPower = {0, 'kW'}; %Additional electric heater rating
+    heatingCapacityA = {10.17, 'kW'}; %A-2W55, estimated heating capacity
+    heatingCapacityB = {10.12, 'kW'}; %A-2W65, estimated heating capacity
+    heatingCapacityC = {10.17, 'kW'}; %A7W35, estimated heating capacity
+    heatingCapacityD = {10.12, 'kW'}; %A7W45, estimated heating capacity
+    coolingCapacityE = {10.55, 'kW'}; %A35W18, estimated cooling capacity
+    coolingCapacityF = {6.9, 'kW'}; %A35W7, estimated cooling capacity
+    heatingCoPA = 4.86; %A-2W55, estimated COP (or SCOP)
+    heatingCoPB = 3.7; %A-2W65, estimated COP (or SCOP)
+    heatingCoPC = 4.86; %A7W35, estimated COP (or SCOP)
+    heatingCoPD = 3.7; %A7W45, estimated COP (or SCOP)
+    coolingCoPE = 4.13; %A35W18, estimated COP (or SCOP)
+    coolingCoPF = 2.7; %A35W7, estimated COP (or SCOP)
+    waterOpTempMin = {278, 'K'}; %Minimum operation water temperature
+    waterOpTempMax = {330, 'K'}; %Maximum operational water temperature
+    measTimelagWaterInlet = {60, 's'}; %Temperature measurement time delay for water flow inlet
+    measInitialWaterInletT = {299.8, 'K'}; %Measured initial water inlet temperature
+    coilDia = {.05, 'm'}; %Diameter of coil pipe
+    coilWaterT = {299.8, 'K'}; %Initial temperature of coil pipe water
+    coilArea = {.001963495408493621, 'm^2'}; %Area of coil pipe
+    coilLen = {2, 'm'}; %Length of coil pipe
+    coilWaterP = {.101325, 'MPa'}; %Initial pressure of coil pipe water
+    minWaterFlowRate = {.001, 'kg/s'}; %Minimum water flowrate
+    measTimelag = {60, 's'}; %Temperature measurement time delay for water flow
+    measInitialWaterOutletT = {299.8, 'K'}; %Measured initial water temperature
+    tankVolume = {5, 'm^3'}; %Heat exchanger internal volume
+    waterPumpArea = {.001963495408493621, 'm^2'}; %Pump cross-sectional area
+  end
+  variables
+    tankInitialT = {value = {299.8, 'K'}, priority = priority.high}; %Initial temperature of tank
+  end
+  inputs
+    Nd = 0;
+    Ta = {0, 'K'};
+    Op = 0;
+    Ep = 0;
+    Fw = {0, 'kg/s'};
+  end
+  outputs
+    COP = 0;
+    ePow = {0, 'kW'};
+  end
+  nodes
+    B = foundation.thermal_liquid.thermal_liquid;
+    A = foundation.thermal_liquid.thermal_liquid;
+  end
+  components(ExternalAccess = observe)
+    WaterFlowRate = foundation.thermal_liquid.sources.flow_rate_source(flow_type = int32(1), power_spec = int32(0), source_type = int32(2), area = waterPumpArea);
+    TwOut = foundation.thermal_liquid.sensors.pressure_temperature_sensor(pressure = logical(0), reference = int32(2), temperature = logical(1));
+    TwInet = foundation.thermal_liquid.sensors.pressure_temperature_sensor(pressure = logical(0), reference = int32(2), temperature = logical(1));
+    Tref = foundation.thermal.elements.reference;
+    Tank = fluids.thermal_liquid.tanks_accumulators.gas_charged_accumulator(area = {.01, 'm^2'}, damping_coeff = {10000, 'MPa*s/m^6'}, dead_volume = {4e-05, 'm^3'}, k_sh = 1.4, p_precharge_gauge = {0, 'MPa'}, stiff_coeff = {10000, 'MPa/m^3'}, capacity = tankVolume, T_I.priority = priority.none);
+    OutMeasDelay = foundation.signal.linear.transfer_function(initial_condition_spec = int32(1), reset_method = int32(0), transfer_function_type = int32(1), T = measTimelag, y0 = measInitialWaterOutletT);
+    NomDevLim = foundation.signal.nonlinear.max;
+    NoDeviation = foundation.signal.sources.constant(constant = 1);
+    MinFlowValue = foundation.signal.sources.constant(constant = minWaterFlowRate);
+    InternalCoils = foundation.thermal_liquid.elements.pipe(Nu_lam = 3.66, Re_lam = 2000, Re_tur = 4000, dynamic_compressibility = logical(1), inertia = logical(0), length_add = {0, 'm'}, roughness = {1.5e-05, 'm'}, shape_factor = 64, Dh = coilDia, T0 = coilWaterT, area = coilArea, p0 = coilWaterP, length = coilLen);
+    InsTank = foundation.thermal.elements.perfect_insulator;
+    InMeasDelay = foundation.signal.linear.transfer_function(initial_condition_spec = int32(1), reset_method = int32(0), transfer_function_type = int32(1), T = measTimelagWaterInlet, y0 = measInitialWaterInletT);
+    HeatSource = HeatSourceAWHP(airTemperatureVector = [271, 271, 280, 280, 308, 308], smallPower = {.001, 'W'}, waterSpHeat = {4186, 'J/(K*kg)'}, waterTemperatureVector = [328, 338, 308, 318, 291, 280], backupElecHeater = elecHeaterPower, nominalCapacityF = coolingCapacityF, seasonalCOPvalA = heatingCoPA, wInletOpRangeLow = waterOpTempMin, nominalCapacityA = heatingCapacityA, nominalCapacityE = coolingCapacityE, nominalCapacityB = heatingCapacityB, nominalCapacityC = heatingCapacityC, seasonalCOPvalC = heatingCoPC, seasonalCOPvalF = coolingCoPF, wInletOpRangeUpp = waterOpTempMax, nominalCapacityD = heatingCapacityD, seasonalCOPvalB = heatingCoPB, seasonalCOPvalE = coolingCoPE, seasonalCOPvalD = heatingCoPD);
+    Heat = foundation.thermal.sources.controlled_heat_flow;
+    ActualFlowrate = foundation.signal.nonlinear.max;
+  end
+  connections
+    connect(TwInet.T,InMeasDelay.U);
+    connect(TwOut.T,OutMeasDelay.U);
+    connect(NomDevLim.O,HeatSource.Nd);
+    connect(Nd,NomDevLim.I1);
+    connect(NoDeviation.O,NomDevLim.I2);
+    connect(HeatSource.calcCap,Heat.S);
+    connect(HeatSource.calcCOP,COP);
+    connect(Ta,HeatSource.Ta);
+    connect(InMeasDelay.Y,HeatSource.Tl);
+    connect(Op,HeatSource.Op);
+    connect(Ep,HeatSource.Ep);
+    connect(OutMeasDelay.Y,HeatSource.Tw);
+    connect(ActualFlowrate.O,WaterFlowRate.M);
+    connect(MinFlowValue.O,ActualFlowrate.I2);
+    connect(HeatSource.ePower,ePow);
+    connect(Fw,ActualFlowrate.I1);
+    connect(Fw,HeatSource.Fw);
+    connect(A,Tank.A);
+    connect(A,WaterFlowRate.A);
+    connect(B,InternalCoils.B);
+    connect(B,TwOut.A);
+    connect(InternalCoils.A,TwInet.A);
+    connect(InternalCoils.A,WaterFlowRate.B);
+    connect(InsTank.A,Tank.H);
+    connect(Heat.B,Tref.H);
+    connect(Heat.A,InternalCoils.H);
+  end
+  equations 
+    Tank.T_I == tankInitialT;
+  end
+end

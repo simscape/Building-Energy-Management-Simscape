@@ -1,0 +1,235 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Building Energy Management System with Simscape</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-10-04">
+<meta name="DC.source" content="BuildingEnergyManagementSimscape.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Building Energy Management System with Simscape</h1>
+<!--introduction-->
+<p>This project contains custom libraries, models, and code to help you analyze a building energy HVAC requirements and design controllers for building energy managmement systems, BEMS.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#2">Create Building Model with Solar Loads</a>
+</li>
+<li>
+<a href="#3">Run Building Model for HVAC Requirement Analysis</a>
+</li>
+<li>
+<a href="#4">Setup Building Model for BEMS Design</a>
+</li>
+<li>
+<a href="#5">Appendix A: Custom Component Documentation</a>
+</li>
+<li>
+<a href="#6">Appendix B: Overall Workflow Pictorial</a>
+</li>
+</ul>
+</div>
+<p>Building energy management is an important step when addressing energy goals and the transition to clean energy. Enhanced energy management in buildings supports the transition to renewable energy sources, aids in the global commitment to limit temperature rise, and combats climate change. In this project, you will learn how to create a system-level model using Simscape&trade; and Simscape Fluids&trade; to assess building HVAC needs and develop BEMS.</p>
+<p>The end of this document contains a workflow representation. Live Script based workflows are used to parameterize Simscape Custom components for building energy simulations.</p>
+<h2 id="2">Create Building Model with Solar Loads</h2>
+<div>
+<ul>
+<li>To learn how to create buildings quickly and define solar loading on them, see <a href="matlab:open('CreateBuildingModelWithSolarLoad.mlx')">Create Building Model with Solar Loads</a>.</li>
+</ul>
+</div>
+<p>In this workflow, you will learn how to define rooms, create apartments, and construct a 3D building. At the end of the workflow, you will be able to save your building definition in a XML part and use it later or share with others.</p>
+<h2 id="3">Run Building Model for HVAC Requirement Analysis</h2>
+<div>
+<ul>
+<li>To learn how to evaluate HVAC requirements for a building, see <a href="matlab:open('BuildingManagementSystemRequirementAnalysis.mlx')">Simulate Building Model for HVAC Requirement Analysis</a> to open and run the live script.</li>
+</ul>
+</div>
+<p>The live script opens the Simscape Model which you can run and analyze the results. To enable the post-processing functions to work in the live script, you must run the model programatically, as shown in code example. This model uses two different custom Simscape blocks - the <b>Building</b> and the <b>Ambient</b> block. To learn more about each custom block, open the block mask and see the documentation link.</p>
+<h2 id="4">Setup Building Model for BEMS Design</h2>
+<div>
+<ul>
+<li>To learn how to evaluate actual energy consumption and design controllers, see <a href="matlab:open('SimulateBuildingEnergyManagement.mlx')">Simulate Building Model for BEMS Design</a>. This will open a live script which sets up the model, parameterizes it, and opens the model to run.</li>
+</ul>
+</div>
+<p>This is a detailed model that uses four different custom Simscape blocks - the <b>Building</b> , the <b>Heat Pump</b> , the <b>Ambient</b> , and the <b>Operational Data</b> blocks. To learn more about each custom block, open the block mask and see the documentation link.</p>
+<p>In this example, you will also learn how to use a air-water heat pump (AWHP) to maintain a desired set-point temperature within the building rooms. You will be able to specify different conditions for different rooms by using a physics table data. You will learn how to specify different heating or cooling options within a room: radiator, under-floor piping, or both.</p>
+<h2 id="5">Appendix A: Custom Component Documentation</h2>
+<p>To learn more about the different custom components used in the simulation:</p>
+<div>
+<ul>
+<li>See <a href="matlab:open('DocumentationCustomBlockBuilding.html')">Building Model Documentation</a> to learn more about the building custom component.</li>
+<li>See <a href="matlab:open('DocumentationCustomBlockAmbient.html')">Ambient Model Documentation</a> to learn more about the ambient model custom component.</li>
+<li>See <a href="matlab:open('DocumentationHeatPumpBlock.html')">Heat Pump Model Documentation</a> to learn more about the datasheet (EN14511) based heat pump models.</li>
+<li>See <a href="matlab:open('DocumentationBuildingOperation.html')">Building Operational Data Documentation</a> to learn more about the block.</li>
+</ul>
+</div>
+<h2 id="6">Appendix B: Overall Workflow Pictorial</h2>
+<p>
+<img vspace="5" hspace="5" src="../Images/overallSummaryBuildingSim.png" alt=""> </p>
+<p class="footer">Copyright 2024 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Building Energy Management System with Simscape
+% 
+% This project contains custom libraries, models, and code to help 
+% you analyze a building energy HVAC requirements and design controllers
+% for building energy managmement systems, BEMS.
+%
+
+% Copyright 2024 The MathWorks, Inc.
+
+%%
+% Building energy management is an important step when addressing energy 
+% goals and the transition to clean energy. Enhanced energy management in 
+% buildings supports the transition to renewable energy sources, aids in 
+% the global commitment to limit temperature rise, and combats climate
+% change. In this project, you will learn how to create a system-level 
+% model using Simscape(TM) and Simscape Fluids(TM) to assess building HVAC 
+% needs and develop BEMS.
+% 
+% 
+% The end of this document contains a workflow representation. Live Script 
+% based workflows are used to parameterize Simscape Custom components for 
+% building energy simulations.
+%
+%% Create Building Model with Solar Loads
+% 
+% * To learn how to create buildings quickly and define solar loading on
+% them, see <matlab:open('CreateBuildingModelWithSolarLoad.mlx') Create 
+% Building Model with Solar Loads>. 
+% 
+% In this workflow, you will learn how to define rooms, create apartments, 
+% and construct a 3D building. At the end of the workflow, you will be able 
+% to save your building definition in a XML part and use it later or share 
+% with others.
+% 
+%% Run Building Model for HVAC Requirement Analysis
+% 
+% * To learn how to evaluate HVAC requirements for a building, see 
+% <matlab:open('BuildingManagementSystemRequirementAnalysis.mlx') Simulate 
+% Building Model for HVAC Requirement Analysis> to open and run the live 
+% script. 
+% 
+% The live script opens the Simscape Model which you can run and analyze 
+% the results. To enable the post-processing functions to work in the live 
+% script, you must run the model programatically, as shown in code example. 
+% This model uses two different custom Simscape blocks - the *Building* and 
+% the *Ambient* block. To learn more about each custom block, open the block 
+% mask and see the documentation link.
+% 
+%% Setup Building Model for BEMS Design
+% 
+% * To learn how to evaluate actual energy consumption and design
+% controllers, see <matlab:open('SimulateBuildingEnergyManagement.mlx') 
+% Simulate Building Model for BEMS Design>. This will open a live script 
+% which sets up the model, parameterizes it, and opens the model to run.
+% 
+% This is a detailed model that uses four different custom Simscape blocks -
+% the *Building* , the *Heat Pump* , the *Ambient* , and the *Operational 
+% Data* blocks. To learn more about each custom block, open the block mask and 
+% see the documentation link.
+% 
+% In this example, you will also learn how to use a air-water heat pump 
+% (AWHP) to maintain a desired set-point temperature within the building 
+% rooms. You will be able to specify different conditions for different 
+% rooms by using a physics table data. You will learn how to specify 
+% different heating or cooling options within a room: radiator, under-floor 
+% piping, or both. 
+
+%% Appendix A: Custom Component Documentation
+% To learn more about the different custom components used in the simulation: 
+% 
+% * See <matlab:open('DocumentationCustomBlockBuilding.html') Building 
+% Model Documentation> to learn more about the building custom component.
+% * See <matlab:open('DocumentationCustomBlockAmbient.html') Ambient 
+% Model Documentation> to learn more about the ambient model custom 
+% component.
+% * See <matlab:open('DocumentationHeatPumpBlock.html') Heat Pump Model 
+% Documentation> to learn more about the datasheet (EN14511) based heat 
+% pump models.
+% * See <matlab:open('DocumentationBuildingOperation.html') Building 
+% Operational Data Documentation> to learn more about the block.
+%
+%% Appendix B: Overall Workflow Pictorial
+% 
+% <<../Images/overallSummaryBuildingSim.png>>
+% 
+##### SOURCE END #####
+-->
+</body>
+</html>

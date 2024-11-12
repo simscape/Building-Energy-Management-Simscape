@@ -1,0 +1,459 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      -->
+<title>Custom Block: Building Model</title>
+<meta name="generator" content="MATLAB 24.1">
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<meta name="DC.date" content="2024-10-04">
+<meta name="DC.source" content="DocumentationCustomBlockBuilding.m">
+<style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; }
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+span.typesection { color:#A0522D }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style>
+</head>
+<body>
+<div class="content">
+<h1>Custom Block: Building Model</h1>
+<!--introduction-->
+<p>The source code for the block is in the SSC file <tt>Components/Building/BuildingModel.ssc</tt>.</p>
+<!--/introduction-->
+<h2>Contents</h2>
+<div>
+<ul>
+<li>
+<a href="#2">Building Physics</a>
+</li>
+<li>
+<a href="#3">Room Physics</a>
+</li>
+<li>
+<a href="#4">Wall Properties</a>
+</li>
+<li>
+<a href="#5">Window Glass Properties</a>
+</li>
+<li>
+<a href="#6">Heat Transfer</a>
+</li>
+<li>
+<a href="#7">Appendix A: Useful Links</a>
+</li>
+</ul>
+</div>
+<p>A building consists of multiple apartments and each apartment consists of multiple rooms. Each room is modelled as air thermal mass with other physics added to it as custom components (radiators, underfloor piping, walls, and roof/floors). The block allows you to analyze building HVAC requirements, design your BEMS, and evaluate energy usage during real world operational scenarios.</p>
+<p>This block defines all geometrical properties of a 3D building and the solar loading on it over a specified period of time. It contains all the essential information to build a thermal network for simulating a building physics. A pictorial representation and connection of different building components is given below. The block has ports:</p>
+<div>
+<ul>
+<li>Port <b>H</b> is the thermal node to connect the building to the environment. This node connects the building wall and roof models to the <b>Ambient</b> custom component model.</li>
+<li>Port <b>G</b> is the thermal node to connect the building to the ground. This node connects the floor of the 1st level in a building to the ground. Heat loss through the ground is modelled using this node.</li>
+<li>Port <b>Li</b> is a bundle of Simscape Thermal Liquid nodes, with one Thermal Liquid node per room in the building. It represents the heating or cooling fluid inlet port to the room.</li>
+<li>Port <b>Lo</b> is a bundle of Simscape Thermal Liquid nodes, with one Thermal Liquid node per room in the building. It represents the heating or cooling fluid outlet port from the room.</li>
+<li>Input port <b>C</b> is a scalar input, varying between 0-1, to specify the cloud coverage level. To model a cloudless sky, set C to 0. To set a very cloudy sky, set C to 1. The <b>Ambient</b> custom component block provides input for port <b>C</b>.</li>
+<li>Input port <b>V</b> is a scalar matrix, to specify valve closure level for each room. The matrix size equals the number of rooms in the building. Each row of the matrix specifies the apartment number, while the column specifies the room number. Each room could have different values for valve closure, ranging between 0-1. Set the elements of V to 0 to close the valves carrying fluid to the room. Set the elements of V to 1 to fully open the valve carrying heating/cooling fluid to the room. This port is visible only when you set the block mask parameter <b>Select room modelling option</b> to <tt>HVAC: Room Radiator Only</tt>, or <tt>HVAC: Room Underfloor Heating/Cooling Only</tt>, or <tt>HVAC: Room Radiator with Underfloor Heating/Cooling</tt>.</li>
+<li>Port <b>S</b> is a scalar matrix input port, to specify heat addition to each room.</li>
+<li>Ports <b>Tr</b> and <b>Tw</b> are outputs for the room and the wall temperatures.</li>
+</ul>
+</div>
+<p>
+<img vspace="5" hspace="5" src="../Images/overallSummaryBuildingCustomComponent.png" alt=""> </p>
+<p>The <tt>buildingModel.ssc</tt> defines the building custom component. The block mask has sections like <tt>Building Physics</tt>, <tt>Wall Properties</tt>, <tt>Window Glass Properties</tt>, <tt>Heat Transfer</tt>, and optionally <tt>Room Physics</tt>. The <tt>buildingModel.ssc</tt> file loops over a list of all external walls, roof, and floors and connects the wall and roof custom components to thermal node <b>H</b> and floor to the ground thermal node <b>G</b>. Room is modelled using thermal mass library block. Depending on room fidelity selected by the user, the room radiator and underfloor piping models are connected to the room thermal mass.</p>
+<h2 id="2">Building Physics</h2>
+<p>
+<b>The parameters under this section are defined by running the workflow scripts in this project</b>. All block parameter values in this section end with the comment string ' <i>% Parameterized on :dd-mmm-yyyy hh:mm:ss</i> ' added at the end of the parameters values. This time specifies when the block was parameterized using the workflow scripts. This section defines building room-to-room connectivity thermal network data as well as room walls/roof/floor to environment connectivity data.</p>
+<div>
+<ul>
+<li>
+<b>Number of apartments</b>, <tt>nApts</tt>, specififed as an integer value greater than or equal to 1.</li>
+<li>
+<b>Number of rooms</b>, <tt>nRooms</tt>, specified as an integer value greater than or equal to 1.</li>
+<li>
+<b>Room volume matrix</b>, <tt>roomVolMat</tt>, specified as a matrix of scalar quantities greater than 0. The number of rows and columns of this matrix must be equal to the <b>Number of apartments</b> and the <b>Number of rooms</b> parameters.</li>
+<li>
+<b>Room connectivity matrix</b>, <tt>roomConnMat</tt>, specified as a matrix with 5 columns and number of rows equal to the number of room-to-room inter-connections. Each row entry defines a connection between two rooms. Column 1 and 2 specify the apartment and room number for the 1st room. Column 3 and 4 specify the apartment and room number for the 2nd room. The 5th column specifies the contact area between the two rooms, with area being defined in units of meter-square.</li>
+<li>
+<b>Wall to ambient contact area matrix</b>, <tt>roomEnvConnMat</tt>, specified as a matrix with 6 columns and the number of rows equal to the number of external walls in the building. Each row entry defines a wall to ambient connectivity information. Each was is given a unique identification number, based on the apartment and the room it is associated with. Columns 1, 2, and 3 specifies the apartment number, room number, and the wall number to define the indicies of the wall (of a room) connected to the environment. Columns 4, 5, and 6 specify the area of the solid wall, window on the wall, and vent on the wall. These area are required to compute the solar load entering the room directly and the solar load conducting into the room.</li>
+<li>
+<b>Wall hourly-solar-radiation matrix</b>, <tt>roomEnvSolarRad</tt>, specified as a matrix of scalar values. The total number of rows is equal to the total number of external walls in the building which equals the number of rows in <tt>roomEnvConnMat</tt>. The total number of columns in <tt>roomEnvSolarRad</tt> equal the number of hours the solar radiation is computed. Each column is solar radiation data at an instance of time, on the external walls of the building. If the block has been parameterized for 10 days of solar radiation, then the number of columns must be equal to 10 x 24, or 240.</li>
+<li>
+<b>Ground floor room thermal connectivity</b>, <tt>floorGroundConn</tt>, specified as a matrix with 3 columns and number of rows equal to the number of rooms at each given floor level. Each row of data is the information on area connectivity between a room and the ground. Column 1 and 2 specify the apartment and room number; column 3 specifies, in square meters, the area of the room floor.</li>
+<li>
+<b>Select room modelling option</b>, <tt>roomModelOption</tt>, is a drop down list that enables you to switch between different room modelling and analysis options. You can chose from 5 different options: <tt>Thermal Load</tt>, <tt>Thermal Requirements</tt>, <tt>HVAC: Room Radiator Only</tt>, <tt>HVAC: Room Underfloor Heating/Cooling Only</tt>, and <tt>HVAC: Room Radiator with Underfloor Heating/Cooling</tt>. The 1st two options, <tt>Thermal Load</tt> and <tt>Thermal Requirements</tt> are selected during HVAC requirement analysis for the building. The last 3 options enable you to add radiator, or under-floor pipes, or both, to your room for heating or cooling. These 3 fidilities are preferred for BEMS analysis and control design. If you select any of these last 3 options, you will need to specify <tt>Room Physics</tt> parameters too. To learn more about the room modelling options, see <a href="matlab:open('DocumentationRoomModellingOptions.html')">Room Modelling Options in Building Custom Component</a>.</li>
+<li>
+<b>Roof to ambient contact area matrix</b>, <tt>roofEnvConnMat</tt>, specified as a matrix with 3 columns and number of rows equal to the number of rooms at top floor level. Each row of data is the information on area connectivity between a room and the environment, through the roof. Column 1 and 2 specify the apartment and room number; column 3 specifies, in square meters, the area of the roof of the room.</li>
+<li>
+<b>Roof hourly-solar-radiation matrix</b>, <tt>roofEnvSolarRad</tt>, specified as a matrix of scalar values. The total number of rows is equal to the total number of roofs defined in the building, which is the row size of <tt>roofEnvConnMat</tt>. The total number of columns is equal to the number of hours the solar radiation is computed. Each column data represents solar radiation data at an instance of time, on the roof of the building. If the block has been parameterized for 10 days of solar radiation, then the number of columns must be equal to 10 x 24 = 240.</li>
+</ul>
+</div>
+<p>These two parameters appear when <b>Select room modelling option</b> to <tt>HVAC: Room Radiator Only</tt>, or <tt>HVAC: Room Underfloor Heating/Cooling Only</tt>, or <tt>HVAC: Room Radiator with Underfloor Heating/Cooling</tt>. When you select one of these options, a thermal liquid (TL) array of nodes port also appears on the block mask. Each thermal node is connected to one room in the building, or the number of thermal nodes is equal to the total number of rooms defined in the building.</p>
+<div>
+<ul>
+<li>
+<b>Room radiator projection area matrix</b>, <tt>roomRadiatorArea</tt>, specified as matrix of scalar values. The number of rows and columns of this matrix is equal to the <b>Number of apartments</b> and <b>Number of rooms</b> parameters. The matrix stores the surface area of radiator in each room.</li>
+<li>
+<b>Room under floor piping area matrix</b>, <tt>roomUFPipingArea</tt>, specified as a matrix of scalar values. The number of rows and columns of this matrix is equal to the <b>Number of apartments</b> and <b>Number of rooms</b> parameters. The matrix stores the surface area of underfloor piping defined in each room.</li>
+</ul>
+</div>
+<h2 id="3">Room Physics</h2>
+<p>You only need to parameterize this section when you set <b>Select room modelling option</b> to <tt>HVAC: Room Radiator Only</tt>, <tt>HVAC: Room Underfloor Heating/Cooling Only</tt>, or <tt>HVAC: Room Radiator with Underfloor Heating/Cooling</tt>.</p>
+<div>
+<ul>
+<li>
+<b>Radiator pipe gap in layout</b>, <tt>radiatorPipeGap</tt>, specified as a scalar value. This parameter defines the gap between pipe outer surfaces in a radiator.</li>
+<li>
+<b>Radiator pipe hydraulic diameter</b>, <tt>radiatorPipeHydrDia</tt>, specified as a scalar value. This parameter defines the radiator pipe hydraulic diameter.</li>
+<li>
+<b>Radiator pipe cross-sectional area</b>, <tt>radiatorPipeArea</tt>, specified as a scalar value. This parameter defines the radiator pipe cross-sectional area.</li>
+<li>
+<b>Under floor pipe hydraulic diameter</b>, <tt>UFPipeHydrDia</tt>, specified as a scalar value. This parameter defines the under floor piping diameter.</li>
+<li>
+<b>Under floor pipe gap in layout</b>, <tt>UFPipeGap</tt>, specified as a scalar value. This parameter defines the gap between pipe puter surfaces in underfloor layout.</li>
+<li>
+<b>Under floor pipe cross-sectional area</b>, <tt>UFPipeArea</tt>, specified as a scalar value. This parameter defines the under floor pipe cross-sectional area.</li>
+</ul>
+</div>
+<h2 id="4">Wall Properties</h2>
+<div>
+<ul>
+<li>
+<b>Wall material density</b>, <tt>wallMaterialDen</tt>, specified as a scalar value.</li>
+<li>
+<b>Wall material heat capacity</b>, <tt>wallMaterialCp</tt>, specified as a scalar value.</li>
+<li>
+<b>Wall absorptivity</b>, <tt>wallAbsorptivity</tt>, specified as a scalar value.</li>
+<li>
+<b>Wall thermal conductivity</b>, <tt>wallThermalK</tt>, specified as a scalar value.</li>
+<li>
+<b>Wall thickness</b>, <tt>wallThickness</tt>, specified as a scalar value.</li>
+</ul>
+</div>
+<h2 id="5">Window Glass Properties</h2>
+<div>
+<ul>
+<li>
+<b>Window material density</b>, <tt>winMaterialDen</tt>, specified as a scalar value.</li>
+<li>
+<b>Window material heat capacity</b>, <tt>winMaterialCp</tt>, specified as a scalar value.</li>
+<li>
+<b>Window Absorptivity</b>, <tt>winAbsorptivity</tt>, specified as a scalar value.</li>
+<li>
+<b>Window thermal conductivity</b>, <tt>winThermalK</tt>, specified as a scalar value.</li>
+<li>
+<b>Window thickness</b>, <tt>winThickness</tt>, specified as a scalar value.</li>
+<li>
+<b>Window transmissivity</b>, <tt>winTransmissivity</tt>, specified as a scalar value.</li>
+</ul>
+</div>
+<h2 id="6">Heat Transfer</h2>
+<div>
+<ul>
+<li>
+<b>Cooling / heating pipe roughness</b>, <tt>heatTransferPipeRoughness</tt>, specified as a scalar value.</li>
+<li>
+<b>Effective heat transfer coefficient from ambient to wall surface</b>, <tt>extToWallHTC</tt>, specified as a scalar value.</li>
+<li>
+<b>Effective heat transfer coefficient from internal surface to the room</b>, <tt>intToRoomHTC</tt>, specified as a scalar value.</li>
+<li>
+<b>Initial temperature</b>, <tt>iniTemperature</tt>, specified as a scalar value.</li>
+</ul>
+</div>
+<h2 id="7">Appendix A: Useful Links</h2>
+<div>
+<ul>
+<li>To learn more about how to create a building, see <a href="matlab:open('CreateBuildingModelWithSolarLoad.mlx')">Create Building Model With Solar Load</a>. In this workflow, you will learn how to create 3D buildings quickly, add solar radiation load to it, and save it to a part file (XML).</li>
+<li>To learn more about the solar model, see <a href="matlab:open('SunModelTestHarness.mlx')">Estimate Solar Angles and Solar Radiation</a>.</li>
+</ul>
+</div>
+<p class="footer">Copyright 2024 The MathWorks, Inc.<br>
+<a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2024a</a>
+<br>
+</p>
+</div>
+<!--
+##### SOURCE BEGIN #####
+%% Custom Block: Building Model
+% 
+% The source code for the block is in the SSC file |Components/Building/BuildingModel.ssc|. 
+
+% Copyright 2024 The MathWorks, Inc.
+
+%%
+% A building consists of multiple apartments and each apartment consists of
+% multiple rooms. Each room is modelled as air thermal mass with other
+% physics added to it as custom components (radiators, underfloor piping,
+% walls, and roof/floors). The block allows you to analyze building HVAC 
+% requirements, design your BEMS, and evaluate energy usage during real 
+% world operational scenarios.
+% 
+% This block defines all geometrical properties of a 3D building and the
+% solar loading on it over a specified period of time. It contains all the 
+% essential information to build a thermal network for simulating a
+% building physics. A pictorial representation and connection of different
+% building components is given below. The block has ports:
+%
+% * Port *H* is the thermal node to connect the building to the environment.
+% This node connects the building wall and roof models to the *Ambient* 
+% custom component model.
+% * Port *G* is the thermal node to connect the building to the ground. 
+% This node connects the floor of the 1st level in a building to the
+% ground. Heat loss through the ground is modelled using this node.
+% * Port *Li* is a bundle of Simscape Thermal Liquid nodes, with one 
+% Thermal Liquid node per room in the building. It represents the heating 
+% or cooling fluid inlet port to the room.
+% * Port *Lo* is a bundle of Simscape Thermal Liquid nodes, with one 
+% Thermal Liquid node per room in the building. It represents the heating 
+% or cooling fluid outlet port from the room.
+% * Input port *C* is a scalar input, varying between 0-1, to specify the 
+% cloud coverage level. To model a cloudless sky, set C to 0. To set a very 
+% cloudy sky, set C to 1. The *Ambient* custom component block provides
+% input for port *C*.
+% * Input port *V* is a scalar matrix, to specify valve closure level for
+% each room. The matrix size equals the number of rooms in the
+% building. Each row of the matrix specifies the apartment number, while 
+% the column specifies the room number. Each room could have different 
+% values for valve closure, ranging between 0-1. Set the elements of V to 0 
+% to close the valves carrying fluid to the room. Set the elements of V to 
+% 1 to fully open the valve carrying heating/cooling fluid to the room. 
+% This port is visible only when you set the block mask parameter 
+% *Select room modelling option* to |HVAC: Room Radiator Only|, or |HVAC: 
+% Room Underfloor Heating/Cooling Only|, or |HVAC: Room Radiator with 
+% Underfloor Heating/Cooling|.
+% * Port *S* is a scalar matrix input port, to specify heat addition to each
+% room.
+% * Ports *Tr* and *Tw* are outputs for the room and the wall temperatures.
+% 
+% <<../Images/overallSummaryBuildingCustomComponent.png>>
+% 
+% The |buildingModel.ssc| defines the building custom component. The block
+% mask has sections like |Building Physics|, |Wall Properties|, |Window Glass
+% Properties|, |Heat Transfer|, and optionally |Room Physics|. The 
+% |buildingModel.ssc| file loops over a list of all external
+% walls, roof, and floors and connects the wall and roof custom components to
+% thermal node *H* and floor to the ground thermal node *G*. Room is 
+% modelled using thermal mass library block. Depending on room fidelity 
+% selected by the user, the room radiator and underfloor piping models are 
+% connected to the room thermal mass.
+% 
+%
+%% Building Physics
+% *The parameters under this section are defined by running the workflow 
+% scripts in this project*. All block parameter values in this section end 
+% with the comment string ' _% Parameterized on :dd-mmm-yyyy hh:mm:ss_ ' 
+% added at the end of the parameters values. This time specifies when the 
+% block was parameterized using the workflow scripts. This section defines 
+% building room-to-room connectivity thermal network data as well as room 
+% walls/roof/floor to environment connectivity data.
+% 
+% * *Number of apartments*, |nApts|, specififed as an integer value greater
+% than or equal to 1.
+% * *Number of rooms*, |nRooms|, specified as an integer value greater than
+% or equal to 1.
+% * *Room volume matrix*, |roomVolMat|, specified as a matrix of scalar
+% quantities greater than 0. The number of rows and columns of this matrix
+% must be equal to the *Number of apartments* and the *Number of rooms*
+% parameters.
+% * *Room connectivity matrix*, |roomConnMat|, specified as a matrix with 5
+% columns and number of rows equal to the number of room-to-room
+% inter-connections. Each row entry defines a connection between two rooms.
+% Column 1 and 2 specify the apartment and room number for the 1st room.
+% Column 3 and 4 specify the apartment and room number for the 2nd room.
+% The 5th column specifies the contact area between the two rooms, with
+% area being defined in units of meter-square.
+% * *Wall to ambient contact area matrix*, |roomEnvConnMat|, specified as a
+% matrix with 6 columns and the number of rows equal to the number of
+% external walls in the building. Each row entry defines a wall to ambient
+% connectivity information. Each was is given a unique identification
+% number, based on the apartment and the room it is associated with. 
+% Columns 1, 2, and 3 specifies the apartment number, room number, and the 
+% wall number to define the indicies of the wall (of a room) connected to the
+% environment. Columns 4, 5, and 6 specify the area of the solid wall,
+% window on the wall, and vent on the wall. These area are required to
+% compute the solar load entering the room directly and the solar load
+% conducting into the room.
+% * *Wall hourly-solar-radiation matrix*, |roomEnvSolarRad|, specified as a
+% matrix of scalar values. The total number of rows is equal to the total
+% number of external walls in the building which equals the number of rows 
+% in |roomEnvConnMat|. The total number of columns in  |roomEnvSolarRad| 
+% equal the number of hours the solar radiation is computed. Each column 
+% is solar radiation data at an instance of time, on the external walls of 
+% the building. If the block has been parameterized for 10 days of solar 
+% radiation, then the number of columns must be equal to 10 x 24, or 240.
+% * *Ground floor room thermal connectivity*, |floorGroundConn|, specified
+% as a matrix with 3 columns and number of rows equal to the number of
+% rooms at each given floor level. Each row of data is the information on
+% area connectivity between a room and the ground. Column 1 and 2 specify
+% the apartment and room number; column 3 specifies, in square meters, the
+% area of the room floor.
+% * *Select room modelling option*, |roomModelOption|, is a drop down list
+% that enables you to switch between different room modelling and analysis 
+% options. You can chose from 5 different options: |Thermal Load|, |Thermal 
+% Requirements|, |HVAC: Room Radiator Only|, |HVAC: Room Underfloor 
+% Heating/Cooling Only|, and |HVAC: Room Radiator with Underfloor 
+% Heating/Cooling|. The 1st two options, |Thermal Load| and |Thermal 
+% Requirements| are selected during HVAC requirement analysis for the 
+% building. The last 3 options enable you to add radiator, or under-floor
+% pipes, or both, to your room for heating or cooling. These 3 fidilities 
+% are preferred for BEMS analysis and control design. If you select any of
+% these last 3 options, you will need to specify |Room Physics| parameters 
+% too. To learn more about the room modelling options, see 
+% <matlab:open('DocumentationRoomModellingOptions.html') Room Modelling 
+% Options in Building Custom Component>.
+% * *Roof to ambient contact area matrix*, |roofEnvConnMat|, specified as a
+% matrix with 3 columns and number of rows equal to the number of rooms at 
+% top floor level. Each row of data is the information on area connectivity 
+% between a room and the environment, through the roof. Column 1 and 2 specify
+% the apartment and room number; column 3 specifies, in square meters, the
+% area of the roof of the room.
+% * *Roof hourly-solar-radiation matrix*, |roofEnvSolarRad|, specified as a
+% matrix of scalar values. The total number of rows is equal to the total
+% number of roofs defined in the building, which is the row size of 
+% |roofEnvConnMat|. The total number of columns is equal to the number of 
+% hours the solar radiation is computed. Each column data represents solar 
+% radiation data at an instance of time, on the roof of the building. If 
+% the block has been parameterized for 10 days of solar radiation, then the 
+% number of columns must be equal to 10 x 24 = 240.
+% 
+% These two parameters appear when *Select room modelling option* to |HVAC: 
+% Room Radiator Only|, or |HVAC: Room Underfloor Heating/Cooling Only|, or 
+% |HVAC: Room Radiator with Underfloor Heating/Cooling|. When you select 
+% one of these options, a thermal liquid (TL) array of nodes port also 
+% appears on the block mask. Each thermal node is connected to one room in 
+% the building, or the number of thermal nodes is equal to the total number 
+% of rooms defined in the building.
+% 
+% * *Room radiator projection area matrix*, |roomRadiatorArea|, specified
+% as matrix of scalar values. The number of rows and columns of this
+% matrix is equal to the *Number of apartments* and *Number of rooms*
+% parameters. The matrix stores the surface area of radiator in each room.
+% * *Room under floor piping area matrix*, |roomUFPipingArea|, specified as
+% a matrix of scalar values. The number of rows and columns of this
+% matrix is equal to the *Number of apartments* and *Number of rooms*
+% parameters. The matrix stores the surface area of underfloor piping 
+% defined in each room.
+%% Room Physics
+% You only need to parameterize this section when you set *Select room 
+% modelling option* to |HVAC: Room Radiator Only|, |HVAC: Room Underfloor 
+% Heating/Cooling Only|, or |HVAC: Room Radiator with Underfloor 
+% Heating/Cooling|.
+%
+% * *Radiator pipe gap in layout*, |radiatorPipeGap|, specified as a scalar
+% value. This parameter defines the gap between pipe outer surfaces in a radiator.
+% * *Radiator pipe hydraulic diameter*, |radiatorPipeHydrDia|, specified as a
+% scalar value. This parameter defines the radiator pipe hydraulic diameter.
+% * *Radiator pipe cross-sectional area*, |radiatorPipeArea|, specified as a
+% scalar value. This parameter defines the radiator pipe cross-sectional area.
+% * *Under floor pipe hydraulic diameter*, |UFPipeHydrDia|, specified as a scalar
+% value. This parameter defines the under floor piping diameter.
+% * *Under floor pipe gap in layout*, |UFPipeGap|, specified as a scalar
+% value. This parameter defines the gap between pipe puter surfaces in underfloor
+% layout.
+% * *Under floor pipe cross-sectional area*, |UFPipeArea|, specified as a scalar
+% value. This parameter defines the under floor pipe cross-sectional area.
+% 
+%% Wall Properties
+% * *Wall material density*, |wallMaterialDen|, specified as a scalar
+% value.
+% * *Wall material heat capacity*, |wallMaterialCp|, specified as a scalar
+% value.
+% * *Wall absorptivity*, |wallAbsorptivity|, specified as a scalar value.
+% * *Wall thermal conductivity*, |wallThermalK|, specified as a scalar
+% value.
+% * *Wall thickness*, |wallThickness|, specified as a scalar value.
+%
+%% Window Glass Properties
+% * *Window material density*, |winMaterialDen|, specified as a scalar
+% value.
+% * *Window material heat capacity*, |winMaterialCp|, specified as a scalar
+% value.
+% * *Window Absorptivity*, |winAbsorptivity|, specified as a scalar value.
+% * *Window thermal conductivity*, |winThermalK|, specified as a scalar
+% value.
+% * *Window thickness*, |winThickness|, specified as a scalar value.
+% * *Window transmissivity*, |winTransmissivity|, specified as a scalar
+% value.
+%
+%% Heat Transfer
+% * *Cooling / heating pipe roughness*, |heatTransferPipeRoughness|,
+% specified as a scalar value.
+% * *Effective heat transfer coefficient from ambient to wall surface*,
+% |extToWallHTC|, specified as a scalar value.
+% * *Effective heat transfer coefficient from internal surface to the
+% room*, |intToRoomHTC|, specified as a scalar value.
+% * *Initial temperature*, |iniTemperature|, specified as a scalar value.
+%
+%% Appendix A: Useful Links
+%
+% * To learn more about how to create a building, see 
+% <matlab:open('CreateBuildingModelWithSolarLoad.mlx') Create Building 
+% Model With Solar Load>. In this workflow, you will learn how to create 3D
+% buildings quickly, add solar radiation load to it, and save it to a part
+% file (XML).
+% * To learn more about the solar model, see <matlab:open('SunModelTestHarness.mlx') 
+% Estimate Solar Angles and Solar Radiation>.
+
+##### SOURCE END #####
+-->
+</body>
+</html>
