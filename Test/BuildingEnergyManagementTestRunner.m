@@ -33,11 +33,6 @@ coverageReport = matlab.unittest.plugins.codecoverage.CoverageReport(coverageRep
 %% Code Coverage Plugin
 list1 = dir(fullfile(prjRoot, 'utils'));
 list1 = list1(~[list1.isdir] & endsWith({list1.name}, {'.m', '.mlx'}));
-% list2 = dir(fullfile(prjRoot, 'utils/BuildingModel'));
-% list2 = list2(~[list2.isdir] & endsWith({list2.name}, {'.m', '.mlx'}));
-% list3 = dir(fullfile(prjRoot, 'utils/SolarModel'));
-% list3 = list3(~[list3.isdir] & endsWith({list3.name}, {'.m', '.mlx'}));
-% fileList = arrayfun(@(x)[x.folder, filesep, x.name], [list1;list2;list3], 'UniformOutput', false);
 
 fileList = arrayfun(@(x)[x.folder, filesep, x.name], list1, 'UniformOutput', false);
 codeCoveragePlugin = matlab.unittest.plugins.CodeCoveragePlugin.forFile(fileList, Producing = coverageReport );
