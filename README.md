@@ -5,11 +5,15 @@ simulate for HVAC  requirements, and setup the model for **Building Energy Manag
 The project includes basic functionalities to evaluate and size HVAC concepts such as radiators and 
 underfloor heating or cooling. You can use these Simscape Models as a starting point to **design BEMS** software.
 
+[![View Building Energy Management System with Simscape on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://mathworks.com/matlabcentral/fileexchange/175604-building-energy-management-system-with-simscape)
+
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=simscape/Building-Energy-Management-Simscape)
+
 ![](Overview/Images/buildingAnimationREADME.gif)
 
 There are 3 main *workflows* and you will learn how to:
 1. **Construct a building and add solar radiation load** to it,
-2. **Simulate for HVAC requriements**, and
+2. **Simulate for HVAC requirements**, and
 3. Setup model for detailed **Building Energy Management System analysis**.
 ![](Overview/Images/simscapeModelREADME.png)
 
