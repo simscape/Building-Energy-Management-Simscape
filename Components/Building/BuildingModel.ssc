@@ -96,12 +96,9 @@ component (Propagation = blocks) BuildingModel
     end
 
     annotations
-        S : Side=Left;
-        C : Side=Left;
-        H : Side=Left;
+        [H,C,V,S,A] : Side=Left;
         G : Side=Bottom;
-        A : Side=Left;
-        B : Side=Right;
+        [roomTemp,wallTemp,B] : Side=Right;
 
         UILayout = [UIGroup("Building Physics",nApts,nRooms,roomVolMat,roomConnMat,roomEnvConnMat,roomEnvSolarRad,floorGroundConn,roomModelOption,roomRadiatorArea,roomUFPipingArea) ...
                     UIGroup("Room Physics",radiatorPipeGap,radiatorPipeHydrDia,radiatorPipeArea,UFPipeGap,UFPipeHydrDia,UFPipeArea) ...
