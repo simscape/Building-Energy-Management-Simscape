@@ -11,16 +11,23 @@ component (Propagation = blocks) BuildingModel
 
     nodes
         H = foundation.thermal.thermal; % H
-        G = foundation.thermal.thermal; % G
+    end
+    
+    outputs
+        roomTemp = {zeros(nApts,nRooms),'K'};       % Tr
+        wallTemp = {zeros(1,numOfRoomExtConn),'K'}; % Tw
     end
 
     for i = 1:nApts
         for j = 1:nRooms
             nodes
-                A(i,j) = foundation.thermal_liquid.thermal_liquid; % Li
                 B(i,j) = foundation.thermal_liquid.thermal_liquid; % Lo
             end
         end
+    end
+
+    nodes
+        G = foundation.thermal.thermal; % G
     end
 
     inputs
@@ -29,9 +36,12 @@ component (Propagation = blocks) BuildingModel
         S = {zeros(nApts,nRooms) ,'W'};% S
     end
 
-    outputs
-        roomTemp = {zeros(nApts,nRooms),'K'};       % Tr
-        wallTemp = {zeros(1,numOfRoomExtConn),'K'}; % Tw
+    for i = 1:nApts
+        for j = 1:nRooms
+            nodes
+                A(i,j) = foundation.thermal_liquid.thermal_liquid; % Li
+            end
+        end
     end
 
     parameters
@@ -97,8 +107,8 @@ component (Propagation = blocks) BuildingModel
 
     annotations
         [H,C,V,S,A] : Side=Left;
-        G : Side=Bottom;
         [roomTemp,wallTemp,B] : Side=Right;
+        G : Side=Bottom;
 
         UILayout = [UIGroup("Building Physics",nApts,nRooms,roomVolMat,roomConnMat,roomEnvConnMat,roomEnvSolarRad,floorGroundConn,roomModelOption,roomRadiatorArea,roomUFPipingArea) ...
                     UIGroup("Room Physics",radiatorPipeGap,radiatorPipeHydrDia,radiatorPipeArea,UFPipeGap,UFPipeHydrDia,UFPipeArea) ...
