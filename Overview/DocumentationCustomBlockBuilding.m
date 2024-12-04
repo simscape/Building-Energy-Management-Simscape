@@ -79,13 +79,27 @@
 % quantities greater than 0. The number of rows and columns of this matrix
 % must be equal to the *Number of apartments* and the *Number of rooms*
 % parameters.
-% * *Room connectivity matrix*, |roomConnMat|, specified as a matrix with 5
+% * *Room connectivity matrix*, |roomConnMat|, specified as a matrix with 6
 % columns and number of rows equal to the number of room-to-room
 % inter-connections. Each row entry defines a connection between two rooms.
 % Column 1 and 2 specify the apartment and room number for the 1st room.
 % Column 3 and 4 specify the apartment and room number for the 2nd room.
 % The 5th column specifies the contact area between the two rooms, with
-% area being defined in units of meter-square.
+% area being defined in units of meter-square. The 6th columns specifies
+% the fraction, 0-1, of solid wall represented by the connection. A value
+% of 1 specifies a solid wall connection while a value closer to 0 defines
+% an opening connecting the two rooms.
+% * *Floor connectivity matrix*, |floorConnMat|, specified as a matrix with
+% 6 columns and number of rows equal to the number of room-to-room
+% connections across different floors. Each row entry defines a connection 
+% between two rooms across the floor/roof of rooms at higher/lower level.
+% Column 1 and 2 specify the apartment and room number for the 1st room.
+% Column 3 and 4 specify the apartment and room number for the 2nd room.
+% The 5th column specifies the contact area between the two rooms, with
+% area being defined in units of meter-square. The 6th columns specifies
+% the fraction, 0-1, of solid wall represented by the connection. A value
+% of 1 specifies a solid wall connection while a value closer to 0 defines
+% an opening connecting the two rooms.
 % * *Wall to ambient contact area matrix*, |roomEnvConnMat|, specified as a
 % matrix with 6 columns and the number of rows equal to the number of
 % external walls in the building. Each row entry defines a wall to ambient
@@ -178,6 +192,10 @@
 % value. This parameter defines the under floor pipe cross-sectional area.
 % 
 %% Wall Properties
+% * *Select wall property option*, |wallPropValue|, is a drop down list
+% that enables you to specify all wall properties as either same, |All 
+% Walls with Same Properties|, or different, |Different Walls with Different 
+% Properties|. 
 % * *Wall material density*, |wallMaterialDen|, specified as a scalar
 % value.
 % * *Wall material heat capacity*, |wallMaterialCp|, specified as a scalar
@@ -186,6 +204,10 @@
 % * *Wall thermal conductivity*, |wallThermalK|, specified as a scalar
 % value.
 % * *Wall thickness*, |wallThickness|, specified as a scalar value.
+%
+% When |Different Walls with Different Properties| is selected, it lets you  
+% specify above properties for external walls, internal walls, floors, and 
+% roof, separately.
 %
 %% Window Glass Properties
 % * *Window material density*, |winMaterialDen|, specified as a scalar

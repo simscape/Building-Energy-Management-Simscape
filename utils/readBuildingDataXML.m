@@ -61,6 +61,11 @@ function [dataStruct,geoLocation,datetimeVec] = readBuildingDataXML(NameValueArg
     reshapeData = dataStruct.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.floor;
     dataStruct.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.floor = reshape(reshapeData,[r,c]);
 
+    r = dataStruct.apartment1.room1.geometry.dim.floorConnMatSize(1,1);
+    c = dataStruct.apartment1.room1.geometry.dim.floorConnMatSize(1,2);
+    reshapeData = dataStruct.apartment1.room1.geometry.dim.floorConnMat;
+    dataStruct.apartment1.room1.geometry.dim.floorConnMat = reshape(reshapeData,[r,c]);
+
     % Add back polyshape to datastruct
     for i = 1:nApt
         for j = 1:nRooms(i,1)

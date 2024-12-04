@@ -27,6 +27,7 @@ function mdl = setParametersForBuildingCustomComponent(NameValueArgs)
     set_param([mdl,'/Building'],'nRooms',strcat(num2str(NameValueArgs.BuildingNetworkData.MaxRoom),msgForParamStatus));
     set_param([mdl,'/Building'],'roomVolMat',strcat(mat2str(NameValueArgs.BuildingNetworkData.roomVolMat),msgForParamStatus));
     set_param([mdl,'/Building'],'roomConnMat',strcat(mat2str(NameValueArgs.BuildingNetworkData.roomConnMat),msgForParamStatus));
+    set_param([mdl,'/Building'],'floorConnMat',strcat(mat2str(NameValueArgs.BuildingNetworkData.floorConnMat),msgForParamStatus));
     set_param([mdl,'/Building'],'roomEnvConnMat',strcat(mat2str(NameValueArgs.BuildingNetworkData.roomEnvConnMat),msgForParamStatus));
     set_param([mdl,'/Building'],'roomEnvSolarRad',strcat(mat2str(NameValueArgs.BuildingNetworkData.roomEnvSolarRad),msgForParamStatus));
     set_param([mdl,'/Building'],'roofEnvConnMat',strcat(mat2str(NameValueArgs.BuildingNetworkData.roofEnvConnMat),msgForParamStatus));

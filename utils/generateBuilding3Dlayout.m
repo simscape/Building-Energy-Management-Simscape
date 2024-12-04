@@ -1,4 +1,4 @@
-function updatedBuilding = generateBuilding3Dlayout(NameValueArgs)
+function updatedBuildingData = generateBuilding3Dlayout(NameValueArgs)
 % Function to generate building 3D layout.
 
 % Copyright 2024 The MathWorks, Inc.
@@ -35,4 +35,6 @@ function updatedBuilding = generateBuilding3Dlayout(NameValueArgs)
     % The function below helps in plotting building more efficiently by
     % maintaining a list of outer walls, roof, and floor.
     updatedBuilding = createListOfAllOuterWalls(bldgWallWinVentSurfArea);
+    % Find room connectivity data across different floors.
+    updatedBuildingData = getConnectivityAcrossBuildingFloors(Building=updatedBuilding);
 end

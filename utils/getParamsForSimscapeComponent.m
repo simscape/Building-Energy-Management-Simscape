@@ -47,6 +47,7 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
     [nApt, nRooms] = getNumAptAndRoomsFromFloorPlan(NameValueArgs.Building);
     roomVolMat = zeros(nApt,max(nRooms));
     roomConnMat = [];
+    minSolidWallFraction = 0.05;
     for i = 1:nApt
         for j = 1:nRooms(i,1)
             roomVolMat(i,j) = NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).floorPlan.area * ...
@@ -59,7 +60,8 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
                     conn = avoidDoubleCount(1,k);
                     contactArea = NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim.height * ...
                                   NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.connectivity.("room"+num2str(conn)).length;
-                    storeData = [i,j,i,conn,contactArea];
+                    intSolidWallFrac = max(minSolidWallFraction,min(1,NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.connectivity.("room"+num2str(conn)).wallFrac));
+                    storeData = [i,j,i,conn,contactArea,intSolidWallFrac]; 
                     roomConnMat = [roomConnMat;storeData];
                 end
             end
@@ -90,28 +92,15 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
     % on. Rooms in each apartment having same number will overlap
     % completely with each other, and hence contact area = area of the room
     % floorplan.
-
-    numAptsFloor = NameValueArgs.Building.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.floor(:,1); % Apt number vector
-    numAptsRoof  = NameValueArgs.Building.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.roof(:,1);  % Apt number vector
-    chkNumFloor  = sum(abs(unique(numAptsFloor) - unique(numAptsRoof))); % Will be zero if Floor and Roof indices are same, implying 1 floor only
-    if chkNumFloor > 0 % more than 1 floor, connect roof of a room to the floor of the room above.
-        aptsPerFloor = length(unique(numAptsFloor));
-        numFloorBldg = nApt/aptsPerFloor;
-        for i = 1:numFloorBldg-1
-            for j = 1:aptsPerFloor
-                apt1 = (i-1)*aptsPerFloor+j; % Apartment below
-                apt2 = i*aptsPerFloor+j;     % Apartment above
-                for k = 1:nRooms(apt1,1)
-                    if k > 0 % 
-                        contactArea = NameValueArgs.Building.("apartment"+num2str(apt1)).("room"+num2str(k)).floorPlan.area;
-                        storeData = [apt1,k,apt2,k,contactArea];
-                        roomConnMat = [roomConnMat;storeData];
-                    end
-                end
-            end
+    floorConnMat = NameValueArgs.Building.apartment1.room1.geometry.dim.floorConnMat;
+    numFloorConnMat = size(floorConnMat,1);
+    if numFloorConnMat > 0
+        for i = 1:numFloorConnMat
+            NameValueArgs.Building.apartment1.room1.geometry.dim.floorConnMat(i,6) = ...
+                min(1,max(floorConnMat(i,6),minSolidWallFraction));
         end
     end
-
+        
     params.nApt = nApt;
     params.MaxRoom = max(nRooms);
     params.roomEnvConnMat = roomEnvConnMat;
@@ -119,6 +108,7 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
     params.roofEnvConnMat = roofEnvConnMat;
     params.roofEnvSolarRad = roofEnvSolarRad;
     params.roomConnMat = roomConnMat;
+    params.floorConnMat = floorConnMat;
     params.roomVolMat = roomVolMat;
     params.floorRoomIDs = floorGrdConnMat;
 

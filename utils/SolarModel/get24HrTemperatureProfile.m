@@ -22,11 +22,12 @@ function [hourlyTimeData,hourlyTempVar] = get24HrTemperatureProfile(TDavg,TDvar,
         TNmax = (1+TNvar)*TNavg(1,i);
         R = SunR(1,i);
         S = SunS(1,i);
-        N = 12*3600;   % Noon Time, s
-        M = 24*3600-1; % Almost MidNight, s
-        M0= 1;         % At 1 hr past mid night, s
-        valTime = [M0 R N S (S+M)/2 M];
-        valTemp = [TNavg(1,i) TDmin TDmax TNmax TNavg(1,i) TNmin];
+        P1 = R/2;
+        P2 = (R+S)/2;
+        P3 = (24*3600+S)/2;
+        P4 = 24*3600;
+        valTime = [P1,R,P2,S,P3,P4];
+        valTemp = [(TNmin+TNavg(1,i))/2,TDmin,TDmax,TDavg(1,i),(TDavg(1,i)+TNmax)/2,TNavg(1,i)];
         polyfitCoeff(i,:) = polyfit(valTime,valTemp,curveFitOrder);
     end
 
@@ -36,5 +37,6 @@ function [hourlyTimeData,hourlyTempVar] = get24HrTemperatureProfile(TDavg,TDvar,
         dayNum = max(1,min(numOfDays,(i-mod(i,oneHour))/oneHour+1));
         hourlyTempVar(1,i) = polyval(polyfitCoeff(dayNum,:),mod(i*3600,24*3600));
     end
+    hourlyTempVar = smoothdata(hourlyTempVar);
     hourlyTimeData = (1:numOfDays*oneHour)*3600;
 end

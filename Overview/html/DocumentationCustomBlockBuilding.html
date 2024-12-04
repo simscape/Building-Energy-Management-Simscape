@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Custom Block: Building Model</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-10-04">
+<meta name="DC.date" content="2024-11-27">
 <meta name="DC.source" content="DocumentationCustomBlockBuilding.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -132,7 +132,9 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <li>
 <b>Room volume matrix</b>, <tt>roomVolMat</tt>, specified as a matrix of scalar quantities greater than 0. The number of rows and columns of this matrix must be equal to the <b>Number of apartments</b> and the <b>Number of rooms</b> parameters.</li>
 <li>
-<b>Room connectivity matrix</b>, <tt>roomConnMat</tt>, specified as a matrix with 5 columns and number of rows equal to the number of room-to-room inter-connections. Each row entry defines a connection between two rooms. Column 1 and 2 specify the apartment and room number for the 1st room. Column 3 and 4 specify the apartment and room number for the 2nd room. The 5th column specifies the contact area between the two rooms, with area being defined in units of meter-square.</li>
+<b>Room connectivity matrix</b>, <tt>roomConnMat</tt>, specified as a matrix with 6 columns and number of rows equal to the number of room-to-room inter-connections. Each row entry defines a connection between two rooms. Column 1 and 2 specify the apartment and room number for the 1st room. Column 3 and 4 specify the apartment and room number for the 2nd room. The 5th column specifies the contact area between the two rooms, with area being defined in units of meter-square. The 6th columns specifies the fraction, 0-1, of solid wall represented by the connection. A value of 1 specifies a solid wall connection while a value closer to 0 defines an opening connecting the two rooms.</li>
+<li>
+<b>Floor connectivity matrix</b>, <tt>floorConnMat</tt>, specified as a matrix with 6 columns and number of rows equal to the number of room-to-room connections across different floors. Each row entry defines a connection between two rooms across the floor/roof of rooms at higher/lower level. Column 1 and 2 specify the apartment and room number for the 1st room. Column 3 and 4 specify the apartment and room number for the 2nd room. The 5th column specifies the contact area between the two rooms, with area being defined in units of meter-square. The 6th columns specifies the fraction, 0-1, of solid wall represented by the connection. A value of 1 specifies a solid wall connection while a value closer to 0 defines an opening connecting the two rooms.</li>
 <li>
 <b>Wall to ambient contact area matrix</b>, <tt>roomEnvConnMat</tt>, specified as a matrix with 6 columns and the number of rows equal to the number of external walls in the building. Each row entry defines a wall to ambient connectivity information. Each was is given a unique identification number, based on the apartment and the room it is associated with. Columns 1, 2, and 3 specifies the apartment number, room number, and the wall number to define the indicies of the wall (of a room) connected to the environment. Columns 4, 5, and 6 specify the area of the solid wall, window on the wall, and vent on the wall. These area are required to compute the solar load entering the room directly and the solar load conducting into the room.</li>
 <li>
@@ -178,6 +180,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <div>
 <ul>
 <li>
+<b>Select wall property option</b>, <tt>wallPropValue</tt>, is a drop down list that enables you to specify all wall properties as either same, <tt>All Walls with Same Properties</tt>, or different, <tt>Different Walls with Different Properties</tt>.</li>
+<li>
 <b>Wall material density</b>, <tt>wallMaterialDen</tt>, specified as a scalar value.</li>
 <li>
 <b>Wall material heat capacity</b>, <tt>wallMaterialCp</tt>, specified as a scalar value.</li>
@@ -189,6 +193,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <b>Wall thickness</b>, <tt>wallThickness</tt>, specified as a scalar value.</li>
 </ul>
 </div>
+<p>When <tt>Different Walls with Different Properties</tt> is selected, it lets you specify above properties for external walls, internal walls, floors, and roof, separately.</p>
 <h2 id="5">Window Glass Properties</h2>
 <div>
 <ul>
@@ -314,13 +319,27 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % quantities greater than 0. The number of rows and columns of this matrix
 % must be equal to the *Number of apartments* and the *Number of rooms*
 % parameters.
-% * *Room connectivity matrix*, |roomConnMat|, specified as a matrix with 5
+% * *Room connectivity matrix*, |roomConnMat|, specified as a matrix with 6
 % columns and number of rows equal to the number of room-to-room
 % inter-connections. Each row entry defines a connection between two rooms.
 % Column 1 and 2 specify the apartment and room number for the 1st room.
 % Column 3 and 4 specify the apartment and room number for the 2nd room.
 % The 5th column specifies the contact area between the two rooms, with
-% area being defined in units of meter-square.
+% area being defined in units of meter-square. The 6th columns specifies
+% the fraction, 0-1, of solid wall represented by the connection. A value
+% of 1 specifies a solid wall connection while a value closer to 0 defines
+% an opening connecting the two rooms.
+% * *Floor connectivity matrix*, |floorConnMat|, specified as a matrix with
+% 6 columns and number of rows equal to the number of room-to-room
+% connections across different floors. Each row entry defines a connection 
+% between two rooms across the floor/roof of rooms at higher/lower level.
+% Column 1 and 2 specify the apartment and room number for the 1st room.
+% Column 3 and 4 specify the apartment and room number for the 2nd room.
+% The 5th column specifies the contact area between the two rooms, with
+% area being defined in units of meter-square. The 6th columns specifies
+% the fraction, 0-1, of solid wall represented by the connection. A value
+% of 1 specifies a solid wall connection while a value closer to 0 defines
+% an opening connecting the two rooms.
 % * *Wall to ambient contact area matrix*, |roomEnvConnMat|, specified as a
 % matrix with 6 columns and the number of rows equal to the number of
 % external walls in the building. Each row entry defines a wall to ambient
@@ -413,6 +432,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % value. This parameter defines the under floor pipe cross-sectional area.
 % 
 %% Wall Properties
+% * *Select wall property option*, |wallPropValue|, is a drop down list
+% that enables you to specify all wall properties as either same, |All 
+% Walls with Same Properties|, or different, |Different Walls with Different 
+% Properties|. 
 % * *Wall material density*, |wallMaterialDen|, specified as a scalar
 % value.
 % * *Wall material heat capacity*, |wallMaterialCp|, specified as a scalar
@@ -421,6 +444,10 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % * *Wall thermal conductivity*, |wallThermalK|, specified as a scalar
 % value.
 % * *Wall thickness*, |wallThickness|, specified as a scalar value.
+%
+% When |Different Walls with Different Properties| is selected, it lets you  
+% specify above properties for external walls, internal walls, floors, and 
+% roof, separately.
 %
 %% Window Glass Properties
 % * *Window material density*, |winMaterialDen|, specified as a scalar

@@ -80,6 +80,13 @@ function writeBuildingDataXML(NameValueArgs)
         end
     end
 
+    % Store room connectivity data across different floors. This is
+    % requried for floorConnmat parameter in buildingModel.ssc.
+    floorConnMatData = bldg.apartment1.room1.geometry.dim.floorConnMat;
+    [r,c] = size(floorConnMatData);
+    bldg.apartment1.room1.geometry.dim.floorConnMat = reshape(floorConnMatData,[1,r*c]);
+    bldg.apartment1.room1.geometry.dim.floorConnMatSize = [r,c];
+
     % Save other relevant data in README section
     saveData.README.FileGeneratedOn = datetime("now");
     saveData.README.Location = NameValueArgs.Location.Row;

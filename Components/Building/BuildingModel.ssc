@@ -45,14 +45,36 @@ component (Propagation = blocks) BuildingModel
     end
 
     parameters
+        wallPropValue = wallPhysicsOptions.allWallSame; % Select wall property option
+
+        wallMaterialDenValue = {2400, 'kg/m^3'};        % Wall material density
+        wallMaterialCpValue = {750, 'J/(K*kg)'};        % Wall material heat capacity
+        wallAbsorptivityValue = 0.6;                    % Wall absorptivity
+        wallThermalKValue = {2, 'W/(K*m)'};             % Wall thermal conductivity
+        wallThicknessValue = {.3, 'm'};                 % Wall thickness
+
+        extWallMaterialDenVal = {2400, 'kg/m^3'};       % External wall material density
+        extWallMaterialCpVal = {750, 'J/(K*kg)'};       % External wall material heat capacity
+        extWallAbsorptivityVal = 0.6;                   % External wall absorptivity
+        extWallThermalKVal = {2, 'W/(K*m)'};            % External wall thermal conductivity
+        extWallThicknessVal = {.3, 'm'};                % External wall thickness
+        intWallMaterialDenVal = {2400, 'kg/m^3'};       % Internal wall material density
+        intWallMaterialCpVal = {750, 'J/(K*kg)'};       % Internal wall material heat capacity
+        intWallThermalKVal = {2, 'W/(K*m)'};            % Internal wall thermal conductivity
+        intWallThicknessVal = {.3, 'm'};                % Internal wall thickness
+        intFloorMaterialDenVal = {2400, 'kg/m^3'};      % Floor material density
+        intFloorMaterialCpVal = {750, 'J/(K*kg)'};      % Floor material heat capacity
+        intFloorThermalKVal = {2, 'W/(K*m)'};           % Floor thermal conductivity
+        intFloorThicknessVal = {.3, 'm'};               % Floor thickness
+        roofMaterialDenVal = {2400, 'kg/m^3'};          % Roof material density
+        roofMaterialCpVal = {750, 'J/(K*kg)'};          % Roof material heat capacity
+        roofAbsorptivityVal = 0.6;                      % Roof absorptivity
+        roofThermalKVal = {2, 'W/(K*m)'};               % Roof thermal conductivity
+        roofThicknessVal = {.3, 'm'};                   % Roof thickness        
+
         roomModelOption = roomPhysicsOptions.basicroom; % Select room modelling option
         extToWallHTC = {5, 'W/(K*m^2)'};                % Effective heat transfer coefficient from ambient to wall surface
-        wallMaterialDen = {2400, 'kg/m^3'};             % Wall material density
-        wallMaterialCp = {750, 'J/(K*kg)'};             % Wall material heat capacity
-        wallAbsorptivity = 0.6;                         % Wall absorptivity
         intToRoomHTC = {5, 'W/(K*m^2)'};                % Effective heat transfer coefficient from internal surface to the room
-        wallThermalK = {2, 'W/(K*m)'};                  % Wall thermal conductivity
-        wallThickness = {.3, 'm'};                      % Wall thickness
         winMaterialDen = {4000, 'kg/m^3'};              % Window material density
         winMaterialCp = {840, 'J/(K*kg)'};              % Window material heat capacity
         winAbsorptivity = .4;                           % Window Absorptivity
@@ -64,8 +86,9 @@ component (Propagation = blocks) BuildingModel
         roomVolMat = {ones(5,8),'m^3'};                 % Room volume matrix
         roomRadiatorArea = {ones(5,8),'m^2'};           % Room radiator projection area matrix
         roomUFPipingArea = {ones(5,8),'m^2'};           % Room under floor piping area matrix
-        % Columns: 1:2=apt/room1, 3:4=apt/room2, 5=overlap-area
-        roomConnMat = ones(25,5);                       % Room connectivity matrix
+        % Columns: 1:2=apt/room1, 3:4=apt/room2, 5=overlap-area, 6= fraction-Solid-Wall-Area
+        roomConnMat = ones(25,6);                       % Room connectivity matrix
+        floorConnMat = ones(25,6);                      % Floor connectivity matrix
         % Columns: 1:3=apt/room/wall, 4:6=wall/window/vent
         roomEnvConnMat = ones(20,6);                    % Wall to ambient contact area matrix
         % rows=same as roomEnvConnMat, Columns=hourList
@@ -91,8 +114,6 @@ component (Propagation = blocks) BuildingModel
         UFPipeLen = roomUFPipingArea./(UFPipeGap+UFPipeHydrDia);
         airDensity = {1.28, 'kg/m^3'};
         airCp = {700, 'J/(kg*K)'};
-        numOfRoomConn = size(roomConnMat,1);
-        intWallAreaVec = {roomConnMat(:,5),'m^2'};
         numOfRoomExtConn = size(roomEnvConnMat,1);
         numOfRoomWithRoof = size(roofEnvConnMat,1);
         numOfRoomGroundFlr = size(floorGroundConn,1);
@@ -105,14 +126,84 @@ component (Propagation = blocks) BuildingModel
         maxHours = size(roomEnvSolarRad,2);
     end
 
+    if wallPropValue == wallPhysicsOptions.allWallSame
+        annotations
+            [extWallMaterialDenVal,extWallMaterialCpVal,extWallAbsorptivityVal,extWallThermalKVal,extWallThicknessVal,...
+                intWallMaterialDenVal,intWallMaterialCpVal,intWallThermalKVal,intWallThicknessVal,...
+                intFloorMaterialDenVal,intFloorMaterialCpVal,intFloorThermalKVal,intFloorThicknessVal,...
+                roofMaterialDenVal,roofMaterialCpVal,roofAbsorptivityVal,roofThermalKVal,roofThicknessVal] : ExternalAccess=none;
+        end
+        parameters(ExternalAccess=observe)
+            % Wall properties
+            extWallMaterialDen = wallMaterialDenValue;
+            extWallMaterialCp = wallMaterialCpValue;
+            extWallAbsorptivity = wallAbsorptivityValue;
+            extWallThermalK = wallThermalKValue;
+            extWallThickness = wallThicknessValue;
+            intWallMaterialDen = wallMaterialDenValue;
+            intWallMaterialCp = wallMaterialCpValue;
+            intWallThermalK = wallThermalKValue;
+            intWallThickness = wallThicknessValue;
+            intFloorMaterialDen = wallMaterialDenValue;
+            intFloorMaterialCp = wallMaterialCpValue;
+            intFloorThermalK = wallThermalKValue;
+            intFloorThickness = wallThicknessValue;
+            roofMaterialDen = wallMaterialDenValue;
+            roofMaterialCp = wallMaterialCpValue;
+            roofAbsorptivity = wallAbsorptivityValue;
+            roofThermalK = wallThermalKValue;
+            roofThickness = wallThicknessValue;
+        end
+    else
+        annotations
+            [wallMaterialDenValue,wallMaterialCpValue,wallAbsorptivityValue,wallThermalKValue,wallThicknessValue] : ExternalAccess=none;
+        end
+        parameters(ExternalAccess=observe)
+            % Wall properties
+            extWallMaterialDen = extWallMaterialDenVal;
+            extWallMaterialCp = extWallMaterialCpVal;
+            extWallAbsorptivity = extWallAbsorptivityVal;
+            extWallThermalK = extWallThermalKVal;
+            extWallThickness = extWallThicknessVal;
+            intWallMaterialDen = intWallMaterialDenVal;
+            intWallMaterialCp = intWallMaterialCpVal;
+            intWallThermalK = intWallThermalKVal;
+            intWallThickness = intWallThicknessVal;
+            intFloorMaterialDen = intFloorMaterialDenVal;
+            intFloorMaterialCp = intFloorMaterialCpVal;
+            intFloorThermalK = intFloorThermalKVal;
+            intFloorThickness = intFloorThicknessVal;
+            roofMaterialDen = roofMaterialDenVal;
+            roofMaterialCp = roofMaterialCpVal;
+            roofAbsorptivity = roofAbsorptivityVal;
+            roofThermalK = roofThermalKVal;
+            roofThickness = roofThicknessVal;
+        end
+    end
+
+    parameters(Access=private)
+        [numOfRoomConn,intWallAreaVec0,intWallSolidFr0,...
+         numOfFloorConn,intFloorAreaVec0,intFloorSolidFr0] = ...
+            getInternalWallAndFloorData(roomConnMat,floorConnMat);
+        intWallAreaVec = {intWallAreaVec0,'m^2'};
+        intWallSolidFr = {intWallSolidFr0,'1'};
+        intFloorAreaVec = {intFloorAreaVec0,'m^2'};
+        intFloorSolidFr = {intFloorSolidFr0,'1'};
+    end
+
     annotations
         [H,C,V,S,A] : Side=Left;
         [roomTemp,wallTemp,B] : Side=Right;
         G : Side=Bottom;
 
-        UILayout = [UIGroup("Building Physics",nApts,nRooms,roomVolMat,roomConnMat,roomEnvConnMat,roomEnvSolarRad,floorGroundConn,roomModelOption,roomRadiatorArea,roomUFPipingArea) ...
+        UILayout = [UIGroup("Building Physics",nApts,nRooms,roomVolMat,roomConnMat,floorConnMat,roomEnvConnMat,roomEnvSolarRad,floorGroundConn,roomModelOption,roomRadiatorArea,roomUFPipingArea) ...
                     UIGroup("Room Physics",radiatorPipeGap,radiatorPipeHydrDia,radiatorPipeArea,UFPipeGap,UFPipeHydrDia,UFPipeArea) ...
-                    UIGroup("Wall Properties",wallAbsorptivity,wallThickness,wallMaterialDen,wallMaterialCp,wallThermalK) ...
+                    UIGroup("Wall Properties",wallPropValue,...
+                                              wallAbsorptivityValue,wallThicknessValue,wallMaterialDenValue,wallMaterialCpValue,wallThermalKValue,...
+                                              extWallAbsorptivityVal,extWallThicknessVal,extWallMaterialDenVal,extWallMaterialCpVal,extWallThermalKVal,...
+                                              intWallThicknessVal,intWallMaterialDenVal,intWallMaterialCpVal,intWallThermalKVal,...
+                                              intFloorThicknessVal,intFloorMaterialDenVal,intFloorMaterialCpVal,intFloorThermalKVal,...
+                                              roofAbsorptivityVal,roofThicknessVal,roofMaterialDenVal,roofMaterialCpVal,roofThermalKVal) ...
                     UIGroup("Window Glass Properties",winAbsorptivity,winTransmissivity,winThickness,winMaterialDen,winMaterialCp,winThermalK)...
                     UIGroup("Heat Transfer",heatTransferPipeRoughness,extToWallHTC,intToRoomHTC,iniTemperature)];
     end
@@ -326,20 +417,48 @@ component (Propagation = blocks) BuildingModel
         end
     end
 
-    % Define room inter-connections
+    % Define internal walls in the building
     for i = 1:numOfRoomConn
         components(ExternalAccess=observe)
             % Create wall component
-            intWallModel(i) = Wall(wallArea = intWallAreaVec(i,1), extToWallHTC = extToWallHTC, ...
-                wallMaterialMass = wallMaterialDen*intWallAreaVec(i,1)*wallThickness, ...
-                wallMaterialCp = wallMaterialCp, intToRoomHTC = intToRoomHTC, ...
-                wallThermalK = wallThermalK, wallThickness = wallThickness, ...
+            intWallModel(i) = WallWithVents(wallArea = intWallAreaVec(i,1)*intWallSolidFr(i,1), ...
+                extToWallHTC = extToWallHTC, ...
+                wallMaterialMass = intWallMaterialDen*intWallAreaVec(i,1)*intWallSolidFr(i,1)*intWallThickness, ...
+                wallMaterialCp = intWallMaterialCp, ...
+                ventArea = intWallAreaVec(i,1)*max({1e-6,'1'},{1,'1'}-intWallSolidFr(i,1)), ...
+                intToRoomHTC = intToRoomHTC, ...
+                wallThermalK = intWallThermalK, ...
+                wallThickness = intWallThickness, ...
                 wallTemperature = {value = iniTemperature, priority = priority.high});
         end
         connections
             % Connect both rooms to either side of the wall
             connect(intWallModel(i).EXT,Room(roomConnMat(i,1),roomConnMat(i,2)).M);
             connect(intWallModel(i).INT,Room(roomConnMat(i,3),roomConnMat(i,4)).M);
+        end
+    end
+
+    % Define floors in a multi-storied building
+    if numOfFloorConn > 0
+        % numOfFloorConn would be equal to 0 if the building has just a single floor or level.
+        for i = 1:numOfFloorConn
+            components(ExternalAccess=observe)
+                % Create wall component
+                intFloorModel(i) = WallWithVents(wallArea = intFloorAreaVec(i,1)*intFloorSolidFr(i,1),...
+                    extToWallHTC = extToWallHTC, ...
+                    wallMaterialMass = intFloorMaterialDen*intFloorAreaVec(i,1)*intFloorSolidFr(i,1)*intFloorThickness, ...
+                    wallMaterialCp = intFloorMaterialCp, ...
+                    ventArea = intFloorAreaVec(i,1)*max({1e-6,'1'},{1,'1'}-intFloorSolidFr(i,1)), ...
+                    intToRoomHTC = intToRoomHTC, ...
+                    wallThermalK = intFloorThermalK, ...
+                    wallThickness = intFloorThickness, ...
+                    wallTemperature = {value = iniTemperature, priority = priority.high});
+            end
+            connections
+                % Connect both rooms to either side of the wall
+                connect(intFloorModel(i).EXT,Room(floorConnMat(i,1),floorConnMat(i,2)).M);
+                connect(intFloorModel(i).INT,Room(floorConnMat(i,3),floorConnMat(i,4)).M);
+            end
         end
     end
 
@@ -351,10 +470,10 @@ component (Propagation = blocks) BuildingModel
             % Before using it for any custom wall model, ensure that you get the compilation time benefit.
             extWallToEnv(i) = WallSolarWithWindowsAndVents(wallArea = max(minArea,solidWallArea(i,1)), ...
                 extToWallHTC = extToWallHTC, winArea = max(minArea,glassWindowArea(i,1)), ...
-                wallMaterialMass = wallMaterialDen*max(minArea,solidWallArea(i,1))*wallThickness, ...
-                wallMaterialCp = wallMaterialCp, ...
-                ventArea = max(minArea,openVentArea(i,1)), wallAbsorptivity = wallAbsorptivity, ...
-                intToRoomHTC = intToRoomHTC, wallThermalK = wallThermalK, wallThickness = wallThickness, ...
+                wallMaterialMass = extWallMaterialDen*max(minArea,solidWallArea(i,1))*extWallThickness, ...
+                wallMaterialCp = extWallMaterialCp, ...
+                ventArea = max(minArea,openVentArea(i,1)), wallAbsorptivity = extWallAbsorptivity, ...
+                intToRoomHTC = intToRoomHTC, wallThermalK = extWallThermalK, wallThickness = extWallThickness, ...
                 winMaterialMass = winMaterialDen*max(minArea,glassWindowArea(i,1))*winThickness, ...
                 winMaterialCp = winMaterialCp, winAbsorptivity = winAbsorptivity, ...
                 winThermalK = winThermalK, winThickness = winThickness, winTransmissivity = winTransmissivity, ...
@@ -380,10 +499,10 @@ component (Propagation = blocks) BuildingModel
         components(ExternalAccess=observe)
             % Create external wall component
             roofToEnv(i) = WallSolar(wallArea = max(minArea,roofArea(i,1)), extToWallHTC = extToWallHTC, ...
-                wallMaterialMass =  wallMaterialDen*max(minArea,roofArea(i,1))*wallThickness, ...
-                wallMaterialCp = wallMaterialCp, wallAbsorptivity = wallAbsorptivity, ...
-                intToRoomHTC = intToRoomHTC, wallThermalK = wallThermalK, ...
-                wallThickness = wallThickness, ...
+                wallMaterialMass =  roofMaterialDen*max(minArea,roofArea(i,1))*roofThickness, ...
+                wallMaterialCp = roofMaterialCp, wallAbsorptivity = roofAbsorptivity, ...
+                intToRoomHTC = intToRoomHTC, wallThermalK = roofThermalK, ...
+                wallThickness = roofThickness, ...
                 wallTemperature = {value = iniTemperature, priority = priority.high});
         end
         connections
@@ -404,9 +523,9 @@ component (Propagation = blocks) BuildingModel
         components(ExternalAccess=observe)
             % Create wall component
             floorModel(i) = Wall(wallArea = max(minArea,floorArea(i,1)), extToWallHTC = extToWallHTC, ...
-                wallMaterialMass = wallMaterialDen*max(minArea,floorArea(i,1))*wallThickness, ...
-                wallMaterialCp = wallMaterialCp, intToRoomHTC = intToRoomHTC, ...
-                wallThermalK = wallThermalK, wallThickness = wallThickness, ...
+                wallMaterialMass = intWallMaterialDen*max(minArea,floorArea(i,1))*intWallThickness, ...
+                wallMaterialCp = intWallMaterialCp, intToRoomHTC = intToRoomHTC, ...
+                wallThermalK = intWallThermalK, wallThickness = intWallThickness, ...
                 wallTemperature = {value = iniTemperature, priority = priority.high});
         end
         % Create connections for ground floor rooms and ground thermal resistance

@@ -3,6 +3,7 @@
 % Copyright 2024 The MathWorks, Inc.
 
 function aptUnit = getRoomConnectivityWithinApartment(apartmentUnit,tol)
+    defaultWallFrac = 1;
     aptUnit = apartmentUnit;
     nRooms = numel(fieldnames(apartmentUnit));
     for j = 1:nRooms-1
@@ -13,6 +14,8 @@ function aptUnit = getRoomConnectivityWithinApartment(apartmentUnit,tol)
                 if overlapLength > 0
                     aptUnit.("room"+num2str(j)).geometry.connectivity.("room"+num2str(k)).length = overlapLength;
                     aptUnit.("room"+num2str(k)).geometry.connectivity.("room"+num2str(j)).length = overlapLength;
+                    aptUnit.("room"+num2str(j)).geometry.connectivity.("room"+num2str(k)).wallFrac = defaultWallFrac;
+                    aptUnit.("room"+num2str(k)).geometry.connectivity.("room"+num2str(j)).wallFrac = defaultWallFrac;
                 end
             end
         end

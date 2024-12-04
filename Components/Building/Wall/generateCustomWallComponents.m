@@ -14,6 +14,9 @@ subsystem2ssc('WallModel/WallSolarWithWindows')
 % Generate SSC code for wall with vents only. Captures solar impact
 subsystem2ssc('WallModel/WallSolarWithVents')
 
+% Generate SSC code for wall with vents only.
+subsystem2ssc('WallModel/WallWithVents')
+
 % Generate SSC code for wall only. Captures solar impact
 subsystem2ssc('WallModel/WallSolar')
 
