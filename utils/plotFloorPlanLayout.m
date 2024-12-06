@@ -13,7 +13,7 @@ function plotFloorPlanLayout(NameValueArgs)
         for i = 1:numRooms
             plot(NameValueArgs.PlotData(1,i).floorPlan);hold on;
             [x,y] = NameValueArgs.PlotData(1,i).floorPlan.centroid;
-            text(x,y,NameValueArgs.PlotData(1,i).name);
+            text(x,y,NameValueArgs.PlotData(1,i).name,HorizontalAlignment="center");
         end
         title('Single Apartment Unit Floor Plan');
     elseif strcmp(NameValueArgs.Type,"floorplan")
@@ -23,7 +23,7 @@ function plotFloorPlanLayout(NameValueArgs)
             for j = 1:numRooms
                 plot(NameValueArgs.PlotData.("apartment"+num2str(i)).("room"+num2str(j)).floorPlan);hold on;
                 [x,y] = NameValueArgs.PlotData.("apartment"+num2str(i)).("room"+num2str(j)).floorPlan.centroid;
-                text(x,y,NameValueArgs.PlotData.("apartment"+num2str(i)).("room"+num2str(j)).name);
+                text(x,y,NameValueArgs.PlotData.("apartment"+num2str(i)).("room"+num2str(j)).name,HorizontalAlignment="center");
             end
         end
         title(strcat('Apartment # 1-',num2str(numApartments)));
@@ -32,7 +32,7 @@ function plotFloorPlanLayout(NameValueArgs)
         for i = 1:numRooms
             plot(NameValueArgs.PlotData.("room"+num2str(i)).floorPlan);hold on;
             [x,y] = NameValueArgs.PlotData.("room"+num2str(i)).floorPlan.centroid;
-            text(x,y,NameValueArgs.PlotData.("room"+num2str(i)).name);
+            text(x,y,NameValueArgs.PlotData.("room"+num2str(i)).name,HorizontalAlignment="center");
         end
         title("Apartment")
     else
