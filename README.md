@@ -13,10 +13,14 @@ basic functionalities to evaluate and size HVAC concepts such as radiators and u
 as a starting point to design BEMS software. The project Workflow uses two Simscape Model files that leverage one or more (out of four) 
 of the following Simscape custom Components: Building, Ambient, Operational Data, and EN14511 datasheet based Heat Pump. 
     </td>
-    <td class="text-column" width=900>You will learn how to:</td>
   </tr>
 </table>
  
+<table>
+  <tr>
+    <td class="text-column" width=900>You will learn how to:</td>
+  </tr>
+</table>
  
 ## Create Building Models Quickly and Analyze Solar Loading.
 <table>
