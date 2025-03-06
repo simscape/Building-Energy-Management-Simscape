@@ -23,6 +23,8 @@ how to:
   </tr>
 </table>
 
+<hr color="gray" size="10">
+
 ## Create Building Models Quickly and Analyze Solar Loading.
 <table>
   <tr>
@@ -38,6 +40,8 @@ how to:
     <td class="text-column" width=1200></td>
   </tr>
 </table>
+
+<hr color="gray" size="10">
 
 ## Analyze Building HVAC Requirements Across Different Seasons, Geography.
 <table>
@@ -55,6 +59,8 @@ how to:
   </tr>
 </table>
 
+<hr color="gray" size="10">
+
 ## Model Heat Pump, Detailed HVAC, and Building Energy Management System.
 <table>
   <tr>
@@ -71,6 +77,7 @@ how to:
   </tr>
 </table>
  
+<hr color="gray" size="10">
  
 ## To Get Started 
 * Clone the project repository.
