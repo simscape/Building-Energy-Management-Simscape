@@ -10,12 +10,16 @@ function aptUnit = getRoomConnectivityWithinApartment(apartmentUnit,tol)
         for k = j+1:nRooms
             optStr = ["x+","x-","y+","y-"];
             for i = 1:length(optStr)
-                overlapLength = getCommonWallLenBetweenTwoRooms(apartmentUnit,j,k,tol,optStr(1,i));
+                [overlapLength,overlapVert] = getCommonWallLenBetweenTwoRooms(apartmentUnit,j,k,tol,optStr(1,i));
                 if overlapLength > 0
                     aptUnit.("room"+num2str(j)).geometry.connectivity.("room"+num2str(k)).length = overlapLength;
                     aptUnit.("room"+num2str(k)).geometry.connectivity.("room"+num2str(j)).length = overlapLength;
                     aptUnit.("room"+num2str(j)).geometry.connectivity.("room"+num2str(k)).wallFrac = defaultWallFrac;
                     aptUnit.("room"+num2str(k)).geometry.connectivity.("room"+num2str(j)).wallFrac = defaultWallFrac;
+                    aptUnit.("room"+num2str(j)).geometry.connectivity.("room"+num2str(k)).commonWallPoint1 = overlapVert(1,:);
+                    aptUnit.("room"+num2str(j)).geometry.connectivity.("room"+num2str(k)).commonWallPoint2 = overlapVert(2,:);
+                    aptUnit.("room"+num2str(k)).geometry.connectivity.("room"+num2str(j)).commonWallPoint1 = overlapVert(1,:);
+                    aptUnit.("room"+num2str(k)).geometry.connectivity.("room"+num2str(j)).commonWallPoint2 = overlapVert(2,:);
                 end
             end
         end

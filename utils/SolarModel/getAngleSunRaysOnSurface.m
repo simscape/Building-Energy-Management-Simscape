@@ -42,6 +42,13 @@ function cosineAngleOfIncidence = getAngleSunRaysOnSurface(surfSlopeDeg,surfOutw
     % 4-quadrant plane. This is done in the conditional statements below.
 
     if strcmp(sunAngles.hemisphereNS,"Northern")
+        % if surfOutwardNormal(1,2) > 0
+        %     angleChangeFromSouth = min(180,max(0,90+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+        % else
+        %     angleChangeFromSouth = min(90,max(0,90-rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+        % end
+        % cosineAngleOfIncidence = getCosineAngleOfIncidenceOnSurface(phi,delta,beta,deg2rad(angleChangeFromSouth),omega);
+        % cosineAngleOfIncidence = max(0,cosineAngleOfIncidence);
         if surfOutwardNormal(1,2) > 0
             % North facing
             if surfOutwardNormal(1,1) == 0
@@ -49,11 +56,8 @@ function cosineAngleOfIncidence = getAngleSunRaysOnSurface(surfSlopeDeg,surfOutw
                 cosineAngleOfIncidence = 0;
             elseif surfOutwardNormal(1,1) > 0
                 % disp("Facing Towards 1st Quadrant - north east")
-                % normal_Y=surfOutwardNormal(1,2)
-                % normal_X=surfOutwardNormal(1,1)
-                angleChangeFromSouth = min(180,max(0,90+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+                angleChangeFromSouth = min(180,max(90,90+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1)))))); %% Was PLUS sign originally
                 if beta > 0 % For horizontal surfaces, direction does not matter and hence the check with sunlight hours skipped.
-                    % disp('beta>0')
                     if sunAngles.surfaceAzimuthAngle < 0 
                         % disp('Morning sun')
                         cosineAngleOfIncidence = getCosineAngleOfIncidenceOnSurface(phi,delta,beta,deg2rad(angleChangeFromSouth),omega);
@@ -65,12 +69,14 @@ function cosineAngleOfIncidence = getAngleSunRaysOnSurface(surfSlopeDeg,surfOutw
                         end
                     end
                 else
-                    % disp('beta<=0')
                     cosineAngleOfIncidence = getCosineAngleOfIncidenceOnSurface(phi,delta,beta,deg2rad(angleChangeFromSouth),omega);
                 end
             else
                 % Facing Towards 2nd Quadrant - north west
-                angleChangeFromSouth = min(270,max(0,270+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+
+                % angleChangeFromSouth = min(270,max(0,270+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+                angleChangeFromSouth = min(180,max(0,90+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+               
                 if beta > 0 % For horizontal surfaces, direction does not matter and hence the check with sunlight hours skipped.
                     if sunAngles.surfaceAzimuthAngle > 0 % Afternoon sun
                         cosineAngleOfIncidence = getCosineAngleOfIncidenceOnSurface(phi,delta,beta,deg2rad(angleChangeFromSouth),omega);%*(clockHrs>=sunRiseTime && clockHrs<=sunSetTime);
@@ -188,7 +194,8 @@ function cosineAngleOfIncidence = getAngleSunRaysOnSurface(surfSlopeDeg,surfOutw
                 end
             elseif surfOutwardNormal(1,1) < 0
                 % Facing Towards 3rd Quadrant - south west
-                angleChangeFromNorth = min(270,max(0,180+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+                % angleChangeFromNorth = min(270,max(0,180+rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
+                angleChangeFromNorth = min(180,max(0,90-rad2deg(atan(abs(surfOutwardNormal(1,2)/surfOutwardNormal(1,1))))));
                 if beta > 0 % For horizontal surfaces, direction does not matter and hence the check with sunlight hours skipped.
                     if sunAngles.surfaceAzimuthAngle > 0 % Afternoon sun
                         cosineAngleOfIncidence = getCosineAngleOfIncidenceOnSurface(phi,delta,beta,deg2rad(angleChangeFromNorth),omega);%*(clockHrs>=sunRiseTime && clockHrs<=sunSetTime);

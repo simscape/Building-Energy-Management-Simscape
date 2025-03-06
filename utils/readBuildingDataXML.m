@@ -66,6 +66,49 @@ function [dataStruct,geoLocation,datetimeVec] = readBuildingDataXML(NameValueArg
     reshapeData = dataStruct.apartment1.room1.geometry.dim.floorConnMat;
     dataStruct.apartment1.room1.geometry.dim.floorConnMat = reshape(reshapeData,[r,c]);
 
+    r = dataStruct.apartment1.room1.geometry.dim.plotWallVert2DMatSize(1,1);
+    c = dataStruct.apartment1.room1.geometry.dim.plotWallVert2DMatSize(1,2);
+    reshapeData = dataStruct.apartment1.room1.geometry.dim.plotWallVert2D;
+    dataStruct.apartment1.room1.geometry.dim.plotWallVert2D = reshape(reshapeData,[r,c]);
+
+    r = dataStruct.apartment1.room1.geometry.dim.plotInternalWallVert2DMatSize(1,1);
+    c = dataStruct.apartment1.room1.geometry.dim.plotInternalWallVert2DMatSize(1,2);
+    reshapeData = dataStruct.apartment1.room1.geometry.dim.plotInternalWallVert2D;
+    dataStruct.apartment1.room1.geometry.dim.plotInternalWallVert2D = reshape(reshapeData,[r,c]);
+
+    if isfield(dataStruct.apartment1.room1.geometry.dim,"inclinedRoof")
+        % Inclined Roof related data
+        r = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormalMatSize(1,1);
+        c = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormalMatSize(1,2);
+        reshapeData = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormal;
+        dataStruct.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormal = reshape(reshapeData,[r,c]);
+    
+        r = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivityMatSize(1,1);
+        c = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivityMatSize(1,2);
+        reshapeData = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivity;
+        dataStruct.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivity = reshape(reshapeData,[r,c]);
+    
+        r = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHtMatSize(1,1);
+        c = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHtMatSize(1,2);
+        reshapeData = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHt;
+        dataStruct.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHt = reshape(reshapeData,[r,c]);
+    
+        r = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclXMatSize(1,1);
+        c = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclXMatSize(1,2);
+        reshapeData = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclX;
+        dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclX = reshape(reshapeData,[r,c]);
+        
+        r = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclYMatSize(1,1);
+        c = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclYMatSize(1,2);
+        reshapeData = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclY;
+        dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclY = reshape(reshapeData,[r,c]);
+    
+        r = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclZMatSize(1,1);
+        c = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclZMatSize(1,2);
+        reshapeData = dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclZ;
+        dataStruct.apartment1.room1.geometry.dim.inclinedRoof.inclZ = reshape(reshapeData,[r,c]);
+    end
+
     % Add back polyshape to datastruct
     for i = 1:nApt
         for j = 1:nRooms(i,1)

@@ -10,7 +10,7 @@ function buildingDataWithTemp = getBuildingRoomTemperatureData(NameValueArgs)
     
     [nApt, nRooms] = getNumAptAndRoomsFromFloorPlan(NameValueArgs.Building);
 
-    numHours = (0:length(NameValueArgs.Building.apartment1.room1.geometry.roof.sunlightFrac))'*3600;
+    numHours = (0:length(NameValueArgs.Building.apartment1.room1.geometry.roof.sunlightWattPerMeterSq))'*3600;
     simlogTimeVal = NameValueArgs.SimlogData.simlog.Building.roomTemp.series.time;
     
     simlogTempData = zeros(nApt,max(nRooms),length(numHours));

@@ -7,7 +7,7 @@ function updatedBuildingData = generateBuilding3Dlayout(NameValueArgs)
         NameValueArgs.BuildingName string {mustBeNonempty}
         NameValueArgs.BuildingFloorPlan struct {mustBeNonempty}
         NameValueArgs.NumberOfLevels (1,1) {mustBeNumeric,mustBeGreaterThan(NameValueArgs.NumberOfLevels,0)}
-        NameValueArgs.LevelHeight (1,1) 
+        NameValueArgs.LevelHeight (1,1) simscape.Value
         NameValueArgs.Tol (1,1) {mustBeNonnegative, mustBeLessThan(NameValueArgs.Tol,100)}
     end
     
@@ -24,6 +24,7 @@ function updatedBuildingData = generateBuilding3Dlayout(NameValueArgs)
     for i = 1:nAptsPerFloor
         building.("apartment"+num2str(i)) = buildingDataGF.("apartment"+num2str(i));
     end
+
     for i = 2:NameValueArgs.NumberOfLevels
         buildingData = copyAndStackUpFloor3Dlayout(buildingDataGF,i-1,NameValueArgs.NumberOfLevels);
         for j = 1:nAptsPerFloor
@@ -34,7 +35,9 @@ function updatedBuildingData = generateBuilding3Dlayout(NameValueArgs)
     bldgWallWinVentSurfArea = estimateExtWallSurfAreaFracToAmbient(NameValueArgs.BuildingName,building,NameValueArgs.Tol/100);
     % The function below helps in plotting building more efficiently by
     % maintaining a list of outer walls, roof, and floor.
-    updatedBuilding = createListOfAllOuterWalls(bldgWallWinVentSurfArea);
+    update01 = createListOfAllOuterWalls(bldgWallWinVentSurfArea);
     % Find room connectivity data across different floors.
-    updatedBuildingData = getConnectivityAcrossBuildingFloors(Building=updatedBuilding);
+    update02 = getConnectivityAcrossBuildingFloors(Building=update01);
+    % Find wall coordinates for internal overlapping walls.
+    updatedBuildingData = getBldgInternalWallCoordinates(Building=update02);
 end

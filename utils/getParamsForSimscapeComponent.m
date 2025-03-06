@@ -6,7 +6,8 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
 
     arguments
         NameValueArgs.Building struct {mustBeNonempty}
-        NameValueArgs.PhysicsTableData table = []
+        NameValueArgs.PhysicsTableData (:,9) table {mustBeNonempty}
+        NameValueArgs.OperationalData struct {mustBeNonempty}
     end
     hrsSolarData = length(NameValueArgs.Building.apartment1.room1.geometry.wall1.sunlightWattPerMeterSq);
     
@@ -52,6 +53,17 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
         for j = 1:nRooms(i,1)
             roomVolMat(i,j) = NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).floorPlan.area * ...
                               NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim.height;
+            if isfield(NameValueArgs.Building.apartment1.room1.geometry.dim,"inclinedRoof")
+                % Add additional air volume to top floor rooms with
+                % inclined roofs
+                addRoomHeight = NameValueArgs.Building.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHt;
+                for k = 1:size(addRoomHeight,1)
+                    i1 = addRoomHeight(k,1);
+                    j1 = addRoomHeight(k,2);
+                    roomVolMat(i1,j1) = roomVolMat(i1,j1) + addRoomHeight(k,3)*...
+                        NameValueArgs.Building.("apartment"+num2str(i1)).("room"+num2str(j1)).floorPlan.area;
+                end
+            end
             nameOfConnections = fieldnames(NameValueArgs.Building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.connectivity);
             roomNumList = getConnectedRoomNumber(nameOfConnections);
             avoidDoubleCount = roomNumList(roomNumList>j);
@@ -112,8 +124,6 @@ function params = getParamsForSimscapeComponent(NameValueArgs)
     params.roomVolMat = roomVolMat;
     params.floorRoomIDs = floorGrdConnMat;
 
-    if ~isempty(NameValueArgs.PhysicsTableData)
-        % Specify physics table parameters
-        params.physTable = table2array(NameValueArgs.PhysicsTableData(:,[2:4,6:9]));
-    end
+    params.physTable = table2array(NameValueArgs.PhysicsTableData(:,[2:4,6:9]));
+    params.opsData = NameValueArgs.OperationalData;
 end

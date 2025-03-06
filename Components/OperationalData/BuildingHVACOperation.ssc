@@ -23,6 +23,7 @@ component (Propagation = blocks) BuildingHVACOperation
     end
 
     parameters
+        roomModelOption = roomPhysicsOptions.basicroom; % Select room modelling option
         heatPerOccupant = {5, 'W'}; % Heat per occupant
         opsParamBldg = zeros(400,7);% Building operational parameter matrix
         % Row size 400 represents: 
@@ -49,14 +50,14 @@ component (Propagation = blocks) BuildingHVACOperation
         Qr = {zeros(nApts,nRooms), 'W'}; % S
     end
 
-    for i = 1:nApts
-        for j = 1:nRooms
-            connections
-                connect(HPA,BldgA(i,j));
-                connect(HPB,BldgB(i,j));
-            end
-        end
-    end
+    % for i = 1:nApts
+    %     for j = 1:nRooms
+    %         connections
+    %             connect(HPA,BldgA(i,j));
+    %             connect(HPB,BldgB(i,j));
+    %         end
+    %     end
+    % end
 
     annotations
         HPA   : Side=Left;
@@ -65,7 +66,7 @@ component (Propagation = blocks) BuildingHVACOperation
         Qr    : Side=Top;
         BldgA : Side=Right;
         BldgB : Side=Right;
-        UILayout = [UIGroup("Operational Data",opsParamBldg) ... 
+        UILayout = [UIGroup("Operational Data",roomModelOption,opsParamBldg) ... 
                     UIGroup("Other Variables",heatPerOccupant)];
     end
 
@@ -92,4 +93,35 @@ component (Propagation = blocks) BuildingHVACOperation
         end
     end
 
+    if roomModelOption == roomPhysicsOptions.basicroom || roomModelOption == roomPhysicsOptions.requirements
+        for i = 1:nApts
+            for j = 1:nRooms
+                % Closing TL domain nodes as they are not needed; put dummy param. values
+                equations
+                    BldgA(i,j).T == {300, 'K'};
+                    BldgA(i,j).p == {0.1, 'MPa'};
+                    BldgB(i,j).T == {300, 'K'};
+                    BldgB(i,j).p == {0.1, 'MPa'};
+                end
+            end
+        end
+        equations
+            HPA.T == {300, 'K'};
+            HPA.p == {0.1, 'MPa'};
+            HPB.T == {300, 'K'};
+            HPB.p == {0.1, 'MPa'};
+        end
+        annotations
+            [HPA,HPB,BldgA,BldgB]: ExternalAccess=none;
+        end
+    else
+        for i = 1:nApts
+            for j = 1:nRooms
+                connections
+                    connect(HPA,BldgA(i,j));
+                    connect(HPB,BldgB(i,j));
+                end
+            end
+        end 
+    end
 end

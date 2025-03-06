@@ -72,6 +72,12 @@ classdef BuildingEnergyManagementMQC < matlab.unittest.TestCase
             %no errors or warning thrown.
             test.verifyWarningFree(@()runSimulateBuildingEnergyManagement, "'SimulateBuildingEnergyManagement Live Script'  should execute wihtout any warning or error.");
         end
+
+        function TestBuildingHeatLoadEstimation(test)
+            %The test runs the |.mlx| file and makes sure that there are
+            %no errors or warning thrown.
+            test.verifyWarningFree(@()runBuildingHeatLoadEstimation, "'BuildingHeatLoadEstimation Live Script'  should execute wihtout any warning or error.");
+        end
     end
 
 end  % classdef
@@ -79,8 +85,6 @@ end  % classdef
 function runSunModelTestHarness()
     % Function runs the |.mlx| script.
     warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    % set(gcf,'Visible','off');        
-    % set(0,'DefaultFigureVisible','off');
     SunModelTestHarness;
     close all;
     bdclose all;
@@ -89,8 +93,6 @@ end
 function runCreateBuildingModelWithSolarLoad()
     % Function runs the |.mlx| script.
     warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    % set(gcf,'Visible','off');
-    % set(0,'DefaultFigureVisible','off');
     CreateBuildingModelWithSolarLoad;
     close all;
     bdclose all;
@@ -99,8 +101,6 @@ end
 function runBuildingManagementSystemRequirementAnalysis()
     % Function runs the |.mlx| script.
     warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    % set(gcf,'Visible','off');
-    % set(0,'DefaultFigureVisible','off');    
     BuildingManagementSystemRequirementAnalysis;
     close all;
     bdclose all;
@@ -109,9 +109,15 @@ end
 function runSimulateBuildingEnergyManagement()
     % Function runs the |.mlx| script.
     warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    % set(gcf,'Visible','off');
-    % set(0,'DefaultFigureVisible','off');    
     SimulateBuildingEnergyManagement;
+    close all;
+    bdclose all;
+end
+
+function runBuildingHeatLoadEstimation()
+    % Function runs the |.mlx| script.
+    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
+    BuildingHeatLoadEstimation;
     close all;
     bdclose all;
 end

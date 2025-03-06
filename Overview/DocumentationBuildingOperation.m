@@ -20,6 +20,15 @@
 %
 %% Operational Data
 %
+% * *Select room modelling option*, |roomModelOption|, is a drop down list
+% that enables you to switch between different room modelling and analysis 
+% options. You can chose from 5 different options: |Thermal Load|, |Thermal 
+% Requirements|, |HVAC: Room Radiator Only|, |HVAC: Room Underfloor 
+% Heating/Cooling Only|, and |HVAC: Room Radiator with Underfloor 
+% Heating/Cooling|. This must be of same value as set in the Building custom 
+% component. To learn more about the room modelling options, see 
+% <matlab:open('DocumentationRoomModellingOptions.html') Room Modelling 
+% Options in Building Custom Component>.
 % * *Building Operational Parameter Matrix*, |opsParamBldg|, specified as
 % a matrix, defines the different operational parameter states in the 
 % building. The matix has 7 columns and rows equal to total number of hours 

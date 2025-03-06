@@ -9,7 +9,7 @@ To make changes, update the MATLAB code and republish this document.
 <title>Custom Block: Operational Data</title>
 <meta name="generator" content="MATLAB 24.1">
 <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
-<meta name="DC.date" content="2024-10-04">
+<meta name="DC.date" content="2025-02-19">
 <meta name="DC.source" content="DocumentationBuildingOperation.m">
 <style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
@@ -104,6 +104,8 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 <div>
 <ul>
 <li>
+<b>Select room modelling option</b>, <tt>roomModelOption</tt>, is a drop down list that enables you to switch between different room modelling and analysis options. You can chose from 5 different options: <tt>Thermal Load</tt>, <tt>Thermal Requirements</tt>, <tt>HVAC: Room Radiator Only</tt>, <tt>HVAC: Room Underfloor Heating/Cooling Only</tt>, and <tt>HVAC: Room Radiator with Underfloor Heating/Cooling</tt>. This must be of same value as set in the Building custom component. To learn more about the room modelling options, see <a href="matlab:open('DocumentationRoomModellingOptions.html')">Room Modelling Options in Building Custom Component</a>.</li>
+<li>
 <b>Building Operational Parameter Matrix</b>, <tt>opsParamBldg</tt>, specified as a matrix, defines the different operational parameter states in the building. The matix has 7 columns and rows equal to total number of hours the simulation runs for. The first 3 data points represent the building <tt>Level</tt>, <tt>Apartment Number</tt>, and the <tt>Room Number</tt> for which the data is populated across the row. The fourth Column represents <tt>HVAC</tt> requirement. A value of 0 represents no demand for HVAC. A value of 1 represent the need for HVAC. The 5th and 6th data points represent additional <tt>Heat Load</tt> and <tt>Electrical Power</tt> load in Watts. The 7th data point represents the number of people in the room or the room occupancy level.</li>
 </ul>
 </div>
@@ -146,6 +148,15 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 %
 %% Operational Data
 %
+% * *Select room modelling option*, |roomModelOption|, is a drop down list
+% that enables you to switch between different room modelling and analysis 
+% options. You can chose from 5 different options: |Thermal Load|, |Thermal 
+% Requirements|, |HVAC: Room Radiator Only|, |HVAC: Room Underfloor 
+% Heating/Cooling Only|, and |HVAC: Room Radiator with Underfloor 
+% Heating/Cooling|. This must be of same value as set in the Building custom 
+% component. To learn more about the room modelling options, see 
+% <matlab:open('DocumentationRoomModellingOptions.html') Room Modelling 
+% Options in Building Custom Component>.
 % * *Building Operational Parameter Matrix*, |opsParamBldg|, specified as
 % a matrix, defines the different operational parameter states in the 
 % building. The matix has 7 columns and rows equal to total number of hours 

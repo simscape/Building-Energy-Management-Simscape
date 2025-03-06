@@ -3,16 +3,16 @@
 
 % Copyright 2024 The MathWorks, Inc.
 
-function solarRadWattPerMeterSq = getSurfSolarRadWattPerMeterSq(surfAngle,surfUnitNormal,nYr,nDay,nHrs,geoLocation,dayLightSaving)
+function solarRadWattPerMeterSq = getSurfSolarRadWattPerMeterSq(NameValueArgs)
     arguments
-        surfAngle (1,1) {mustBeInRange(surfAngle,[0,90])}
-        surfUnitNormal (1,2) {mustBeNonempty, mustBeNonNan}
-        nYr (1,1) {mustBeInteger}
-        nDay (1,1) {mustBeInRange(nDay,[1 366])}
-        nHrs (1,1) {mustBeInRange(nHrs,[0,24])}
-        geoLocation struct {mustBeNonempty}
-        dayLightSaving (1,1) {mustBeNonNan}
+        NameValueArgs.SurfAngle {mustBeInRange(NameValueArgs.SurfAngle,0,90)}
+        NameValueArgs.SurfUnitNormal (1,2) {mustBeNonempty, mustBeNonNan}
+        NameValueArgs.Year (1,1) {mustBeInteger}
+        NameValueArgs.DayOfTheYear (1,1) {mustBeInRange(NameValueArgs.DayOfTheYear,0,366)}
+        NameValueArgs.HourOfTheDay (1,1) {mustBeInRange(NameValueArgs.HourOfTheDay,0,24)}
+        NameValueArgs.Location (1,3) table {mustBeNonempty}
+        NameValueArgs.DayLightSaving (1,1) {mustBeNonNan} = 0
     end
-    cosineAngleOfIncidence = getAngleSunRaysOnSurface(surfAngle,surfUnitNormal,nYr,nDay,nHrs,geoLocation,dayLightSaving);
-    solarRadWattPerMeterSq = cosineAngleOfIncidence*getSunRadiationOnTheDay(geoLocation,nYr,nDay,nHrs,dayLightSaving);
+    cosineAngleOfIncidence = getAngleSunRaysOnSurface(NameValueArgs.SurfAngle,NameValueArgs.SurfUnitNormal,NameValueArgs.Year,NameValueArgs.DayOfTheYear,NameValueArgs.HourOfTheDay,NameValueArgs.Location,NameValueArgs.DayLightSaving);
+    solarRadWattPerMeterSq = cosineAngleOfIncidence*getSunRadiationOnTheDay(NameValueArgs.Location,NameValueArgs.Year,NameValueArgs.DayOfTheYear,NameValueArgs.HourOfTheDay,NameValueArgs.DayLightSaving);
 end

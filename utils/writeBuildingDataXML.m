@@ -76,7 +76,7 @@ function writeBuildingDataXML(NameValueArgs)
                 bldg.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim.buildingExtBoundaryWallData.floor = reshape(listOfFloor,[1,r*c]);
                 bldg.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim.buildingExtBoundaryWallData.floorMATsize = [r,c];
             end
-            solarDataLengthHrs = length(bldg.("apartment"+num2str(i)).("room"+num2str(j)).geometry.roof.sunlightFrac);
+            % solarDataLengthHrs = length(bldg.("apartment"+num2str(i)).("room"+num2str(j)).geometry.roof.sunlightWattPerMeterSq);
         end
     end
 
@@ -86,6 +86,49 @@ function writeBuildingDataXML(NameValueArgs)
     [r,c] = size(floorConnMatData);
     bldg.apartment1.room1.geometry.dim.floorConnMat = reshape(floorConnMatData,[1,r*c]);
     bldg.apartment1.room1.geometry.dim.floorConnMatSize = [r,c];
+
+    plotExtWallIntersectData = bldg.apartment1.room1.geometry.dim.plotWallVert2D;
+    [r,c] = size(plotExtWallIntersectData);
+    bldg.apartment1.room1.geometry.dim.plotWallVert2D = reshape(plotExtWallIntersectData,[1,r*c]);
+    bldg.apartment1.room1.geometry.dim.plotWallVert2DMatSize = [r,c];
+
+    plotIntWallIntersectData = bldg.apartment1.room1.geometry.dim.plotInternalWallVert2D;
+    [r,c] = size(plotIntWallIntersectData);
+    bldg.apartment1.room1.geometry.dim.plotInternalWallVert2D = reshape(plotIntWallIntersectData,[1,r*c]);
+    bldg.apartment1.room1.geometry.dim.plotInternalWallVert2DMatSize = [r,c];
+
+    % Inclined Roof related data
+    if isfield(bldg.apartment1.room1.geometry.dim,"inclinedRoof")
+        inclRoofUnitNormal = bldg.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormal;
+        [r,c] = size(inclRoofUnitNormal);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormal = reshape(inclRoofUnitNormal,[1,r*c]);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.unitVecNormalMatSize = [r,c];
+    
+        inclRoofRoomConn = bldg.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivity;
+        [r,c] = size(inclRoofRoomConn);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivity = reshape(inclRoofRoomConn,[1,r*c]);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.roofRoomConnectivityMatSize = [r,c];
+    
+        inclRoofHeight = bldg.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHt;
+        [r,c] = size(inclRoofHeight);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHt = reshape(inclRoofHeight,[1,r*c]);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.topFloorAdditionalHtMatSize = [r,c];
+    
+        inclRoofXvert = bldg.apartment1.room1.geometry.dim.inclinedRoof.inclX;
+        [r,c] = size(inclRoofXvert);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.inclX = reshape(inclRoofXvert,[1,r*c]);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.inclXMatSize = [r,c];
+    
+        inclRoofYvert = bldg.apartment1.room1.geometry.dim.inclinedRoof.inclY;
+        [r,c] = size(inclRoofYvert);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.inclY = reshape(inclRoofYvert,[1,r*c]);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.inclYMatSize = [r,c];
+    
+        inclRoofZvert = bldg.apartment1.room1.geometry.dim.inclinedRoof.inclZ;
+        [r,c] = size(inclRoofZvert);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.inclZ = reshape(inclRoofZvert,[1,r*c]);
+        bldg.apartment1.room1.geometry.dim.inclinedRoof.inclZMatSize = [r,c];
+    end
 
     % Save other relevant data in README section
     saveData.README.FileGeneratedOn = datetime("now");
@@ -97,8 +140,8 @@ function writeBuildingDataXML(NameValueArgs)
         "-apartments and a total of ",num2str(sum(nRooms)),"-rooms.");
     saveData.README.nApt = nApt;
     saveData.README.nRooms = nRooms;
-    saveData.README.SolarDataHrs = strcat("The building model contains ",...
-        num2str(solarDataLengthHrs),"-hours of solar tracking data.");
+    % saveData.README.SolarDataHrs = strcat("The building model contains ",...
+    %     num2str(solarDataLengthHrs),"-hours of solar tracking data.");
     if NameValueArgs.StartTime < NameValueArgs.EndTime
         saveData.README.StartTime = NameValueArgs.StartTime;
         saveData.README.EndTime = NameValueArgs.EndTime;

@@ -8,15 +8,30 @@ function plot3DlayoutBuilding(NameValueArgs)
     arguments
         NameValueArgs.Building struct {mustBeNonempty}
         NameValueArgs.PlotViewDirection (1,3) {mustBeNonempty,mustBeReal}
-        NameValueArgs.ColorScheme (1,1) string {mustBeNonempty,mustBeMember(NameValueArgs.ColorScheme,["random","sunlight","radiation","temperature","wallsAndRoof","walls","roof"])}
+        NameValueArgs.ColorScheme (1,1) string {mustBeNonempty,mustBeMember(NameValueArgs.ColorScheme,["random","radiation","temperature","wallsAndRoof","walls","roof","simple"])}
+        NameValueArgs.Transparency (1,1) {mustBeLessThanOrEqual(NameValueArgs.Transparency,1),mustBeGreaterThanOrEqual(NameValueArgs.Transparency,0)} = 1
         NameValueArgs.Hour (1,1) {mustBeNumeric} = 0
+        NameValueArgs.InternalWalls {mustBeNumericOrLogical} = false
+        NameValueArgs.DebugMode {mustBeNumericOrLogical} = false
     end
 
     if isfield(NameValueArgs.Building.apartment1.room1.geometry.dim,"buildingExtBoundaryWallData")
         % disp('Wall data exists as separate list');
-        plotBuildingData(NameValueArgs.Building,NameValueArgs.PlotViewDirection,NameValueArgs.ColorScheme,NameValueArgs.Hour);
+        if NameValueArgs.InternalWalls
+            NameValueArgs.Transparency = min(0.5,NameValueArgs.Transparency);
+        end
+        plotBuildingData(NameValueArgs.Building,...
+                         NameValueArgs.PlotViewDirection,...
+                         NameValueArgs.ColorScheme,...
+                         NameValueArgs.Transparency,...
+                         NameValueArgs.Hour,...
+                         NameValueArgs.InternalWalls,...
+                         NameValueArgs.DebugMode);
     else
         % disp('Separate wall data has not been collated yet');
-        plotWallsRoofFloorForBuilding(NameValueArgs.Building,NameValueArgs.PlotViewDirection,NameValueArgs.ColorScheme,NameValueArgs.Hour);
+        plotWallsRoofFloorForBuilding(NameValueArgs.Building,...
+                                      NameValueArgs.PlotViewDirection,...
+                                      NameValueArgs.ColorScheme,...
+                                      NameValueArgs.Hour);
     end
 end

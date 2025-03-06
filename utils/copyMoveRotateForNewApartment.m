@@ -6,8 +6,8 @@ function newApartment = copyMoveRotateForNewApartment(NameValueArgs)
 
     arguments
         NameValueArgs.Apartment struct {mustBeNonempty}
-        NameValueArgs.MoveDistance (1,2) {mustBeNonempty}
-        NameValueArgs.RotationAngle (1,1) {mustBeNonempty}
+        NameValueArgs.MoveDistance (1,2) simscape.Value
+        NameValueArgs.RotationAngle (1,1) simscape.Value {simscape.mustBeCommensurateUnit(NameValueArgs.RotationAngle, "deg")}
         NameValueArgs.RotateAboutRoom string
         NameValueArgs.Tol (1,1) {mustBeNonnegative, mustBeLessThan(NameValueArgs.Tol,100)}
     end

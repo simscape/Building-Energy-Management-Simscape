@@ -6,10 +6,10 @@ function updatedFloorplan = addRoomToFloorPlan(NameValueArgs)
     arguments
         NameValueArgs.FloorPlan struct
         NameValueArgs.NewRoom string {mustBeNonempty}
-        NameValueArgs.Vertex (1,2) {mustBeNonempty}
-        NameValueArgs.Length {mustBeNonempty}
-        NameValueArgs.Width {mustBeNonempty}
-        NameValueArgs.Angle {mustBeNonempty}
+        NameValueArgs.Vertex (1,2) simscape.Value
+        NameValueArgs.Length (1,1) simscape.Value
+        NameValueArgs.Width (1,1) simscape.Value
+        NameValueArgs.Angle (1,1) simscape.Value {simscape.mustBeCommensurateUnit(NameValueArgs.Angle, "deg")} = simscape.Value(0, "deg")
         NameValueArgs.Plot (1,1) {mustBeMember(NameValueArgs.Plot,[1,0])} = 0
     end
 

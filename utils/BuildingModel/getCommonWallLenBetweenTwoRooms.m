@@ -3,7 +3,7 @@
 
 % Copyright 2024 The MathWorks, Inc.
 
-function overlapLength = getCommonWallLenBetweenTwoRooms(apartmentUnit,id1,id2,dist,dir)
+function [overlapLength,overlapVert] = getCommonWallLenBetweenTwoRooms(apartmentUnit,id1,id2,dist,dir)
     arguments
         apartmentUnit struct {mustBeNonempty}
         id1 (1,1) {mustBeInteger}
@@ -32,5 +32,11 @@ function overlapLength = getCommonWallLenBetweenTwoRooms(apartmentUnit,id1,id2,d
         overlapLength = overlap.area/(dist*arg2);
     else
         overlapLength = overlap.area/(dist*arg3);
+    end
+    if overlapLength > 0
+        vertices = getInternalCommonWallSectionVertices(kRoom,jRoom,dist);
+        overlapVert = vertices(1:2,1:2);
+    else
+        overlapVert = zeros(2,2);
     end
 end

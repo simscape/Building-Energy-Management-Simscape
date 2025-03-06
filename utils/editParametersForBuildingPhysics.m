@@ -10,6 +10,7 @@ function updatedTbl = editParametersForBuildingPhysics(NameValueArgs)
         NameValueArgs.ListOfTimeValues (:,1) datetime {mustBeNonempty}
         NameValueArgs.PhysicsParameter string {mustBeMember(NameValueArgs.PhysicsParameter,["HVAC On","Heat Source (W)","Electrical Load (W)","Room Occupancy Level"])}
         NameValueArgs.NewValue {mustBeNonempty}
+        NameValueArgs.DisplayMessages {mustBeNonempty} = true
     end
 
     updatedTbl = NameValueArgs.PhysicsTable;
@@ -29,28 +30,28 @@ function updatedTbl = editParametersForBuildingPhysics(NameValueArgs)
             if ~isa(NameValueArgs.NewValue,"logical")
                 disp('You must define HVAC On as logical - true or false.');
             else
-                disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue)));
+                if NameValueArgs.DisplayMessages, disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue))); end
                 tableUpdateSuccess = true;
             end
         elseif strcmp(NameValueArgs.PhysicsParameter,"Heat Source (W)")
             if ~isa(NameValueArgs.NewValue,"double")
                 disp('You must define Heat Source (W) as double.');
             else
-                disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue)));
+                if NameValueArgs.DisplayMessages, disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue))); end
                 tableUpdateSuccess = true;
             end
         elseif strcmp(NameValueArgs.PhysicsParameter,"Electrical Load (W)")
             if ~isa(NameValueArgs.NewValue,"double")
                 disp('You must define Electrical Load (W) as double.');
             else
-                disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue)));
+                if NameValueArgs.DisplayMessages, disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue))); end
                 tableUpdateSuccess = true;
             end
         else % if strcmp(NameValueArgs.PhysicsParameter,"Room Occupancy Level")
             if ~isa(NameValueArgs.NewValue,"double")
                 disp('You must define Room Occupancy Level as an integer.');
             else
-                disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue)));
+                if NameValueArgs.DisplayMessages, disp(strcat("For all the given Room List & DateTimeVector, ",NameValueArgs.PhysicsParameter," = ",num2str(NameValueArgs.NewValue))); end
                 tableUpdateSuccess = true;
             end
         end
@@ -61,14 +62,18 @@ function updatedTbl = editParametersForBuildingPhysics(NameValueArgs)
                    ismember(NameValueArgs.PhysicsTable.Level,NameValueArgs.ListOfLevels)...
                   );
         updatedTbl(rows,:).(NameValueArgs.PhysicsParameter) = repmat(NameValueArgs.NewValue,length(NameValueArgs.PhysicsTable(rows,:).(NameValueArgs.PhysicsParameter)),1);
-        disp(" ");
-        disp("Updated Physics Table:");
-        disp(" ");
-        disp(updatedTbl)
-        disp(" ");
+        if NameValueArgs.DisplayMessages
+            disp(" ");
+            disp("Updated Physics Table:");
+            disp(" ");
+            disp(updatedTbl)
+            disp(" ");
+        end
     else
-        disp(" ");
-        disp("*** Update Skipped...");
-        disp(" ");
+        if NameValueArgs.DisplayMessages
+            disp(" ");
+            disp("*** Update Skipped...");
+            disp(" ");
+        end
     end
 end

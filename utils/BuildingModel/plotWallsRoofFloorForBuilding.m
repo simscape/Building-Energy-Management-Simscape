@@ -25,13 +25,13 @@ function plotWallsRoofFloorForBuilding(model3Dbuilding,viewingAngle,colorScheme,
                 if isThisOuterWall
                     if strcmp(colorScheme,"random") 
                         colorSchemeVector = rand(1,3);
-                    elseif strcmp(colorScheme,"sunlight")
-                        sunlightFraction = model3Dbuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.("wall"+num2str(k)).sunlightFrac(1,ts);
-                        if sunlightFraction > 0
-                            colorSchemeVector = [sunlightFraction sunlightFraction 0];
-                        else
-                            colorSchemeVector = [0 0 0.3];
-                        end
+                    % elseif strcmp(colorScheme,"sunlight")
+                    %     sunlightFraction = model3Dbuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.("wall"+num2str(k)).sunlightFrac(1,ts);
+                    %     if sunlightFraction > 0
+                    %         colorSchemeVector = [sunlightFraction sunlightFraction 0];
+                    %     else
+                    %         colorSchemeVector = [0 0 0.3];
+                    %     end
                     elseif strcmp(colorScheme,"radiation")
                         radiation = model3Dbuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.("wall"+num2str(k)).sunlightWattPerMeterSq;
                         radiationVal = min(1,max(0,radiation(1,ts)/max(radiation)));
@@ -50,9 +50,9 @@ function plotWallsRoofFloorForBuilding(model3Dbuilding,viewingAngle,colorScheme,
             if topFloor
                 if strcmp(colorScheme,"random") 
                     colorSchemeVector = rand(1,3); 
-                elseif strcmp(colorScheme,"sunlight")
-                    sunlightFraction = model3Dbuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.("roof").sunlightFrac(1,ts);
-                    colorSchemeVector = [sunlightFraction sunlightFraction 0];
+                % elseif strcmp(colorScheme,"sunlight")
+                %     sunlightFraction = model3Dbuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.("roof").sunlightFrac(1,ts);
+                %     colorSchemeVector = [sunlightFraction sunlightFraction 0];
                 elseif strcmp(colorScheme,"radiation")
                     radiation = model3Dbuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.roof.sunlightWattPerMeterSq;
                     radiationVal = min(1,max(0,radiation(1,ts)/max(radiation)));

@@ -28,19 +28,20 @@ function updatedFloorPlan = addOpeningOnWallSection(NameValueArgs)
             numExtVert = size(updatedFloorPlan.("apartment"+num2str(1)).("room"+num2str(1)).geometry.dim.allExtWallVertices,1);
             allExtWallWindowFracValue = zeros(numExtVert,1);
             for k = 1:numWindows
-                maxID = max(NameValueArgs.Data(k,1:2));
-                minID = min(NameValueArgs.Data(k,1:2));
-                if maxID == numExtVert
-                    storeID = maxID;
-                else
-                    storeID = minID;
-                end
+                % maxID = max(NameValueArgs.Data(k,1:2));
+                % minID = min(NameValueArgs.Data(k,1:2));
+                % if maxID == numExtVert
+                %     storeID = maxID;
+                % else
+                %     storeID = minID;
+                % end
                 % The values stored in NameValueArgs.Data(k,1:2) are the two
                 % numbers represented on merged floorplan picture. They are
                 % numbered from 1,2,3... and so on. Hence, these numbers
                 % indicate the index in allExtWallWindowFracValue where the
                 % wall data could be stored.
-                allExtWallWindowFracValue(storeID,1) = NameValueArgs.Data(k,3);
+                % allExtWallWindowFracValue(storeID,1) = NameValueArgs.Data(k,3);
+                allExtWallWindowFracValue(NameValueArgs.Data(k,1),1) = NameValueArgs.Data(k,3);
             end
             updatedFloorPlan.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim.("allExtWall"+structName+"Frac") = allExtWallWindowFracValue;
         end
