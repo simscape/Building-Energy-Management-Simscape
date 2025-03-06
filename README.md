@@ -1,17 +1,23 @@
 # Building Energy Management System with Simscape
 
-This project uses Simscape&trade; libraries to model a building, add solar radiation load to it, 
-simulate for HVAC  requirements, and setup the model for **Building Energy Management System (BEMS)** simulations. 
-The project includes basic functionalities to evaluate and size HVAC concepts such as radiators and 
-underfloor heating or cooling. You can use these models as a starting point to **design BEMS** software. 
-
 [![View Building Energy Management System with Simscape on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://mathworks.com/matlabcentral/fileexchange/175604-building-energy-management-system-with-simscape)
 
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=simscape/Building-Energy-Management-Simscape)
-
-The project *workflow* uses two Simscape *model* files that leverage one or more (out of four) of the 
-following Simscape custom *components*: **Building**, **Ambient**, **Operational Data**, and EN14511 
-datasheet based **Heat Pump**. **You will learn how to:**
+ 
+ 
+<table>
+  <tr>
+    <td class="text-column" width=900>This project uses Simscape&trade; libraries to model a building, add solar radiation load to it, 
+simulate for HVAC  requirements, and setup the model for **Building Energy Management System (BEMS)** simulations. 
+The project includes basic functionalities to evaluate and size HVAC concepts such as radiators and 
+underfloor heating or cooling. You can use these models as a starting point to **design BEMS** software. The project *workflow* uses 
+two Simscape *model* files that leverage one or more (out of four) of the following Simscape custom *components*: **Building**,
+ **Ambient**, **Operational Data**, and EN14511 datasheet based **Heat Pump**. </td>
+  </tr>
+</table>
+ 
+ 
+**You will learn how to:**
 
 ## Create Building Models Quickly and Analyze Solar Loading.
 <table>
@@ -22,7 +28,8 @@ datasheet based **Heat Pump**. **You will learn how to:**
     <td class="text-column" width=275>Create a multi-storied building and integrate solar load at any location and building orientation. Design more energy efficient buildings by changing windows and walls size, thickness, material and surface properties like reflectivity and absorptivity.</td>
   </tr>
 </table>
-
+ 
+ 
 ## Analyze Building HVAC Requirements Across Different Seasons, Geography.
 <table>
   <tr>
@@ -32,7 +39,8 @@ datasheet based **Heat Pump**. **You will learn how to:**
     <td class="image-column" width=300><img src="Overview/Images/houseHeatLoadREADME.gif" alt="Building Heat Load Analysis"></td>
   </tr>
 </table>
-
+ 
+ 
 ## Model Heat Pump, Detailed HVAC, and Building Energy Management System.
 <table>
   <tr>
@@ -42,10 +50,12 @@ datasheet based **Heat Pump**. **You will learn how to:**
     <td class="text-column" width=275>Evaluate performance under loading conditions for the heat pumps. Design your controllers for physical conditions. Evaluate HVAC concepts such as a radiator and underfloor piping.</td>
   </tr>
 </table>
-
+ 
+ 
 ## To Get Started 
 * Clone the project repository.
 * Open BuildingEnergyManagement.prj to get started with the project. 
 * Requires MATLAB&reg; release R2024a or newer.
+ 
 
 Copyright 2024 - 2025 The MathWorks, Inc.
