@@ -8,17 +8,16 @@
 <table>
   <tr>
     <td class="text-column" width=900>This project uses Simscape&trade; libraries to model a building, add solar radiation load to it, 
-simulate for HVAC  requirements, and setup the model for **Building Energy Management System (BEMS)** simulations. 
-The project includes basic functionalities to evaluate and size HVAC concepts such as radiators and 
-underfloor heating or cooling. You can use these models as a starting point to **design BEMS** software. The project *workflow* uses 
-two Simscape *model* files that leverage one or more (out of four) of the following Simscape custom *components*: **Building**,
- **Ambient**, **Operational Data**, and EN14511 datasheet based **Heat Pump**. </td>
+simulate for HVAC  requirements, and setup the model for Building Energy Management System (BEMS) simulations. The project includes 
+basic functionalities to evaluate and size HVAC concepts such as radiators and underfloor heating or cooling. You can use these models 
+as a starting point to design BEMS software. The project Workflow uses two Simscape Model files that leverage one or more (out of four) 
+of the following Simscape custom Components: Building, Ambient, Operational Data, and EN14511 datasheet based Heat Pump. 
+    </td>
+    <td class="text-column" width=900>You will learn how to:</td>
   </tr>
 </table>
  
  
-**You will learn how to:**
-
 ## Create Building Models Quickly and Analyze Solar Loading.
 <table>
   <tr>
