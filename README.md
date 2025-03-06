@@ -4,15 +4,14 @@ This project uses Simscape&trade; libraries to model a building, add solar radia
 simulate for HVAC  requirements, and setup the model for **Building Energy Management System (BEMS)** simulations. 
 The project includes basic functionalities to evaluate and size HVAC concepts such as radiators and 
 underfloor heating or cooling. You can use these models as a starting point to **design BEMS** software. 
-The project *workflow* uses two Simscape *model* files that leverage one or more (out of four) of the 
-following Simscape custom *components*: **Building**, **Ambient**, **Operational Data**, and EN14511 
-datasheet based **Heat Pump**.
 
 [![View Building Energy Management System with Simscape on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://mathworks.com/matlabcentral/fileexchange/175604-building-energy-management-system-with-simscape)
 
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=simscape/Building-Energy-Management-Simscape)
 
-**In this project, you will learn how to:**
+The project *workflow* uses two Simscape *model* files that leverage one or more (out of four) of the 
+following Simscape custom *components*: **Building**, **Ambient**, **Operational Data**, and EN14511 
+datasheet based **Heat Pump**. **You will learn how to:**
 
 ## Create Building Models Quickly and Analyze Solar Loading.
 <table>
