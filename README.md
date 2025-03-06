@@ -17,7 +17,12 @@ how to:
   </tr>
 </table>
 
- 
+<table>
+  <tr>
+    <td class="text-column" width=1200></td>
+  </tr>
+</table>
+
 ## Create Building Models Quickly and Analyze Solar Loading.
 <table>
   <tr>
@@ -28,7 +33,12 @@ how to:
   </tr>
 </table>
  
- 
+<table>
+  <tr>
+    <td class="text-column" width=1200></td>
+  </tr>
+</table>
+
 ## Analyze Building HVAC Requirements Across Different Seasons, Geography.
 <table>
   <tr>
@@ -39,7 +49,12 @@ how to:
   </tr>
 </table>
  
- 
+<table>
+  <tr>
+    <td class="text-column" width=1200></td>
+  </tr>
+</table>
+
 ## Model Heat Pump, Detailed HVAC, and Building Energy Management System.
 <table>
   <tr>
@@ -47,6 +62,12 @@ how to:
     <td class="image-column" width=400><img src="Overview/Images/simulateBuildingEnergyMgmtModel.png" alt="Tune Controller"></td>
     <td class="text-column" width=25></td>
     <td class="text-column" width=375>Evaluate performance under loading conditions for the heat pumps. Design your controllers for physical conditions. Evaluate HVAC concepts such as a radiator and underfloor piping.</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td class="text-column" width=1200></td>
   </tr>
 </table>
  
