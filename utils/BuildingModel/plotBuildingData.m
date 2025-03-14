@@ -135,7 +135,7 @@ function plotBuildingData(model3Dbuilding,viewingAngle,colorScheme,alphaData,ts,
                 % for wall number if not present.
                 listOfFaces_Z(nWall+wall,:) = model3Dbuilding.("apartment"+num2str(i1)).("room"+num2str(j1)).geometry.("wall"+num2str(1)).vertices(3,:);
 
-                [X,Y,Z] = getPatchCoordinatesForIntWallDoors(listOfFaces_X(nWall+wall,:),listOfFaces_Y(nWall+wall,:),listOfFaces_Z(nWall+wall,:),solidWallFracVal);
+                [X,Y,Z] = getPatchCoordinatesForWallOpening(listOfFaces_X(nWall+wall,:),listOfFaces_Y(nWall+wall,:),listOfFaces_Z(nWall+wall,:),1-solidWallFracVal);
                 listOfWindows_X(nWall+wall,:) = X;
                 listOfWindows_Y(nWall+wall,:) = Y;
                 listOfWindows_Z(nWall+wall,:) = Z;

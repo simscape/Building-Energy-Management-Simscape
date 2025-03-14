@@ -1,6 +1,6 @@
 % Function to find window or vent patch size for wall plot
 
-% Copyright 2024 The MathWorks, Inc.
+% Copyright 2024 - 2025 The MathWorks, Inc.
 
 function [X,Y,Z] = getPatchCoordinatesForWallOpening(wallVert_X,wallVert_Y,wallVert_Z,openingAreaFrac)
     midVal_X = mean(wallVert_X);
@@ -21,28 +21,39 @@ function [X,Y,Z] = getPatchCoordinatesForWallOpening(wallVert_X,wallVert_Y,wallV
     else
         delta_y = mean(wallVert_Y(wallVert_Y>midVal_Y)) - mean(wallVert_Y(wallVert_Y<midVal_Y));
     end
-    if max(Z) == min(Z)
-        % No change in Z, calculating deltaZ would give NaN
-        delta_z = 0;
-    else
-        delta_z = mean(wallVert_Z(wallVert_Z>midVal_Z)) - mean(wallVert_Z(wallVert_Z<midVal_Z));
-    end
 
+    wall = [wallVert_X;wallVert_Y;wallVert_Z];
+    wallLen1 = sqrt(sum((wall(:,1)-wall(:,2)).^2));
+    wallLen2 = sqrt(sum((wall(:,2)-wall(:,3)).^2));
+    openingLen1 = sqrt(openingAreaFrac)*wallLen1;
+    openingLen2 = sqrt(openingAreaFrac)*wallLen2;
+
+    diffZ = diff(wallVert_Z);
+    % This assumed Z direction is along vertical and along the building
+    % vertical direction.
+    if diffZ(1,1) == 0
+        refZchange = [1 1 -1 -1]*openingLen2/2;
+        refXYchange = openingLen1;
+    else
+        refZchange = [1 1 -1 -1]*openingLen1/2;
+        refXYchange = openingLen2;
+    end
+    Z = midVal_Z+refZchange;
+
+    fx = delta_x/sqrt(delta_x^2+delta_y^2);
+    fy = delta_y/sqrt(delta_x^2+delta_y^2);
     for i = 1:4
         if wallVert_X(1,i) < midVal_X
-            X(1,i) = X(1,i) + delta_x*(1-openingAreaFrac)/2;
+            X(1,i) = midVal_X - fx*refXYchange/2;
         else
-            X(1,i) = X(1,i) - delta_x*(1-openingAreaFrac)/2;
+            X(1,i) = midVal_X + fx*refXYchange/2;
         end
+    end
+    for i = 1:4
         if wallVert_Y(1,i) < midVal_Y
-            Y(1,i) = Y(1,i) + delta_y*(1-openingAreaFrac)/2;
+            Y(1,i) = midVal_Y - fy*refXYchange/2;
         else
-            Y(1,i) = Y(1,i) - delta_y*(1-openingAreaFrac)/2;
-        end
-        if wallVert_Z(1,i) < midVal_Z
-            Z(1,i) = Z(1,i) + delta_z*(1-openingAreaFrac)/2;
-        else
-            Z(1,i) = Z(1,i) - delta_z*(1-openingAreaFrac)/2;
+            Y(1,i) = midVal_Y + fy*refXYchange/2;
         end
     end
 end

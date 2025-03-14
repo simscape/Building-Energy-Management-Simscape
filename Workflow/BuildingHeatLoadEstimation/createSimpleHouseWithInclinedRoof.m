@@ -61,15 +61,26 @@ function bldg = createSimpleHouseWithInclinedRoof(NameValueArgs)
     
     floorPlan = defineBuildingFloorPlan(Apartments={apartment});
 
-    visualizeBuildingWallsToAddWindowsVents(FloorPlan=floorPlan);
+    tblWinVentData = visualizeBuildingWallsToAddWindowsVents(FloorPlan=floorPlan,Plot=false);
     windowData = [1,2,0.50; ...
                   2,3,0.50; ...
                   3,4,0.50;...
                   4,1,0.50];
     disp("Adding windows on all 4 sides of the building");
+    for i = 1:size(windowData,1)
+        id = find(and(tblWinVentData.("From Point")==windowData(i,1),...
+                      tblWinVentData.("To Point")==windowData(i,2)));
+        for j = 1:size(id,1)
+            tblWinVentData.("Window (0-1)")(id(j,1),1) = windowData(i,3);
+        end
+    end
+
+    disp(" "); disp("*** Updated window and vent data"); disp(" "); 
+    figure("Name","Updated Window and Vent Data");
+    disp(tblWinVentData);
+    
     updatedFloorPlan = addOpeningOnWallSection(FloorPlan=floorPlan,...
-                                               Data=windowData,...
-                                               Type="window");
+                                           Data=tblWinVentData);
    
     bldgFlatRoof = generateBuilding3Dlayout(BuildingName="BuildingUnit",...
                                             BuildingFloorPlan=updatedFloorPlan,...
