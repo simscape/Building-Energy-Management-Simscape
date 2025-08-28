@@ -30,7 +30,7 @@ function plotData = monthlyAveragedHeatingRequirement(NameValueArgs)
                 Qh = sum(Qheating,2)';
                 if strcmp(NameValueArgs.PlotOption,"BTU per Hr"), Qh = OneWattToBtuPerHr.*Qh; end
                 
-                monthlyAvgHeating{i,1} = monthlyAveragedData(DateTimeVec=tm,Data=Qh,Plot=false);
+                monthlyAvgHeating{i,1} = getMonthlyAveragedData(DateTimeVec=tm,Data=Qh,Plot=false);
                 plot(monthlyAvgHeating{i,1}.Time,monthlyAvgHeating{i,1}.data);hold on;
             end
         end
@@ -46,7 +46,7 @@ function plotData = monthlyAveragedHeatingRequirement(NameValueArgs)
     end
 
     if strcmp(NameValueArgs.PlotType,"Cooling Requirements") || strcmp(NameValueArgs.PlotType,"Heating and Cooling Requirements")
-        monthlyAvgHeating = cell(size(placeOfInterest,1),1);
+        % monthlyAvgHeating = cell(size(placeOfInterest,1),1);
         monthlyAvgCooling = cell(size(placeOfInterest,1),1);
         plotTitleCooling = "Building Cooling Requirement for Different Places";
         figure("Name",plotTitleCooling);
@@ -62,7 +62,7 @@ function plotData = monthlyAveragedHeatingRequirement(NameValueArgs)
                 Qcooling = Q.*(Q<0);
                 Qc = -sum(Qcooling,2)';
                 if strcmp(NameValueArgs.PlotOption,"BTU per Hr"), Qc = OneWattToBtuPerHr.*Qc; end
-                monthlyAvgCooling{i,1} = monthlyAveragedData(DateTimeVec=tm,Data=Qc,Plot=false);
+                monthlyAvgCooling{i,1} = getMonthlyAveragedData(DateTimeVec=tm,Data=Qc,Plot=false);
                 plot(monthlyAvgCooling{i,1}.Time,monthlyAvgCooling{i,1}.data);hold on;
             end
         end

@@ -125,8 +125,7 @@ function plotBuildingData(model3Dbuilding,viewingAngle,colorScheme,alphaData,ts,
             for wall = 1:nIntWall
                 i1 = intWallDataMat(wall,1);
                 j1 = intWallDataMat(wall,2);
-                i2 = intWallDataMat(wall,3);
-                j2 = intWallDataMat(wall,4);
+
                 solidWallFracVal = intWallDataMat(wall,5);
                 listOfFaces_X(nWall+wall,:) = [intWallDataMat(wall,[6,8]),intWallDataMat(wall,[8,6])];
                 listOfFaces_Y(nWall+wall,:) = [intWallDataMat(wall,[7,9]),intWallDataMat(wall,[9,7])];

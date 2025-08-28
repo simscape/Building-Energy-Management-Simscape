@@ -33,17 +33,14 @@ function tbl = initializeBuildingMaterialProperties(NameValueArgs)
 
     Property = ["Absorptivity [-]", "Transmissivity [-]", "Thickness [m]", "Density [kg/m^3]", "Heat Capacity [J/kg-K]", "Thermal Conductivity [W/K-m]"]';
     
-    Roof = zeros(6,1); Roof(2,1) = NaN;
-    Floor = zeros(6,1); Floor(1:2,1) = NaN;
-    ExternalWall = zeros(6,1); ExternalWall(2,1) = NaN;
-    InternalWall = zeros(6,1); InternalWall(1:2,1) = NaN;
-    Window = zeros(6,1);
+    Roof = zeros(size(Property,1),1); Roof(2,1) = NaN;
+    Floor = zeros(size(Property,1),1); Floor(1:2,1) = NaN;
+    ExternalWall = zeros(size(Property,1),1); ExternalWall(2,1) = NaN;
+    InternalWall = zeros(size(Property,1),1); InternalWall(1:2,1) = NaN;
+    Window = zeros(size(Property,1),1);
     
     tbl = table(Roof,Floor,ExternalWall,InternalWall,Window,RowNames=Property);
     
-    disp("*** You must not specify values marked as NaN in the table.");
-    disp("*** Block default values are provided where name-value-pair are not defined.");
-
     %% Set default values
     % Absorptivity
     tbl{"Absorptivity [-]","Roof"} = value(NameValueArgs.RoofAbsorptivity,"1");
@@ -76,5 +73,9 @@ function tbl = initializeBuildingMaterialProperties(NameValueArgs)
     tbl{"Thermal Conductivity [W/K-m]","InternalWall"} = value(NameValueArgs.InternalWallThermalConductivity,"W/(K*m)");
     tbl{"Thermal Conductivity [W/K-m]","Window"} = value(NameValueArgs.WindowThermalConductivity,"W/(K*m)");
 
-    if NameValueArgs.DisplayData, disp(tbl); end
+    if NameValueArgs.DisplayData
+        disp("*** You must not specify values marked as NaN in the table.");
+        disp("*** Block default values are provided where name-value-pair are not defined.");
+        disp(tbl); 
+    end
 end

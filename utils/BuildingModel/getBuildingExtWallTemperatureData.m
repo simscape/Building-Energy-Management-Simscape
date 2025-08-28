@@ -8,9 +8,7 @@ function buildingDataWithTemp = getBuildingExtWallTemperatureData(buildingDataSt
         wallTempData {mustBeNonempty}
     end
     
-    params = getParamsForSimscapeComponent(buildingDataStruct); % Just required for nApts, nRooms data
     numHours = (0:length(buildingDataStruct.apartment1.room1.geometry.roof.sunlightWattPerMeterSq))'*3600;
-    dataLen = length(wallTempData.Room(1,1).T.series.values);
     simlogTimeVal = wallTempData.Room(1,1).T.series.time;
     
     % Wall temperature data

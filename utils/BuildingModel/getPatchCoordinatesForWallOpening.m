@@ -8,18 +8,18 @@ function [X,Y,Z] = getPatchCoordinatesForWallOpening(wallVert_X,wallVert_Y,wallV
     midVal_Z = mean(wallVert_Z);
     X = wallVert_X;
     Y = wallVert_Y;
-    Z = wallVert_Z;
+    % Z = wallVert_Z;
     if max(X) == min(X)
         % No change in X, calculating deltaX would give NaN
         delta_x = 0;
     else
-        delta_x = mean(wallVert_X(wallVert_X>midVal_X)) - mean(wallVert_X(wallVert_X<midVal_X));
+        delta_x = max(wallVert_X) - min(wallVert_X);%mean(wallVert_X(wallVert_X>midVal_X)) - mean(wallVert_X(wallVert_X<midVal_X));
     end
     if max(Y) == min(Y)
         % No change in Y, calculating deltaY would give NaN
         delta_y = 0;
     else
-        delta_y = mean(wallVert_Y(wallVert_Y>midVal_Y)) - mean(wallVert_Y(wallVert_Y<midVal_Y));
+        delta_y = max(wallVert_Y) - min(wallVert_Y);%mean(wallVert_Y(wallVert_Y>midVal_Y)) - mean(wallVert_Y(wallVert_Y<midVal_Y));
     end
 
     wall = [wallVert_X;wallVert_Y;wallVert_Z];
@@ -42,6 +42,7 @@ function [X,Y,Z] = getPatchCoordinatesForWallOpening(wallVert_X,wallVert_Y,wallV
 
     fx = delta_x/sqrt(delta_x^2+delta_y^2);
     fy = delta_y/sqrt(delta_x^2+delta_y^2);
+
     for i = 1:4
         if wallVert_X(1,i) < midVal_X
             X(1,i) = midVal_X - fx*refXYchange/2;

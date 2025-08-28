@@ -24,7 +24,7 @@ function [updatedBldg,err] = addInclinedRoofOnBuilding(NameValueArgs)
         err = false;
         sideLength = sqrt(diff(extVert(:,1)).^2+diff(extVert(:,2)).^2);
         longerSideLen = max(sideLength(1,1),sideLength(2,1));
-        shorterSideLen = min(sideLength(1,1),sideLength(2,1));
+        % shorterSideLen = min(sideLength(1,1),sideLength(2,1));
 
         if longerSideLen == sideLength(1,1)
             longerSide = [extVert(1,1),extVert(1,2),extVert(2,1),extVert(2,2); extVert(3,1),extVert(3,2),extVert(4,1),extVert(4,2)];
@@ -80,10 +80,10 @@ function [updatedBldg,err] = addInclinedRoofOnBuilding(NameValueArgs)
                                  otherSide1xy1(1,2),(otherSide1xy1(1,2)+otherSide1xy2(1,2))/2,otherSide1xy2(1,2),roofTopSide1xyz(1,2);... % traingular face on side 1
                                  otherSide2xy3(1,2),(otherSide2xy3(1,2)+otherSide2xy4(1,2))/2,otherSide2xy4(1,2),roofTopSide2xyz(1,2)];   % traingular face on side 2
         end
-        patchInclRoofZmat = [roofZmin,roofZmin,roofZmin+roofHeight,roofZmin+roofHeight;... % restangular face on side 1
-                             roofZmin,roofZmin,roofZmin+roofHeight,roofZmin+roofHeight;... % restangular face on side 2
-                             roofZmin,roofZmin,roofZmin,roofZmin+roofHeight;...            % traingular face on side 1
-                             roofZmin,roofZmin,roofZmin,roofZmin+roofHeight];              % traingular face on side 2
+        % patchInclRoofZmat = [roofZmin,roofZmin,roofZmin+roofHeight,roofZmin+roofHeight;... % restangular face on side 1
+        %                      roofZmin,roofZmin,roofZmin+roofHeight,roofZmin+roofHeight;... % restangular face on side 2
+        %                      roofZmin,roofZmin,roofZmin,roofZmin+roofHeight;...            % traingular face on side 1
+        %                      roofZmin,roofZmin,roofZmin,roofZmin+roofHeight];              % traingular face on side 2
 
         
         % For solar tracking, need to find orientation vector (x,y) of the
@@ -107,7 +107,7 @@ function [updatedBldg,err] = addInclinedRoofOnBuilding(NameValueArgs)
         side2PlaneCoeff = cross([inclinedSide2xy3,roofZmin]-roofTopSide2xyz,[inclinedSide2xy4,roofZmin]-roofTopSide2xyz);
         side2PlaneConst = -dot(side2PlaneCoeff,roofTopSide2xyz);
         horizPlaneCoeff = cross([inclinedSide1xy1,roofZmin]-[inclinedSide2xy3,roofZmin],[inclinedSide1xy2,roofZmin]-[inclinedSide2xy3,roofZmin]);
-        horizPlaneConst = -dot(horizPlaneCoeff,[inclinedSide1xy1,roofZmin]);
+        % horizPlaneConst = -dot(horizPlaneCoeff,[inclinedSide1xy1,roofZmin]);
         side1AngleDeg = round(rad2deg(acos(dot(side1PlaneCoeff,horizPlaneCoeff)/(sqrt(sum(side1PlaneCoeff.^2))*sqrt(sum(horizPlaneCoeff.^2))))),1);
         side2AngleDeg = round(rad2deg(acos(dot(side2PlaneCoeff,horizPlaneCoeff)/(sqrt(sum(side2PlaneCoeff.^2))*sqrt(sum(horizPlaneCoeff.^2))))),1);
 
@@ -170,7 +170,7 @@ function [updatedBldg,err] = addInclinedRoofOnBuilding(NameValueArgs)
 
         chkDescritizedRoofElementsX = descritizedRoofElementsX;
         chkDescritizedRoofElementsY = descritizedRoofElementsY;
-        chkDescritizedRoofElementsZ = descritizedRoofElementsZ;
+        % chkDescritizedRoofElementsZ = descritizedRoofElementsZ;
 
         for i = 1:numTopFloorRoom
             nA = listTopFloorRoom(i,1);
@@ -250,13 +250,6 @@ function [updatedBldg,err] = addInclinedRoofOnBuilding(NameValueArgs)
                 end
             end
         end
-
-        % % descritizedRoofElementsX = [descritizedRoofElementsX;patchInclRoofXmat(3:4,:)];
-        % % descritizedRoofElementsY = [descritizedRoofElementsY;patchInclRoofYmat(3:4,:)];
-        % % descritizedRoofElementsZ = [descritizedRoofElementsZ;patchInclRoofZmat(3:4,:)];
-        % % descritizedRoofElementsAngle = [descritizedRoofElementsAngle;90;90];
-        % % descritizedRoofElementsConn = [descritizedRoofElementsConn;[0,0];[0,0]];
-        % % descritizedRoofElementsNormal = [descritizedRoofElementsNormal;[posX3,posY3;posX4,posY4]];
 
         descritizedRoofElementsLen = sqrt(diff(descritizedRoofElementsX').^2+diff(descritizedRoofElementsY').^2+diff(descritizedRoofElementsZ').^2);
         % Some elements in above matrix might be zero if the roof element

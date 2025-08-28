@@ -6,7 +6,6 @@
 
 function overlapValue = testParallelLineOverlap(wallCoord,testCoord,tolr)
     overlapSuccess = 0;
-    overlapValue = 0;
     % Check x and y axis projections for overlap: wall segment larger than
     % check points
 

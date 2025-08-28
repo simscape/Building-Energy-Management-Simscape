@@ -1,5 +1,5 @@
-% Copyright 2024 The MathWorks, Inc.
+% Copyright 2024 - 2025 The MathWorks, Inc.
 
 % Open the BuildingEnergyManagementSimscape.html 
 
-web('SimulateBuildingEnergyManagement.mlx');
+web('BuildingEnergyManagementSimscape.html');

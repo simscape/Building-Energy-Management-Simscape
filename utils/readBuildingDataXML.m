@@ -133,7 +133,7 @@ function [dataStruct,geoLocation,datetimeVec] = readBuildingDataXML(NameValueArg
     disp('Simulation Duration:');
     disp(strcat('*** Start Time : ',string(datetimeVec(1,1))));
     disp(strcat('*** End Time   : ',string(datetimeVec(1,end))));
-    dateStringDisp = strcat(': ',string(datetimeVec(1,1)),' --> ',string(datetimeVec(1,end)));
+    % dateStringDisp = strcat(': ',string(datetimeVec(1,1)),' --> ',string(datetimeVec(1,end)));
 
     roomNameList = [];
     for j = 1:nRooms(1,1)

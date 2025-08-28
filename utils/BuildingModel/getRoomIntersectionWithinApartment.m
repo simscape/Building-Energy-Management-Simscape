@@ -3,7 +3,6 @@
 % Copyright 2024 The MathWorks, Inc.
 
 function [result, errMsg] = getRoomIntersectionWithinApartment(apartmentUnit)
-    aptUnit = apartmentUnit;
     nRooms = numel(fieldnames(apartmentUnit));
     result = false;
     errMsg = "";

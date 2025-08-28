@@ -37,7 +37,7 @@ function [listOfDays,simStartTime,sunrise,sunset] = getSunriseSunsetData(NameVal
     sunrise = zeros(1,numOfDays);
     sunset = zeros(1,numOfDays);
 
-    day1 = listOfDays(1,1);
+    % day1 = listOfDays(1,1);
     yrStart = year(NameValueArgs.DateTimeVector(1,1));
     for i = 1:numOfDays
         % rowNum = find(day(solarDataTimeSeries.Time,'dayofyear')==listOfDays(i,1),1);

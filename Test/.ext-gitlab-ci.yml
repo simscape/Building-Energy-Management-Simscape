@@ -1,0 +1,17 @@
+# GitLab CI configuration file
+
+# Copyright 2024 The MathWorks, Inc.
+
+stages:
+    - test
+
+BuildingEnergyManagementMQC:
+    stage: test
+    tags:
+        - long-jobs
+    script:
+        - echo "*** Running tests in R2024a ***"
+        - mw -using R2024a:ship matlab -batch "openProject('BuildingEnergyManagement.prj'); BuildingEnergyManagementTestRunner;"
+    cache:
+        paths:
+            - /*.slxc

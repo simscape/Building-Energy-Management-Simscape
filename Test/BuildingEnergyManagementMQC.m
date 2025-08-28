@@ -7,6 +7,10 @@ classdef BuildingEnergyManagementMQC < matlab.unittest.TestCase
         openfigureListBefore;
     end
 
+    properties(TestParameter)
+        testModels = getFilenameListInDirectory("TestHarness");
+    end
+
     methods(TestMethodSetup)
         function listOpenFigures(test)
             % List all open figures
@@ -21,6 +25,15 @@ classdef BuildingEnergyManagementMQC < matlab.unittest.TestCase
     end
 
     methods (Test)
+        function TestBuildingModelLibraries(testCase,testModels)
+            mdl = testModels;
+            load_system(mdl)
+            testCase.addTeardown(@()close_system(mdl,0));
+            sim(mdl);
+            close all;
+            bdclose all;
+        end
+        
         function TestBuildingModelWithSolarLoad(testCase)
             mdl = "BuildingModelWithSolarLoad";
             load_system(mdl)
@@ -78,6 +91,18 @@ classdef BuildingEnergyManagementMQC < matlab.unittest.TestCase
             %no errors or warning thrown.
             test.verifyWarningFree(@()runBuildingHeatLoadEstimation, "'BuildingHeatLoadEstimation Live Script'  should execute wihtout any warning or error.");
         end
+
+        function TestImportBIMforHeatLoadAnalysis(test)
+            %The test runs the |.mlx| file and makes sure that there are
+            %no errors or warning thrown.
+            test.verifyWarningFree(@()runImportBIMforHeatLoadAnalysis, "'ImportBIMforHeatLoadAnalysis Live Script'  should execute wihtout any warning or error.");
+        end
+
+        function TestDetailedHouseModel(test)
+            %The test runs the |.mlx| file and makes sure that there are
+            %no errors or warning thrown.
+            test.verifyWarningFree(@()runDetailedHouseModelUsingCustomLib, "'DetailedHouseModelUsingCustomLib Live Script'  should execute wihtout any warning or error.");
+        end
     end
 
 end  % classdef
@@ -118,6 +143,22 @@ function runBuildingHeatLoadEstimation()
     % Function runs the |.mlx| script.
     warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
     BuildingHeatLoadEstimation;
+    close all;
+    bdclose all;
+end
+
+function runImportBIMforHeatLoadAnalysis()
+    % Function runs the |.mlx| script.
+    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
+    ImportBIMforHeatLoadAnalysis;
+    close all;
+    bdclose all;
+end
+
+function runDetailedHouseModelUsingCustomLib()
+    % Function runs the |.mlx| script.
+    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
+    DetailedHouseModelUsingCustomLib;
     close all;
     bdclose all;
 end

@@ -16,6 +16,6 @@ function createIconBuildingCustomComponent(NameValueArgs)
                          Transparency=NameValueArgs.Transparency);
     axis off;colorbar off
     saveas(gcf,'BuildingModel.png');
-    customCompIconLoc = fullfile(matlab.project.rootProject().RootFolder,'Components','Building');
+    customCompIconLoc = fullfile(matlab.project.rootProject().RootFolder,'Components','Models','Building');
     movefile('BuildingModel.png',customCompIconLoc);
 end

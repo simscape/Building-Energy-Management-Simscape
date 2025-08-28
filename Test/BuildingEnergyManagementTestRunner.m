@@ -10,9 +10,7 @@ prjRoot = currentProject().RootFolder;
 %% Suite and Runner
 
 BEMSsuite = matlab.unittest.TestSuite.fromFile(fullfile(prjRoot, "Test", "BuildingEnergyManagementMQC.m"));
-
 suite = BEMSsuite;
-
 runner = matlab.unittest.TestRunner.withTextOutput( ...
   OutputDetail = matlab.unittest.Verbosity.Detailed);
 
