@@ -83,6 +83,7 @@ how to:
 * Clone the project repository.
 * Open BuildingEnergyManagement.prj to get started with the project. 
 * Requires MATLAB&reg; release R2024a or newer.
+* Refer to file BuildingEnergyManagementSimscape.html for project capabilities.
  
 
 Copyright 2024 - 2025 The MathWorks, Inc.
