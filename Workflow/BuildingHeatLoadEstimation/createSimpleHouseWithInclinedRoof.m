@@ -77,6 +77,7 @@ function bldg = createSimpleHouseWithInclinedRoof(NameValueArgs)
 
     disp(" "); disp("*** Updated window and vent data"); disp(" "); 
     figure("Name","Updated Window and Vent Data");
+    tblWinVentData.("Overlap Vertices") = [];
     disp(tblWinVentData);
     
     updatedFloorPlan = addOpeningOnWallSection(FloorPlan=floorPlan,...

@@ -63,7 +63,7 @@ function updatedBuilding = estimateExtWallSurfAreaFracToAmbient(bldgName,buildin
                             listExternalWallDataItr(1,6:7) = overlapVertices(1,:);
                             listExternalWallDataItr(1,8:9) = overlapVertices(2,:);
                             % listExternalWallDataItr = [i,j,k,0,0,overlapVertices(1,1),overlapVertices(1,2),overlapVertices(2,1),overlapVertices(2,1)];
-                            wallSurfFrac = wallSurfFrac + wallFracVal/wallLength;
+                            wallSurfFrac = wallSurfFrac + wallFracVal;% /wallLength;
                             if isfield(building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim,'allExtWallWindowFrac')
                                 dataVec = building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim.allExtWallWindowFrac;
                                 dataMat = reshape(dataVec,4,length(dataVec)/4)';

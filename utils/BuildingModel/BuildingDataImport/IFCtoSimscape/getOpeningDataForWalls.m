@@ -44,4 +44,7 @@ function bldgWindows = getOpeningDataForWalls(NameValueArgs)
             if NameValueArgs.Debug, disp(strcat("Found wall :",NameValueArgs.WallList,", window fraction value = ",num2str(winFrac))); end
         end
     end
+
+    if NameValueArgs.Debug, disp(strcat("Number of windows found = ",num2str(winCount))); end
+
 end

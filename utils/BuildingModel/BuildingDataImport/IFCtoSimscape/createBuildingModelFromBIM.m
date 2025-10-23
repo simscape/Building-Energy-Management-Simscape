@@ -63,6 +63,8 @@ function [building,modelData] = createBuildingModelFromBIM(NameValueArgs)
     
     if NameValueArgs.Debug, disp(modelData.Opening.ExtTbl); end
     
+    modelData.Opening.ExtTbl.("Overlap Vertices") = [];
+
     updatedFloorPlan = addOpeningOnWallSection(FloorPlan=floorPlan,...
                                                Data=modelData.Opening.ExtTbl);
 
