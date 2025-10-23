@@ -36,7 +36,26 @@ function tblDataWindowVent = updateWindowVentTableData(NameValueArgs)
                 if ismembertol(mw,mr,NameValueArgs.Tol) && ismembertol(cr,cw,NameValueArgs.Tol)
                     [wallFracVal,~] = testParallelLineOverlapLength(wallVert,roomVert,NameValueArgs.Tol);
                     if wallFracVal > 0
-                        tblDataWindowVent.("Window (0-1)")(idVec(j,1),1) = tblDataWindowVent.("Window (0-1)")(idVec(j,1),1) + NameValueArgs.WallData.("window"+k).openingFrac;
+                        numWinToCheck = length(fieldnames(NameValueArgs.WallData.("window"+k).derivedFrom.wallOpening));
+                        for m = 1:numWinToCheck
+                            wallName = NameValueArgs.WallData.("window"+k).derivedFrom.wallOpening.("geometry"+m);
+                            unitBIMmodel = string(unit(wallWithUnits));
+                            winCoordmeters = value(simscape.Value([wallName(1,1).Coordinate;wallName(1,2).Coordinate;wallName(1,3).Coordinate;wallName(1,4).Coordinate],unitBIMmodel),"m");
+                            heightVec = unique(winCoordmeters(:,3));
+                            if length(heightVec) > 1
+                                wallH = abs(heightVec(1,1)-heightVec(2,1));
+                                winPts12 = winCoordmeters(winCoordmeters(:,3)==heightVec(1,1),:);
+                                winPts34 = winCoordmeters(winCoordmeters(:,3)==heightVec(2,1),:);
+                                [winValidityChk1,~] = testParallelLineOverlapLength(winPts12,roomVert,NameValueArgs.Tol);
+                                [winValidityChk2,~] = testParallelLineOverlapLength(winPts34,roomVert,NameValueArgs.Tol);
+                                if winValidityChk1 > 0 || winValidityChk2 > 0
+                                    winArea = sqrt((winPts12(1,1)-winPts12(2,1))^2+(winPts12(1,2)-winPts12(2,2))^2)*sqrt((winPts34(1,1)-winPts34(2,1))^2+(winPts34(1,2)-winPts34(2,2))^2);
+                                    wallArea = sqrt((roomVert(1,1)-roomVert(2,1))^2+(roomVert(1,2)-roomVert(2,2))^2)*wallH;
+                                    tblDataWindowVent.("Window (0-1)")(idVec(j,1),1) = min(1,tblDataWindowVent.("Window (0-1)")(idVec(j,1),1)+winArea/wallArea);
+                                end
+                            end
+                        end
+                        % tblDataWindowVent.("Window (0-1)")(idVec(j,1),1) = tblDataWindowVent.("Window (0-1)")(idVec(j,1),1) + NameValueArgs.WallData.("window"+k).openingFrac;
                     end
                 end
             end
