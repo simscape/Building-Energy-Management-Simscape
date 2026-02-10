@@ -61,6 +61,7 @@ component(Propagation=Blocks) roomUnderFloorPiping
     end
 
     equations
+        assert(pipeHydrDia<{0.1,"m"},"For the radiator model, keep pipe hydraulic diameter below 0.1 m");
         RoomUnderFloor.TL_V == TL_V;
     end
 end

@@ -1,4 +1,4 @@
-% Copyright 2024 The MathWorks, Inc.
+% Copyright 2025 The MathWorks, Inc.
 
 % Open the main project page
-web('BuildingEnergyManagementSimscape.html');
+web("BuildingEnergyManagementSimscape.html")

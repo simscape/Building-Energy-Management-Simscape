@@ -13,7 +13,7 @@ function solarRadiation = getSunRadiationOnTheDay(geoLocation,year,day,clockHrs,
     sunAngles = getSolarRadiationAngle(year,day,clockHrs,geoLocation,dayLightHrs);
     omega = deg2rad(sunAngles.solarHrAngle);
     delta = deg2rad(sunAngles.declinationAngleOnThatDay);
-    lat   = deg2rad(str2num(geoLocation.Latitude{1,1}(1:end-1)));
+    lat   = deg2rad(str2num(geoLocation.Latitude{1,1}(1:end-1))); %#ok<ST2NM>
     if clockHrs >= sunAngles.sunrise && clockHrs <= sunAngles.sunset
         Gsc = 1367; % W/m^2
         solarRadiation = max(0,Gsc*(1+0.033*cos(deg2rad(360*day/365)))*(cos(lat)*cos(delta)*cos(omega)+sin(lat)*sin(delta))); % W/m^2

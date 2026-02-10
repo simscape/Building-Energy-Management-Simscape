@@ -4,54 +4,37 @@
 
 [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=simscape/Building-Energy-Management-Simscape)
  
- 
+
+
 <table>
   <tr>
-    <td class="text-column" width=1200>This project uses Simscape&trade; libraries to model a building, add solar radiation load to it, 
-simulate for HVAC  requirements, and setup the model for Building Energy Management System (BEMS) simulations. The project includes 
-basic functionalities to evaluate and size HVAC concepts such as radiators and underfloor heating or cooling. You can use these models 
-as a starting point to design BEMS software. The project Workflow uses two Simscape Model files that leverage one or more of the following 
-Simscape custom Components: Building, Ambient, Operational Data, and EN14511 datasheet based Heat Pump.
+    <td class="text-column" width=1200>This project contains Simscape&trade; 
+    custom libraries and utilities that can help you create large buildings 
+    and analyze their thermal comfort. The project also contains utilities 
+    that help you build and analyze a data center from a thermal management 
+    perspective.
     </td>
   </tr>
 </table>
-
+ 
 <table>
   <tr>
     <td class="text-column" width=1200></td>
   </tr>
 </table>
 
-<hr color="gray" size="10">
-
-## Create Building Models Quickly and Analyze Solar Loading.
+## Create Building Library.
 <table>
   <tr>
-    <td class="text-column" width=1200>In this section, you will learn how to create buildings, add solar load to it, and setup analysis models. 
-There are three different approaches to choose from. You can choose to create your own building by using utilities provided in this project (1), 
-using libraries provided in this project (2), or importing your Building Information Model BIM into Simscape (3).
+    <td class="text-column" width=500>This project provides Simscape&trade; custom 
+    libraries to create multi-storied buildings at any location, analyze it's
+    cooling or heating requirements, and design controllers for HVAC components like 
+    radiators and underfloor piping systems. You can use these models as a starting 
+    point to size Heat Pumps, simulate seasonal impact on operation, and design your 
+    Building Energy Management System, BEMS, software.
     </td>
-  </tr>
-</table>
-
-<table>
-  <tr>
-    <td class="image-column" width=400><img src="Overview/Images/createBuildingREADME.gif" alt="Create Building1"></td>
-    <td class="image-column" width=400><img src="Overview/Images/houseAnimationREADME.gif" alt="Create Building1"></td>
-    <td class="text-column" width=25></td>
-    <td class="text-column" width=375>(1) Create a multi-storied building and integrate solar load at any location and building orientation. Design more energy efficient buildings by changing windows and walls size, thickness, material and surface properties like reflectivity and absorptivity.</td>
-  </tr>
-  <tr>
-    <td class="image-column" width=400><img src="Overview/Images/BuildingCustomComponentLibrary.png" alt="Create Building2"></td>
-    <td class="image-column" width=400><img src="Workflow/DetailedHouseModel/DetailedHouseModelSnapshot.png" alt="Create Building2"></td>
-    <td class="text-column" width=25></td>
-    <td class="text-column" width=375>(2) Learn how to use building library components listed under Simscape Custom Components in the Simulink Library Browser. Use the library elements to build a simple one room house that is divided or discretized into (3,2,2) parts in the (x,y,z) direction.</td>
-  </tr>
-  <tr>
-    <td class="image-column" width=400><img src="Overview/Images/imgBuildingFiveRectRoomREADME.png" alt="Create Building2"></td>
-    <td class="image-column" width=400><img src="Overview/Images/importBIMintoSimscape.png" alt="Create Building2"></td>
-    <td class="text-column" width=25></td>
-    <td class="text-column" width=375>(3) Learn how to extract geometry data from BIM model, create a Simscape building model, and add operational, environmental parameters to it for HVAC requirement analysis.</td>
+    <td class="image-column" width=350><img src="ScriptsData/Images/SimscapeBuildingAnimationREADME.gif" alt="CreateBuilding"></td>
+    <td class="image-column" width=350><img src="ScriptsData/Images/SimscapeProjectLibraryVariantDOC.png" alt="CreateBuilding"></td>
   </tr>
 </table>
  
@@ -63,13 +46,15 @@ using libraries provided in this project (2), or importing your Building Informa
 
 <hr color="gray" size="10">
 
-## Analyze Building HVAC Requirements Across Different Seasons, Geography.
+## Analyze Building for HVAC Requirements.
 <table>
   <tr>
-    <td class="text-column" width=375>Evaluate the impact on energy consumption from operational parameters linked to time of the day. Example operational parameters include number of occupants at a given day and time, additional electrical loads, and switching on/off the HVAC system. Visualize your results in 3D.</td>
-    <td class="text-column" width=25></td>
-    <td class="image-column" width=400><img src="Overview/Images/requirementAnalysisCanvas.png" alt="Building Heat Load Analysis"></td>
-    <td class="image-column" width=400><img src="Overview/Images/houseHeatLoadREADME.gif" alt="Building Heat Load Analysis"></td>
+    <td class="text-column" width=400>Evaluate the impact on energy consumption 
+    from operational parameters linked to time of the day. Example operational 
+    parameters include number of occupants at a given day and time, additional 
+    electrical loads, or any other heat source in the room.</td>
+    <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingHeatLoadREADME.png" alt="Building Heat Load Analysis Canvas"></td>
+    <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingSimulationREADME.gif" alt="Building Heat Load Analysis Results"></td>
   </tr>
 </table>
  
@@ -81,13 +66,17 @@ using libraries provided in this project (2), or importing your Building Informa
 
 <hr color="gray" size="10">
 
-## Model Heat Pump, Detailed HVAC, and Building Energy Management System.
+## Create & Analyze Datacenter for HVAC Requirements.
 <table>
   <tr>
-    <td class="image-column" width=400><img src="Overview/Images/buildingAnimationREADME.gif" alt="HVAC Requirement Analysis"></td>
-    <td class="image-column" width=400><img src="Overview/Images/simulateBuildingEnergyMgmtModel.png" alt="Tune Controller"></td>
+    <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeDatacenterModelREADME.png" alt="Datacenter Heat Load Analysis"></td>
+    <td class="image-column" width=400><img src="Workflow/DatacenterUtilizationAnalysis/datacenterSchematic01.png" alt="Datacenter Heat Load Analysis"></td>
     <td class="text-column" width=25></td>
-    <td class="text-column" width=375>Evaluate performance under loading conditions for the heat pumps. Design your controllers for physical conditions. Evaluate HVAC concepts such as a radiator and underfloor piping.</td>
+    <td class="text-column" width=375>With increasing AI demand and utilization of 
+    datacenters, learn how to balance datacenter utilization from a thermal (and 
+    grid load) perspective. Evaluate the impact on energy consumption for a datacenter. 
+    Learn how to build a large datacenter quickly using utilities 'buildDatacenter' 
+    and 'buildEnclosureForDatacenter'.</td>
   </tr>
 </table>
 
@@ -97,6 +86,8 @@ using libraries provided in this project (2), or importing your Building Informa
   </tr>
 </table>
  
+<hr color="gray" size="10">
+
 <hr color="gray" size="10">
 
 ## To Get Started 
@@ -104,5 +95,4 @@ using libraries provided in this project (2), or importing your Building Informa
 * Open BuildingEnergyManagement.prj to get started with the project. 
 * Requires MATLAB&reg; release R2025a or newer.
  
-
-Copyright 2024 - 2025 The MathWorks, Inc.
+Copyright 2024 - 2026 The MathWorks, Inc.

@@ -48,7 +48,7 @@ component(Propagation=Blocks) solarRadiationOnSurface
         dayLightSVal = value(dayLightS,"1");
         solarRadCosineVec = getSolarRadiationCosineOnSurf(startYearVal,...
             startMonthVal,startDayVal,startHrVal,numHrsDataVal,latitudeVal,...
-            longitudeVal,localTimeVal,dayLightSVal,surfAngleVal,surfUnitVVal);
+            longitudeVal,localTimeVal,dayLightSVal,surfAngleVal,surfUnitVVal)
     end
 
     inputs

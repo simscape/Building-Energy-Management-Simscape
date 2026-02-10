@@ -1,164 +1,148 @@
 classdef BuildingEnergyManagementMQC < matlab.unittest.TestCase
     %% Class implementation of unit test
 
-    % Copyright 2024 The MathWorks, Inc.
+    % Copyright 2024 - 2025 The MathWorks, Inc.
 
-    properties
+   properties
+        workingFolderFixture;
         openfigureListBefore;
+        openModelsBefore;
     end
 
     properties(TestParameter)
-        testModels = getFilenameListInDirectory("TestHarness");
+        testModels = getFilenameListInDirectory(["Components","Test","TestHarness"]);
+    end
+
+    methods (TestClassSetup)
+
+        function setupWorkingFolder(testCase)
+            % Set up working folder
+            import matlab.unittest.fixtures.WorkingFolderFixture;
+            testCase.workingFolderFixture = testCase.applyFixture(WorkingFolderFixture);
+        end
+
+        function suppressWarning_AutoSoftwareOpenGL(testCase)
+            % Suppress known warnings
+            import matlab.unittest.fixtures.SuppressedWarningsFixture
+            testCase.applyFixture(SuppressedWarningsFixture("MATLAB:hg:AutoSoftwareOpenGL"))
+        end
+
     end
 
     methods(TestMethodSetup)
+
         function listOpenFigures(test)
             % List all open figures
             test.openfigureListBefore = findall(0,'Type','Figure');
         end
 
-        function setupWorkingFolder(test)
-            % Set up working folder
-            import matlab.unittest.fixtures.WorkingFolderFixture;
-            test.applyFixture(WorkingFolderFixture);
+    end
+
+    methods(TestMethodTeardown)
+
+        function closeOpenedFigures(testCase)
+            % Close all figure opened during test
+            figureListAfter = findall(0,'Type','Figure');
+            figuresOpenedByTest = setdiff(figureListAfter, testCase.openfigureListBefore);
+            arrayfun(@close, figuresOpenedByTest);
         end
+
+        function closeOpenedModels(testCase)
+            % Close all models opened during test
+            openModelsAfter = get_param(Simulink.allBlockDiagrams(),'Name');
+            modelsOpenedByTest = setdiff(openModelsAfter, testCase.openModelsBefore);
+            close_system(modelsOpenedByTest, 0);
+        end
+
     end
 
     methods (Test)
+
         function TestBuildingModelLibraries(testCase,testModels)
             mdl = testModels;
             load_system(mdl)
             testCase.addTeardown(@()close_system(mdl,0));
             sim(mdl);
-            close all;
-            bdclose all;
         end
         
-        function TestBuildingModelWithSolarLoad(testCase)
-            mdl = "BuildingModelWithSolarLoad";
-            load_system(mdl)
-            testCase.addTeardown(@()close_system(mdl,0));
-            set_param(mdl,'StopTime','7200');
-            sim(mdl);
-            close all;
-            bdclose all;
-        end
-
-        function TestBuildingTestHarness(testCase)
-            mdl = "BuildingTestHarness";
-            load_system(mdl)
-            testCase.addTeardown(@()close_system(mdl,0));
-            sim(mdl);
-            close all;
-            bdclose all;
-        end
-
-        function TestHeatPumpTestHarness(testCase)
-            mdl = "HeatPumpTestHarness";
-            load_system(mdl)
-            testCase.addTeardown(@()close_system(mdl,0));
-            sim(mdl);
-            close all;
-            bdclose all;
-        end
-
-        function TestSunModelTestHarness(test)
+        function TestCreateBuildingModelPartFromBIM(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runSunModelTestHarness, "'SunModelTestHarness Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runCreateBuildingModelPartFromBIM, "'CreateBuildingModelPartFromBIM Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestCreateBuildingModelWithSolarLoad(test)
+        function TestCreateBuildingModelPart(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runCreateBuildingModelWithSolarLoad, "'CreateBuildingModelWithSolarLoad Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runCreateBuildingModelPart, "'CreateBuildingModelPart Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestBuildingManagementSystemRequirementAnalysis(test)
+        function TestCreateBuildingSimscapeLibrary(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runBuildingManagementSystemRequirementAnalysis, "'BuildingManagementSystemRequirementAnalysis Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runCreateBuildingSimscapeLibrary, "'CreateBuildingSimscapeLibrary Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestSimulateBuildingEnergyManagement(test)
+        function TestCreateBuildingSimscapeSystemModel(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runSimulateBuildingEnergyManagement, "'SimulateBuildingEnergyManagement Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runCreateBuildingSimscapeSystemModel, "'CreateBuildingSimscapeSystemModel Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestBuildingHeatLoadEstimation(test)
+        function TestCreateBuildingUsingCustomLibraryBlocks(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runBuildingHeatLoadEstimation, "'BuildingHeatLoadEstimation Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runCreateBuildingUsingCustomLibraryBlocks, "'CreateBuildingUsingCustomLibraryBlocks Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestImportBIMforHeatLoadAnalysis(test)
+        function TestEstimateRequirementsBuildingHVAC(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runImportBIMforHeatLoadAnalysis, "'ImportBIMforHeatLoadAnalysis Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runEstimateRequirementsBuildingHVAC, "'EstimateRequirementsBuildingHVAC Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestDetailedHouseModel(test)
+        function TestCreateDatacenterForUtilizationAnalysis(test)
             %The test runs the |.mlx| file and makes sure that there are
             %no errors or warning thrown.
-            test.verifyWarningFree(@()runDetailedHouseModelUsingCustomLib, "'DetailedHouseModelUsingCustomLib Live Script'  should execute wihtout any warning or error.");
+            test.verifyWarningFree(@()runCreateDatacenterForUtilizationAnalysis, "'CreateDatacenterForUtilizationAnalysis Live Script'  should execute wihtout any warning or error.");
         end
+
     end
 
 end  % classdef
 
-function runSunModelTestHarness()
+function runCreateBuildingModelPartFromBIM()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    SunModelTestHarness;
-    close all;
-    bdclose all;
+    CreateBuildingModelPartFromBIM;
+
 end
 
-function runCreateBuildingModelWithSolarLoad()
+function runCreateBuildingModelPart()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    CreateBuildingModelWithSolarLoad;
-    close all;
-    bdclose all;
+    CreateBuildingModelPart;
 end
 
-function runBuildingManagementSystemRequirementAnalysis()
+function runCreateBuildingSimscapeLibrary()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    BuildingManagementSystemRequirementAnalysis;
-    close all;
-    bdclose all;
+    CreateBuildingSimscapeLibrary;
 end
 
-function runSimulateBuildingEnergyManagement()
+function runCreateBuildingSimscapeSystemModel()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    SimulateBuildingEnergyManagement;
-    close all;
-    bdclose all;
+    CreateBuildingSimscapeSystemModel;
 end
 
-function runBuildingHeatLoadEstimation()
+function runCreateBuildingUsingCustomLibraryBlocks()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    BuildingHeatLoadEstimation;
-    close all;
-    bdclose all;
+    CreateBuildingUsingCustomLibraryBlocks;
 end
 
-function runImportBIMforHeatLoadAnalysis()
+function runEstimateRequirementsBuildingHVAC()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    ImportBIMforHeatLoadAnalysis;
-    close all;
-    bdclose all;
+    EstimateRequirementsBuildingHVAC;
 end
 
-function runDetailedHouseModelUsingCustomLib()
+function runCreateDatacenterForUtilizationAnalysis()
     % Function runs the |.mlx| script.
-    warning("off"); % Passes in local machine, throws warning online - Identifier: "MATLAB:hg:AutoSoftwareOpenGL"
-    DetailedHouseModelUsingCustomLib;
-    close all;
-    bdclose all;
+    CreateDatacenterForUtilizationAnalysis;
 end

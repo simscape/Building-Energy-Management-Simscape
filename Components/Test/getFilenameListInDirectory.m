@@ -3,9 +3,10 @@ function fileNames = getFilenameListInDirectory(dirName)
 
 % Copyright 2025 The MathWorks, Inc.
 
-    prjRoot = currentProject().RootFolder;
-    dirFullPath = fullfile(prjRoot, "Components","Test",dirName);
+    % prjRoot = currentProject().RootFolder;
+    % dirFullPath = fullfile(prjRoot, "Components","Test",dirName);
 
+    dirFullPath = getFullPathOfDirectory("ListOfDir",dirName);
     dataStruct = dir(dirFullPath);
     [m,~] = size(dataStruct);
     

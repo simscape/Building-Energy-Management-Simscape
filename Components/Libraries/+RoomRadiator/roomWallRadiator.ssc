@@ -62,6 +62,7 @@ component(Propagation=Blocks) roomWallRadiator
     end
 
     equations
+        assert(pipeHydrDia<{0.1,"m"},"For the radiator model, keep pipe hydraulic diameter below 0.1 m");
         Radiator.TL_V == TL_V;
     end
 end
