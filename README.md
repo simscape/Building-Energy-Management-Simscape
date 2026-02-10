@@ -23,6 +23,8 @@
   </tr>
 </table>
 
+<hr color="gray" size="10">
+
 ## Create Building Library.
 <table>
   <tr>
