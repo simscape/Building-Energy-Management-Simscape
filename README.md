@@ -6,14 +6,16 @@
  
 <table>
   <tr>
-    <td class="text-column" width=900>This project contains Simscape&trade; 
+    <td class="text-column" width=1200>This project contains Simscape&trade; 
     custom libraries and utilities that can help you create large buildings 
     and analyze their thermal comfort. You learn how to use Simscape&trade; to 
     create multi-storied buildings at any location, analyze it's cooling or 
     heating requirements, and design controllers for HVAC components like 
-    radiators and underfloor piping systems. 
+    radiators and underfloor piping systems. You also learn how to evaluate the 
+    impact on energy consumption from operational parameters (the number of 
+    occupants at a given day and time, additional electrical loads, or any 
+    other heat source in the room) linked to time of the day.
     </td>
-    <td class="image-column" width=300><img src="ScriptsData/Images/SimscapeBuildingAnimationREADME.gif" alt="CreateBuilding"></td>
   </tr>
 </table>
  
@@ -25,12 +27,9 @@
 
 <table>
   <tr>
+    <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingAnimationREADME.gif" alt="CreateBuilding"></td>
     <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingHeatLoadREADME.png" alt="Building Heat Load Analysis Canvas"></td>
     <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingSimulationREADME.gif" alt="Building Heat Load Analysis Results"></td>
-    <td class="text-column" width=400>You also learn how to evaluate the 
-    impact on energy consumption from operational parameters (the number of 
-    occupants at a given day and time, additional electrical loads, or any 
-    other heat source in the room) linked to time of the day.</td>
   </tr>
 </table>
  
