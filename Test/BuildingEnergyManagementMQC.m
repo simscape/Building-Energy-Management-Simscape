@@ -101,12 +101,6 @@ classdef BuildingEnergyManagementMQC < matlab.unittest.TestCase
             test.verifyWarningFree(@()runEstimateRequirementsBuildingHVAC, "'EstimateRequirementsBuildingHVAC Live Script'  should execute wihtout any warning or error.");
         end
 
-        function TestCreateDatacenterForUtilizationAnalysis(test)
-            %The test runs the |.mlx| file and makes sure that there are
-            %no errors or warning thrown.
-            test.verifyWarningFree(@()runCreateDatacenterForUtilizationAnalysis, "'CreateDatacenterForUtilizationAnalysis Live Script'  should execute wihtout any warning or error.");
-        end
-
     end
 
 end  % classdef
@@ -140,9 +134,4 @@ end
 function runEstimateRequirementsBuildingHVAC()
     % Function runs the |.mlx| script.
     EstimateRequirementsBuildingHVAC;
-end
-
-function runCreateDatacenterForUtilizationAnalysis()
-    % Function runs the |.mlx| script.
-    CreateDatacenterForUtilizationAnalysis;
 end

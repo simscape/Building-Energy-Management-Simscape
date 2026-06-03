@@ -31,11 +31,9 @@ list2 = dir(fullfile(prjRoot, "Components","WorkflowUtilities","BuildingDesign")
 list2 = list2(~[list2.isdir] & endsWith({list2.name}, '.m'));
 list3 = dir(fullfile(prjRoot, "Components","WorkflowUtilities","BuildingImport","IFCtoSimscape"));
 list3 = list3(~[list3.isdir] & endsWith({list3.name}, '.m'));
-list4 = dir(fullfile(prjRoot, "Components","WorkflowUtilities","DatacenterModel"));
+list4 = dir(fullfile(prjRoot, "Components","WorkflowUtilities","Misc"));
 list4 = list4(~[list4.isdir] & endsWith({list4.name}, '.m'));
-list5 = dir(fullfile(prjRoot, "Components","WorkflowUtilities","Misc"));
-list5 = list5(~[list5.isdir] & endsWith({list5.name}, '.m'));
-fullList = [list1;list2;list3;list4;list5];
+fullList = [list1;list2;list3;list4];
 
 fileList = arrayfun(@(x)[x.folder, filesep, x.name], fullList, "UniformOutput", false);
 codeCoveragePlugin = matlab.unittest.plugins.CodeCoveragePlugin.forFile(fileList, Producing = coverageReport );
