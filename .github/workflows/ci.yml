@@ -9,7 +9,7 @@
 # For details about the syntax of this file, see
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 
-# Copyright 2024 The MathWorks, Inc.
+# Copyright 2024 - 2026 The MathWorks, Inc.
 
 name: CI using MATLAB
 
@@ -47,14 +47,13 @@ jobs:
       - name: Setup MATLAB
         uses: matlab-actions/setup-matlab@v2
         with:
-          release: R2025a
+          release: R2026a
           cache: true
           products: | 
             Simscape_Fluids
             Simulink
             Simscape
             MATLAB_Test
-            Simscape_Electrical
 
       - name: Run tests
         uses: matlab-actions/run-command@v2
