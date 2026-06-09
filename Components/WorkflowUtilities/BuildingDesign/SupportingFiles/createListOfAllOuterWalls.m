@@ -46,4 +46,19 @@ function updatedBuildingData = createListOfAllOuterWalls(model3Dbuilding)
     updatedBuildingData.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.wall = aptRoomWallNumMat;
     updatedBuildingData.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.roof = aptRoomRoofNumMat;
     updatedBuildingData.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.floor = aptRoomFloorNumMat;
+
+    % disp(strcat("Number of external walls = ",num2str(size(aptRoomWallNumMat,1))));
+    % count = [];
+    % for x = 1:size(aptRoomWallNumMat,1)
+    %     ambientWallSurfFrac = model3Dbuilding.("apartment"+num2str(aptRoomWallNumMat(x,1))).("room"+num2str(aptRoomWallNumMat(x,2))).geometry.("wall"+num2str(aptRoomWallNumMat(x,3))).AmbientWallSurfFrac;
+    %     if ambientWallSurfFrac==0, count=[count,x];end
+    %     ambientWindowSurfFrac = model3Dbuilding.("apartment"+num2str(aptRoomWallNumMat(x,1))).("room"+num2str(aptRoomWallNumMat(x,2))).geometry.("wall"+num2str(aptRoomWallNumMat(x,3))).AmbientWindowSurfFrac;
+    %     ambientVentSurfFrac = model3Dbuilding.("apartment"+num2str(aptRoomWallNumMat(x,1))).("room"+num2str(aptRoomWallNumMat(x,2))).geometry.("wall"+num2str(aptRoomWallNumMat(x,3))).AmbientVentSurfFrac;
+    %     disp(mat2str([aptRoomWallNumMat(x,1),aptRoomWallNumMat(x,2),aptRoomWallNumMat(x,3),ambientWallSurfFrac,ambientWindowSurfFrac,ambientVentSurfFrac]));
+    % end
+    % disp(strcat("Num of ambientWallSurfFrac with value zero ~ ",num2str(count)));
+    % 
+    % aptRoomWallNumMat(count,:) = [];
+    % updatedBuildingData.apartment1.room1.geometry.dim.buildingExtBoundaryWallData.wall = aptRoomWallNumMat;
+
 end

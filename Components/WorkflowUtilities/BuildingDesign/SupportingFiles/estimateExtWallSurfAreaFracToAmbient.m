@@ -5,8 +5,10 @@
 function updatedBuilding = estimateExtWallSurfAreaFracToAmbient(bldgName,building,tolr)
     updatedBuilding = building;
     numApartments = numel(fieldnames(building));
-    % listExternalWallData = zeros(:,9); 
-    % Column 1:3 for i,j,k; Column 4,5 for WIN/VENT fraction and Column 6-9 for (x1,y1) & (x2,y2)
+    % listExternalWallData = zeros(:,10); 
+    % Column 1:3 for i,j,k; Column 4,5 for WIN/VENT fraction and Column 6-9
+    % for (x1,y1) & (x2,y2), 10th is the 'id-number' in the list of 
+    % geometry.dim.allExtWallVertices.
     listExternalWallData = [];
 
     for i = 1:numApartments
@@ -62,6 +64,7 @@ function updatedBuilding = estimateExtWallSurfAreaFracToAmbient(bldgName,buildin
                             listExternalWallDataItr(1,1:3) = [i,j,k];
                             listExternalWallDataItr(1,6:7) = overlapVertices(1,:);
                             listExternalWallDataItr(1,8:9) = overlapVertices(2,:);
+                            listExternalWallDataItr(1,10) = itr;
                             % listExternalWallDataItr = [i,j,k,0,0,overlapVertices(1,1),overlapVertices(1,2),overlapVertices(2,1),overlapVertices(2,1)];
                             wallSurfFrac = wallSurfFrac + wallFracVal;% /wallLength;
                             if isfield(building.("apartment"+num2str(i)).("room"+num2str(j)).geometry.dim,'allExtWallWindowFrac')
@@ -98,11 +101,11 @@ function updatedBuilding = estimateExtWallSurfAreaFracToAmbient(bldgName,buildin
                             end
                         end
                     end
-                    if ~sum(listExternalWallDataItr) == 0
+                    if sum(listExternalWallDataItr) ~= 0 % ~sum(listExternalWallDataItr) == 0
                         listExternalWallData = [listExternalWallData;listExternalWallDataItr];
                     end
                 end
-                % wallSurfFrac reresents total fraction of entire wall
+                % wallSurfFrac represents total fraction of entire wall
                 % expose to ambient. It has to be multiplied with
                 % window and vent fractions to estimate solid wall,
                 % vent, and window area-fraction.
@@ -110,7 +113,7 @@ function updatedBuilding = estimateExtWallSurfAreaFracToAmbient(bldgName,buildin
                 ventSurfFracVal = min(1,max(0,ventSurfFracVal));
                 wallSurfFrac = wallSurfFrac*min(1,max(0,1-windowSurfFracVal-ventSurfFracVal));
                 
-                % if ~sum(listExternalWallDataItr) == 0
+                % if sum(listExternalWallDataItr) ~= 0
                 %     listExternalWallData = [listExternalWallData;listExternalWallDataItr];
                 % end
                 updatedBuilding.("apartment"+num2str(i)).("room"+num2str(j)).geometry.("wall"+num2str(k)).AmbientWallSurfFrac = max(0,min(1,wallSurfFrac));

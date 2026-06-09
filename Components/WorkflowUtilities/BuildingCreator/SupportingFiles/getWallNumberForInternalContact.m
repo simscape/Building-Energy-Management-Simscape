@@ -25,7 +25,11 @@ function [connWportA,connWportB,coordWall,orientation] = getWallNumberForInterna
     roomRectB = polyshape(roomVertB(:,1),roomVertB(:,2));
     roomRectB = roomRectB.scale(rectScale,mean(roomRectB.Vertices));
     roomRectC = roomRectA.intersect(roomRectB);
+
+
     wallCenterXY = mean(roomRectC.Vertices,1)*NameValueArgs.ScaleToPlot;
+
+
     del_X = abs(max(max(roomRectC.Vertices(:,1))) - min(min(roomRectC.Vertices(:,1))));
     del_Y = abs(max(max(roomRectC.Vertices(:,2))) - min(min(roomRectC.Vertices(:,2))));
     coordWall = [wallCenterXY(1,1)-NameValueArgs.WallSubsystemDim, wallCenterXY(1,2)-NameValueArgs.WallSubsystemDim, wallCenterXY(1,1)+NameValueArgs.WallSubsystemDim, wallCenterXY(1,2)+NameValueArgs.WallSubsystemDim];

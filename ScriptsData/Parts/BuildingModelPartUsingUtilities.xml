@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <struct>
     <README>
-        <FileGeneratedOn>11-Dec-2025 09:10:26</FileGeneratedOn>
+        <FileGeneratedOn>09-Jun-2026 19:27:20</FileGeneratedOn>
         <BuildingInfo>The building model contains 3-apartments and a total of 15-rooms.</BuildingInfo>
         <nApt>3</nApt>
         <nRooms>5</nRooms>
@@ -22,7 +22,7 @@
                         <plotInternalWallVert2DMatSize>21</plotInternalWallVert2DMatSize>
                         <plotInternalWallVert2DMatSize>9</plotInternalWallVert2DMatSize>
                         <plotWallVert2DMatSize>42</plotWallVert2DMatSize>
-                        <plotWallVert2DMatSize>9</plotWallVert2DMatSize>
+                        <plotWallVert2DMatSize>10</plotWallVert2DMatSize>
                         <floorConnMatSize>10</floorConnMatSize>
                         <floorConnMatSize>6</floorConnMatSize>
                         <allExtWallVerticesMATsize>14</allExtWallVerticesMATsize>
@@ -641,173 +641,215 @@
                         <plotWallVert2D>0</plotWallVert2D>
                         <plotWallVert2D>0</plotWallVert2D>
                         <plotWallVert2D>-0.053918</plotWallVert2D>
-                        <plotWallVert2D>-0.68502</plotWallVert2D>
-                        <plotWallVert2D>1.9436</plotWallVert2D>
-                        <plotWallVert2D>4.8877</plotWallVert2D>
-                        <plotWallVert2D>5.9921</plotWallVert2D>
-                        <plotWallVert2D>1.0082</plotWallVert2D>
+                        <plotWallVert2D>-0.685022</plotWallVert2D>
+                        <plotWallVert2D>1.94357</plotWallVert2D>
+                        <plotWallVert2D>4.88771</plotWallVert2D>
+                        <plotWallVert2D>5.99214</plotWallVert2D>
+                        <plotWallVert2D>1.00824</plotWallVert2D>
                         <plotWallVert2D>3.048</plotWallVert2D>
-                        <plotWallVert2D>3.3636</plotWallVert2D>
+                        <plotWallVert2D>3.36355</plotWallVert2D>
                         <plotWallVert2D>0.19822</plotWallVert2D>
                         <plotWallVert2D>-0.19622</plotWallVert2D>
-                        <plotWallVert2D>1.8647</plotWallVert2D>
-                        <plotWallVert2D>-0.24831</plotWallVert2D>
-                        <plotWallVert2D>-0.64275</plotWallVert2D>
-                        <plotWallVert2D>0.92935</plotWallVert2D>
+                        <plotWallVert2D>1.86468</plotWallVert2D>
+                        <plotWallVert2D>-0.248306</plotWallVert2D>
+                        <plotWallVert2D>-0.642746</plotWallVert2D>
+                        <plotWallVert2D>0.929351</plotWallVert2D>
                         <plotWallVert2D>-0.053918</plotWallVert2D>
-                        <plotWallVert2D>-0.68502</plotWallVert2D>
-                        <plotWallVert2D>1.9436</plotWallVert2D>
-                        <plotWallVert2D>4.8877</plotWallVert2D>
-                        <plotWallVert2D>5.9921</plotWallVert2D>
-                        <plotWallVert2D>1.0082</plotWallVert2D>
+                        <plotWallVert2D>-0.685022</plotWallVert2D>
+                        <plotWallVert2D>1.94357</plotWallVert2D>
+                        <plotWallVert2D>4.88771</plotWallVert2D>
+                        <plotWallVert2D>5.99214</plotWallVert2D>
+                        <plotWallVert2D>1.00824</plotWallVert2D>
                         <plotWallVert2D>3.048</plotWallVert2D>
-                        <plotWallVert2D>3.3636</plotWallVert2D>
+                        <plotWallVert2D>3.36355</plotWallVert2D>
                         <plotWallVert2D>0.19822</plotWallVert2D>
                         <plotWallVert2D>-0.19622</plotWallVert2D>
-                        <plotWallVert2D>1.8647</plotWallVert2D>
-                        <plotWallVert2D>-0.24831</plotWallVert2D>
-                        <plotWallVert2D>-0.64275</plotWallVert2D>
-                        <plotWallVert2D>0.92935</plotWallVert2D>
+                        <plotWallVert2D>1.86468</plotWallVert2D>
+                        <plotWallVert2D>-0.248306</plotWallVert2D>
+                        <plotWallVert2D>-0.642746</plotWallVert2D>
+                        <plotWallVert2D>0.929351</plotWallVert2D>
                         <plotWallVert2D>-0.053918</plotWallVert2D>
-                        <plotWallVert2D>-0.68502</plotWallVert2D>
-                        <plotWallVert2D>1.9436</plotWallVert2D>
-                        <plotWallVert2D>4.8877</plotWallVert2D>
-                        <plotWallVert2D>5.9921</plotWallVert2D>
-                        <plotWallVert2D>1.0082</plotWallVert2D>
+                        <plotWallVert2D>-0.685022</plotWallVert2D>
+                        <plotWallVert2D>1.94357</plotWallVert2D>
+                        <plotWallVert2D>4.88771</plotWallVert2D>
+                        <plotWallVert2D>5.99214</plotWallVert2D>
+                        <plotWallVert2D>1.00824</plotWallVert2D>
                         <plotWallVert2D>3.048</plotWallVert2D>
-                        <plotWallVert2D>3.3636</plotWallVert2D>
+                        <plotWallVert2D>3.36355</plotWallVert2D>
                         <plotWallVert2D>0.19822</plotWallVert2D>
                         <plotWallVert2D>-0.19622</plotWallVert2D>
-                        <plotWallVert2D>1.8647</plotWallVert2D>
-                        <plotWallVert2D>-0.24831</plotWallVert2D>
-                        <plotWallVert2D>-0.64275</plotWallVert2D>
-                        <plotWallVert2D>0.92935</plotWallVert2D>
-                        <plotWallVert2D>-0.80965</plotWallVert2D>
-                        <plotWallVert2D>1.5457</plotWallVert2D>
+                        <plotWallVert2D>1.86468</plotWallVert2D>
+                        <plotWallVert2D>-0.248306</plotWallVert2D>
+                        <plotWallVert2D>-0.642746</plotWallVert2D>
+                        <plotWallVert2D>0.929351</plotWallVert2D>
+                        <plotWallVert2D>-0.809652</plotWallVert2D>
+                        <plotWallVert2D>1.54566</plotWallVert2D>
                         <plotWallVert2D>3.5122</plotWallVert2D>
-                        <plotWallVert2D>4.3011</plotWallVert2D>
+                        <plotWallVert2D>4.30108</plotWallVert2D>
                         <plotWallVert2D>0.17928</plotWallVert2D>
-                        <plotWallVert2D>-2.4184</plotWallVert2D>
+                        <plotWallVert2D>-2.41836</plotWallVert2D>
                         <plotWallVert2D>-0.6096</plotWallVert2D>
-                        <plotWallVert2D>-1.7873</plotWallVert2D>
-                        <plotWallVert2D>1.7823</plotWallVert2D>
+                        <plotWallVert2D>-1.78726</plotWallVert2D>
+                        <plotWallVert2D>1.78233</plotWallVert2D>
                         <plotWallVert2D>3.2544</plotWallVert2D>
-                        <plotWallVert2D>3.8066</plotWallVert2D>
+                        <plotWallVert2D>3.80661</plotWallVert2D>
                         <plotWallVert2D>-2.4395</plotWallVert2D>
-                        <plotWallVert2D>-0.96743</plotWallVert2D>
-                        <plotWallVert2D>-2.1239</plotWallVert2D>
-                        <plotWallVert2D>-0.80965</plotWallVert2D>
-                        <plotWallVert2D>1.5457</plotWallVert2D>
+                        <plotWallVert2D>-0.967428</plotWallVert2D>
+                        <plotWallVert2D>-2.12395</plotWallVert2D>
+                        <plotWallVert2D>-0.809652</plotWallVert2D>
+                        <plotWallVert2D>1.54566</plotWallVert2D>
                         <plotWallVert2D>3.5122</plotWallVert2D>
-                        <plotWallVert2D>4.3011</plotWallVert2D>
+                        <plotWallVert2D>4.30108</plotWallVert2D>
                         <plotWallVert2D>0.17928</plotWallVert2D>
-                        <plotWallVert2D>-2.4184</plotWallVert2D>
+                        <plotWallVert2D>-2.41836</plotWallVert2D>
                         <plotWallVert2D>-0.6096</plotWallVert2D>
-                        <plotWallVert2D>-1.7873</plotWallVert2D>
-                        <plotWallVert2D>1.7823</plotWallVert2D>
+                        <plotWallVert2D>-1.78726</plotWallVert2D>
+                        <plotWallVert2D>1.78233</plotWallVert2D>
                         <plotWallVert2D>3.2544</plotWallVert2D>
-                        <plotWallVert2D>3.8066</plotWallVert2D>
+                        <plotWallVert2D>3.80661</plotWallVert2D>
                         <plotWallVert2D>-2.4395</plotWallVert2D>
-                        <plotWallVert2D>-0.96743</plotWallVert2D>
-                        <plotWallVert2D>-2.1239</plotWallVert2D>
-                        <plotWallVert2D>-0.80965</plotWallVert2D>
-                        <plotWallVert2D>1.5457</plotWallVert2D>
+                        <plotWallVert2D>-0.967428</plotWallVert2D>
+                        <plotWallVert2D>-2.12395</plotWallVert2D>
+                        <plotWallVert2D>-0.809652</plotWallVert2D>
+                        <plotWallVert2D>1.54566</plotWallVert2D>
                         <plotWallVert2D>3.5122</plotWallVert2D>
-                        <plotWallVert2D>4.3011</plotWallVert2D>
+                        <plotWallVert2D>4.30108</plotWallVert2D>
                         <plotWallVert2D>0.17928</plotWallVert2D>
-                        <plotWallVert2D>-2.4184</plotWallVert2D>
+                        <plotWallVert2D>-2.41836</plotWallVert2D>
                         <plotWallVert2D>-0.6096</plotWallVert2D>
-                        <plotWallVert2D>-1.7873</plotWallVert2D>
-                        <plotWallVert2D>1.7823</plotWallVert2D>
+                        <plotWallVert2D>-1.78726</plotWallVert2D>
+                        <plotWallVert2D>1.78233</plotWallVert2D>
                         <plotWallVert2D>3.2544</plotWallVert2D>
-                        <plotWallVert2D>3.8066</plotWallVert2D>
+                        <plotWallVert2D>3.80661</plotWallVert2D>
                         <plotWallVert2D>-2.4395</plotWallVert2D>
-                        <plotWallVert2D>-0.96743</plotWallVert2D>
-                        <plotWallVert2D>-2.1239</plotWallVert2D>
-                        <plotWallVert2D>-0.68502</plotWallVert2D>
+                        <plotWallVert2D>-0.967428</plotWallVert2D>
+                        <plotWallVert2D>-2.12395</plotWallVert2D>
+                        <plotWallVert2D>-0.685022</plotWallVert2D>
                         <plotWallVert2D>0.19822</plotWallVert2D>
-                        <plotWallVert2D>4.8877</plotWallVert2D>
-                        <plotWallVert2D>5.9921</plotWallVert2D>
+                        <plotWallVert2D>4.88771</plotWallVert2D>
+                        <plotWallVert2D>5.99214</plotWallVert2D>
                         <plotWallVert2D>3.048</plotWallVert2D>
-                        <plotWallVert2D>0.92935</plotWallVert2D>
-                        <plotWallVert2D>3.3636</plotWallVert2D>
-                        <plotWallVert2D>1.0082</plotWallVert2D>
+                        <plotWallVert2D>0.929351</plotWallVert2D>
+                        <plotWallVert2D>3.36355</plotWallVert2D>
+                        <plotWallVert2D>1.00824</plotWallVert2D>
                         <plotWallVert2D>-0.19622</plotWallVert2D>
-                        <plotWallVert2D>1.8647</plotWallVert2D>
-                        <plotWallVert2D>1.9436</plotWallVert2D>
-                        <plotWallVert2D>-0.64275</plotWallVert2D>
+                        <plotWallVert2D>1.86468</plotWallVert2D>
+                        <plotWallVert2D>1.94357</plotWallVert2D>
+                        <plotWallVert2D>-0.642746</plotWallVert2D>
                         <plotWallVert2D>-0.053918</plotWallVert2D>
-                        <plotWallVert2D>-0.24831</plotWallVert2D>
-                        <plotWallVert2D>-0.68502</plotWallVert2D>
+                        <plotWallVert2D>-0.248306</plotWallVert2D>
+                        <plotWallVert2D>-0.685022</plotWallVert2D>
                         <plotWallVert2D>0.19822</plotWallVert2D>
-                        <plotWallVert2D>4.8877</plotWallVert2D>
-                        <plotWallVert2D>5.9921</plotWallVert2D>
+                        <plotWallVert2D>4.88771</plotWallVert2D>
+                        <plotWallVert2D>5.99214</plotWallVert2D>
                         <plotWallVert2D>3.048</plotWallVert2D>
-                        <plotWallVert2D>0.92935</plotWallVert2D>
-                        <plotWallVert2D>3.3636</plotWallVert2D>
-                        <plotWallVert2D>1.0082</plotWallVert2D>
+                        <plotWallVert2D>0.929351</plotWallVert2D>
+                        <plotWallVert2D>3.36355</plotWallVert2D>
+                        <plotWallVert2D>1.00824</plotWallVert2D>
                         <plotWallVert2D>-0.19622</plotWallVert2D>
-                        <plotWallVert2D>1.8647</plotWallVert2D>
-                        <plotWallVert2D>1.9436</plotWallVert2D>
-                        <plotWallVert2D>-0.64275</plotWallVert2D>
+                        <plotWallVert2D>1.86468</plotWallVert2D>
+                        <plotWallVert2D>1.94357</plotWallVert2D>
+                        <plotWallVert2D>-0.642746</plotWallVert2D>
                         <plotWallVert2D>-0.053918</plotWallVert2D>
-                        <plotWallVert2D>-0.24831</plotWallVert2D>
-                        <plotWallVert2D>-0.68502</plotWallVert2D>
+                        <plotWallVert2D>-0.248306</plotWallVert2D>
+                        <plotWallVert2D>-0.685022</plotWallVert2D>
                         <plotWallVert2D>0.19822</plotWallVert2D>
-                        <plotWallVert2D>4.8877</plotWallVert2D>
-                        <plotWallVert2D>5.9921</plotWallVert2D>
+                        <plotWallVert2D>4.88771</plotWallVert2D>
+                        <plotWallVert2D>5.99214</plotWallVert2D>
                         <plotWallVert2D>3.048</plotWallVert2D>
-                        <plotWallVert2D>0.92935</plotWallVert2D>
-                        <plotWallVert2D>3.3636</plotWallVert2D>
-                        <plotWallVert2D>1.0082</plotWallVert2D>
+                        <plotWallVert2D>0.929351</plotWallVert2D>
+                        <plotWallVert2D>3.36355</plotWallVert2D>
+                        <plotWallVert2D>1.00824</plotWallVert2D>
                         <plotWallVert2D>-0.19622</plotWallVert2D>
-                        <plotWallVert2D>1.8647</plotWallVert2D>
-                        <plotWallVert2D>1.9436</plotWallVert2D>
-                        <plotWallVert2D>-0.64275</plotWallVert2D>
+                        <plotWallVert2D>1.86468</plotWallVert2D>
+                        <plotWallVert2D>1.94357</plotWallVert2D>
+                        <plotWallVert2D>-0.642746</plotWallVert2D>
                         <plotWallVert2D>-0.053918</plotWallVert2D>
-                        <plotWallVert2D>-0.24831</plotWallVert2D>
-                        <plotWallVert2D>1.5457</plotWallVert2D>
-                        <plotWallVert2D>1.7823</plotWallVert2D>
-                        <plotWallVert2D>4.3011</plotWallVert2D>
+                        <plotWallVert2D>-0.248306</plotWallVert2D>
+                        <plotWallVert2D>1.54566</plotWallVert2D>
+                        <plotWallVert2D>1.78233</plotWallVert2D>
+                        <plotWallVert2D>4.30108</plotWallVert2D>
                         <plotWallVert2D>0.17928</plotWallVert2D>
                         <plotWallVert2D>-0.6096</plotWallVert2D>
-                        <plotWallVert2D>-2.1239</plotWallVert2D>
-                        <plotWallVert2D>-1.7873</plotWallVert2D>
-                        <plotWallVert2D>-2.4184</plotWallVert2D>
+                        <plotWallVert2D>-2.12395</plotWallVert2D>
+                        <plotWallVert2D>-1.78726</plotWallVert2D>
+                        <plotWallVert2D>-2.41836</plotWallVert2D>
                         <plotWallVert2D>3.2544</plotWallVert2D>
-                        <plotWallVert2D>3.8066</plotWallVert2D>
+                        <plotWallVert2D>3.80661</plotWallVert2D>
                         <plotWallVert2D>3.5122</plotWallVert2D>
-                        <plotWallVert2D>-0.96743</plotWallVert2D>
-                        <plotWallVert2D>-0.80965</plotWallVert2D>
+                        <plotWallVert2D>-0.967428</plotWallVert2D>
+                        <plotWallVert2D>-0.809652</plotWallVert2D>
                         <plotWallVert2D>-2.4395</plotWallVert2D>
-                        <plotWallVert2D>1.5457</plotWallVert2D>
-                        <plotWallVert2D>1.7823</plotWallVert2D>
-                        <plotWallVert2D>4.3011</plotWallVert2D>
+                        <plotWallVert2D>1.54566</plotWallVert2D>
+                        <plotWallVert2D>1.78233</plotWallVert2D>
+                        <plotWallVert2D>4.30108</plotWallVert2D>
                         <plotWallVert2D>0.17928</plotWallVert2D>
                         <plotWallVert2D>-0.6096</plotWallVert2D>
-                        <plotWallVert2D>-2.1239</plotWallVert2D>
-                        <plotWallVert2D>-1.7873</plotWallVert2D>
-                        <plotWallVert2D>-2.4184</plotWallVert2D>
+                        <plotWallVert2D>-2.12395</plotWallVert2D>
+                        <plotWallVert2D>-1.78726</plotWallVert2D>
+                        <plotWallVert2D>-2.41836</plotWallVert2D>
                         <plotWallVert2D>3.2544</plotWallVert2D>
-                        <plotWallVert2D>3.8066</plotWallVert2D>
+                        <plotWallVert2D>3.80661</plotWallVert2D>
                         <plotWallVert2D>3.5122</plotWallVert2D>
-                        <plotWallVert2D>-0.96743</plotWallVert2D>
-                        <plotWallVert2D>-0.80965</plotWallVert2D>
+                        <plotWallVert2D>-0.967428</plotWallVert2D>
+                        <plotWallVert2D>-0.809652</plotWallVert2D>
                         <plotWallVert2D>-2.4395</plotWallVert2D>
-                        <plotWallVert2D>1.5457</plotWallVert2D>
-                        <plotWallVert2D>1.7823</plotWallVert2D>
-                        <plotWallVert2D>4.3011</plotWallVert2D>
+                        <plotWallVert2D>1.54566</plotWallVert2D>
+                        <plotWallVert2D>1.78233</plotWallVert2D>
+                        <plotWallVert2D>4.30108</plotWallVert2D>
                         <plotWallVert2D>0.17928</plotWallVert2D>
                         <plotWallVert2D>-0.6096</plotWallVert2D>
-                        <plotWallVert2D>-2.1239</plotWallVert2D>
-                        <plotWallVert2D>-1.7873</plotWallVert2D>
-                        <plotWallVert2D>-2.4184</plotWallVert2D>
+                        <plotWallVert2D>-2.12395</plotWallVert2D>
+                        <plotWallVert2D>-1.78726</plotWallVert2D>
+                        <plotWallVert2D>-2.41836</plotWallVert2D>
                         <plotWallVert2D>3.2544</plotWallVert2D>
-                        <plotWallVert2D>3.8066</plotWallVert2D>
+                        <plotWallVert2D>3.80661</plotWallVert2D>
                         <plotWallVert2D>3.5122</plotWallVert2D>
-                        <plotWallVert2D>-0.96743</plotWallVert2D>
-                        <plotWallVert2D>-0.80965</plotWallVert2D>
+                        <plotWallVert2D>-0.967428</plotWallVert2D>
+                        <plotWallVert2D>-0.809652</plotWallVert2D>
                         <plotWallVert2D>-2.4395</plotWallVert2D>
+                        <plotWallVert2D>1</plotWallVert2D>
+                        <plotWallVert2D>2</plotWallVert2D>
+                        <plotWallVert2D>6</plotWallVert2D>
+                        <plotWallVert2D>7</plotWallVert2D>
+                        <plotWallVert2D>8</plotWallVert2D>
+                        <plotWallVert2D>11</plotWallVert2D>
+                        <plotWallVert2D>9</plotWallVert2D>
+                        <plotWallVert2D>10</plotWallVert2D>
+                        <plotWallVert2D>3</plotWallVert2D>
+                        <plotWallVert2D>4</plotWallVert2D>
+                        <plotWallVert2D>5</plotWallVert2D>
+                        <plotWallVert2D>13</plotWallVert2D>
+                        <plotWallVert2D>14</plotWallVert2D>
+                        <plotWallVert2D>12</plotWallVert2D>
+                        <plotWallVert2D>1</plotWallVert2D>
+                        <plotWallVert2D>2</plotWallVert2D>
+                        <plotWallVert2D>6</plotWallVert2D>
+                        <plotWallVert2D>7</plotWallVert2D>
+                        <plotWallVert2D>8</plotWallVert2D>
+                        <plotWallVert2D>11</plotWallVert2D>
+                        <plotWallVert2D>9</plotWallVert2D>
+                        <plotWallVert2D>10</plotWallVert2D>
+                        <plotWallVert2D>3</plotWallVert2D>
+                        <plotWallVert2D>4</plotWallVert2D>
+                        <plotWallVert2D>5</plotWallVert2D>
+                        <plotWallVert2D>13</plotWallVert2D>
+                        <plotWallVert2D>14</plotWallVert2D>
+                        <plotWallVert2D>12</plotWallVert2D>
+                        <plotWallVert2D>1</plotWallVert2D>
+                        <plotWallVert2D>2</plotWallVert2D>
+                        <plotWallVert2D>6</plotWallVert2D>
+                        <plotWallVert2D>7</plotWallVert2D>
+                        <plotWallVert2D>8</plotWallVert2D>
+                        <plotWallVert2D>11</plotWallVert2D>
+                        <plotWallVert2D>9</plotWallVert2D>
+                        <plotWallVert2D>10</plotWallVert2D>
+                        <plotWallVert2D>3</plotWallVert2D>
+                        <plotWallVert2D>4</plotWallVert2D>
+                        <plotWallVert2D>5</plotWallVert2D>
+                        <plotWallVert2D>13</plotWallVert2D>
+                        <plotWallVert2D>14</plotWallVert2D>
+                        <plotWallVert2D>12</plotWallVert2D>
                         <partOfBuilding>BuildingUnit</partOfBuilding>
                         <length>2.4384</length>
                         <height>3.048</height>
@@ -933,7 +975,7 @@
                         <vertices>3.048</vertices>
                         <unitvecDir>-0.25882</unitvecDir>
                         <unitvecDir>0.96593</unitvecDir>
-                        <AmbientWallSurfFrac>0.45509</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.15</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0.5</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>9.2903</WallAreaTotal>
@@ -1353,7 +1395,7 @@
                         <vertices>3.048</vertices>
                         <unitvecDir>-0.96593</unitvecDir>
                         <unitvecDir>-0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>1</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.16667</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>5.5742</WallAreaTotal>
@@ -1397,7 +1439,7 @@
                         <vertices>3.048</vertices>
                         <unitvecDir>0.96593</unitvecDir>
                         <unitvecDir>0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>0.094115</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.2</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0.7</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>5.5742</WallAreaTotal>
@@ -1610,7 +1652,7 @@
                         <vertices>3.048</vertices>
                         <unitvecDir>0.96593</unitvecDir>
                         <unitvecDir>0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>0.93624</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.2</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>4.6452</WallAreaTotal>
@@ -1801,7 +1843,7 @@
                         <vertices>3.048</vertices>
                         <unitvecDir>-0.25882</unitvecDir>
                         <unitvecDir>0.96593</unitvecDir>
-                        <AmbientWallSurfFrac>1</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.5</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>3.7161</WallAreaTotal>
@@ -2024,7 +2066,7 @@
                         <vertices>6.096</vertices>
                         <unitvecDir>-0.25882</unitvecDir>
                         <unitvecDir>0.96593</unitvecDir>
-                        <AmbientWallSurfFrac>0.45509</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.15</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0.5</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>9.2903</WallAreaTotal>
@@ -2444,7 +2486,7 @@
                         <vertices>6.096</vertices>
                         <unitvecDir>-0.96593</unitvecDir>
                         <unitvecDir>-0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>1</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.16667</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>5.5742</WallAreaTotal>
@@ -2488,7 +2530,7 @@
                         <vertices>6.096</vertices>
                         <unitvecDir>0.96593</unitvecDir>
                         <unitvecDir>0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>0.094115</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.2</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0.7</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>5.5742</WallAreaTotal>
@@ -2701,7 +2743,7 @@
                         <vertices>6.096</vertices>
                         <unitvecDir>0.96593</unitvecDir>
                         <unitvecDir>0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>0.93624</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.2</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>4.6452</WallAreaTotal>
@@ -2892,7 +2934,7 @@
                         <vertices>6.096</vertices>
                         <unitvecDir>-0.25882</unitvecDir>
                         <unitvecDir>0.96593</unitvecDir>
-                        <AmbientWallSurfFrac>1</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.5</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>3.7161</WallAreaTotal>
@@ -3115,7 +3157,7 @@
                         <vertices>9.144</vertices>
                         <unitvecDir>-0.25882</unitvecDir>
                         <unitvecDir>0.96593</unitvecDir>
-                        <AmbientWallSurfFrac>0.45509</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.15</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0.5</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>9.2903</WallAreaTotal>
@@ -3535,7 +3577,7 @@
                         <vertices>9.144</vertices>
                         <unitvecDir>-0.96593</unitvecDir>
                         <unitvecDir>-0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>1</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.16667</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>5.5742</WallAreaTotal>
@@ -3579,7 +3621,7 @@
                         <vertices>9.144</vertices>
                         <unitvecDir>0.96593</unitvecDir>
                         <unitvecDir>0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>0.094115</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.2</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0.7</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>5.5742</WallAreaTotal>
@@ -3792,7 +3834,7 @@
                         <vertices>9.144</vertices>
                         <unitvecDir>0.96593</unitvecDir>
                         <unitvecDir>0.25882</unitvecDir>
-                        <AmbientWallSurfFrac>0.93624</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.2</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>4.6452</WallAreaTotal>
@@ -3983,7 +4025,7 @@
                         <vertices>9.144</vertices>
                         <unitvecDir>-0.25882</unitvecDir>
                         <unitvecDir>0.96593</unitvecDir>
-                        <AmbientWallSurfFrac>1</AmbientWallSurfFrac>
+                        <AmbientWallSurfFrac>0.5</AmbientWallSurfFrac>
                         <AmbientWindowSurfFrac>0</AmbientWindowSurfFrac>
                         <AmbientVentSurfFrac>0</AmbientVentSurfFrac>
                         <WallAreaTotal>3.7161</WallAreaTotal>

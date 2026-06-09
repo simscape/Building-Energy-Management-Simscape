@@ -77,6 +77,8 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         % Find list of apartment and rooms to consider at the floor level
         listofRooms = reshape(indxAptRoom(floorLevelNum,:),[2,length(indxAptRoom(floorLevelNum,:))/2])';
     
+        minX = 0;
+
         if floorLevelNum == topFloorLevelNum
             % Add solar port for Roof definition
             portR = addPortToCanvas(CanvasLocation=mdlBlkPath.blkNameFloorConn(topFloorLevelNum+1,1),...
@@ -190,8 +192,12 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
 
         msgDisplayCount = displayDiagnostics(ErrorMsg=strcat("Re-created internal walls for level #",num2str(floorLevelNum)),ErrorMsgNum=msgDisplayCount,Diagnostics=NameValueArgs.Diagnostics);
     
-        extWallVert = apartment3D.("apartment1").("room1").geometry.dim.allExtWallVertices;
-        numExtWalls = size(extWallVert,1);
+
+        extWallVert = apartment3D.("apartment1").("room1").geometry.dim.plotWallVert2D; % allExtWallVertices;
+        numExtWalls = size(extWallVert,1)/topFloorLevelNum; % num walls per level
+        
+        
+        % numExtWalls = size(extWallVert,1);
         mdlBlkPath.blkNameExtWall = strings(numExtWalls,1);
         mdlBlkPath.blkNameExtWallLoc = zeros(numExtWalls,4);
     
@@ -201,9 +207,11 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
                 addExternalWall(BlockPath=mdlBlkPath.blkNameFloorLevel(floorLevelNum,1),...
                 BuildingData=apartment3D,FloorLevelNumber=floorLevelNum,IndexExtWallList=i,...
                 ScaleToPlot=scaleToPlot,WallSubsystemDim=wallSubsystemDim);
-    
+
+            % disp(strcat("Connect ==> ",mdlBlkPath.blkNameBldg(aptn,room)," & ",mdlBlkPath.blkNameExtWall(i,1),";"))
+            % disp(strcat("BlockPath = ",mdlBlkPath.blkNameFloorLevel(floorLevelNum,1)))
             simscape.addConnection(mdlBlkPath.blkNameBldg(aptn,room),("W"+num2str(connWall)),mdlBlkPath.blkNameExtWall(i,1),"B","autorouting","on");
-    
+            
             labelName = strcat(mdlBlkPath.blkNameFloorLevel(floorLevelNum,1),"/Amb",num2str(i));
             moveLblBy = 3;
             lblBaselineLoc = [mdlBlkPath.blkNameExtWallLoc(i,1)+wallSubsystemDim,mdlBlkPath.blkNameExtWallLoc(i,2)+wallSubsystemDim,mdlBlkPath.blkNameExtWallLoc(i,1)+2*wallSubsystemDim,mdlBlkPath.blkNameExtWallLoc(i,2)+2*wallSubsystemDim];

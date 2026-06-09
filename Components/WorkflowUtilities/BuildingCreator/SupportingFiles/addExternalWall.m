@@ -1,5 +1,5 @@
 function [blkNameExtWall,blkNameExtWallLoc,connWall,aptn,room] = addExternalWall(NameValueArgs)
-% Add external wall library
+% Add external wall library 
 % 
 % Copyright 2025 The MathWorks, Inc.
 
@@ -14,6 +14,7 @@ function [blkNameExtWall,blkNameExtWallLoc,connWall,aptn,room] = addExternalWall
     end
 
     setLibraryPathReferences;
+    
     [aptn,room,wall,subSysLoc,connWall,fracWin,fracVen] = ...
             getCoordinatesExtWallSubsystem(BuildingData=NameValueArgs.BuildingData,...
             FloorLevelNumber=NameValueArgs.FloorLevelNumber,...
