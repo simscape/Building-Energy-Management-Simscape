@@ -17,4 +17,5 @@ function roomModel = addNewRoomToFloorPlan(vertex,wid,len,theta,name)
     roomModel.geometry.dim.width  = wid;
     roomModel.geometry.dim.vertex = vertex;
     roomModel.geometry.dim.theta  = theta;
+    roomModel.geometry.dim.floorPlanRotation = 0;
 end

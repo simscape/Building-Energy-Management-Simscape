@@ -21,27 +21,32 @@ function addBlockConcatSignalPS(NameValueArgs)
             set_param(blkNameConcatPort(1,count),'Side','left');
         end
     end
-
-    newBlk = 0;
-    blkNameConcatNew = strings(1,count-1);
-    for i = 1:count-1
-        newBlk = newBlk+1;
-        blkNameConcatNew(1,i) = strcat(NameValueArgs.BlkName,'/concat',num2str(newBlk));
-        add_block(NameValueArgs.LibBlockPath.concatPS,blkNameConcatNew(1,i),'Position',[50+newBlk*50 50*i+10 70+newBlk*50 50*i+10+20]);
-        set_param(blkNameConcatNew(1,i),'catColumns',NameValueArgs.ConcatColumns)
+    
+    if count > 1
+        newBlk = 0;
+        blkNameConcatNew = strings(1,count-1);
+        for i = 1:count-1
+            newBlk = newBlk+1;
+            blkNameConcatNew(1,i) = strcat(NameValueArgs.BlkName,'/concat',num2str(newBlk));
+            add_block(NameValueArgs.LibBlockPath.concatPS,blkNameConcatNew(1,i),'Position',[50+newBlk*50 50*i+10 70+newBlk*50 50*i+10+20]);
+            set_param(blkNameConcatNew(1,i),'catColumns',NameValueArgs.ConcatColumns)
+        end
+        
+        simscape.addConnection(blkNameConcatPort(1,1),"port",blkNameConcatNew(1,1),"I1");
+        simscape.addConnection(blkNameConcatPort(1,2),"port",blkNameConcatNew(1,1),"I2");
+        
+        if newBlk > 1
+            for i = 1:newBlk-1
+                simscape.addConnection(blkNameConcatNew(1,i),"O",blkNameConcatNew(1,i+1),"I1");
+                simscape.addConnection(blkNameConcatPort(1,i+2),"port",blkNameConcatNew(1,i+1),"I2");
+            end
+        end
+    
+        blkNameConcatPortOut = strcat(NameValueArgs.BlkName,'/v');
+        add_block(NameValueArgs.LibBlockPath.connPort,blkNameConcatPortOut,'Position',[50+newBlk*50+100 50*i+10 70+newBlk*50+150 50*i+10+20]);
+    
+        set_param(blkNameConcatPortOut,'Orientation','left');
+        set_param(blkNameConcatPortOut,'Side','right');
+        simscape.addConnection(blkNameConcatNew(1,end),"O",blkNameConcatPortOut,"port");
     end
-
-    simscape.addConnection(blkNameConcatPort(1,1),"port",blkNameConcatNew(1,1),"I1");
-    simscape.addConnection(blkNameConcatPort(1,2),"port",blkNameConcatNew(1,1),"I2");
-
-    for i = 1:newBlk-1
-        simscape.addConnection(blkNameConcatNew(1,i),"O",blkNameConcatNew(1,i+1),"I1");
-        simscape.addConnection(blkNameConcatPort(1,i+2),"port",blkNameConcatNew(1,i+1),"I2");
-    end
-
-    blkNameConcatPortOut = strcat(NameValueArgs.BlkName,'/v');
-    add_block(NameValueArgs.LibBlockPath.connPort,blkNameConcatPortOut,'Position',[50+newBlk*50+100 50*i+10 70+newBlk*50+150 50*i+10+20]);
-    set_param(blkNameConcatPortOut,'Orientation','left');
-    set_param(blkNameConcatPortOut,'Side','right');
-    simscape.addConnection(blkNameConcatNew(1,end),"O",blkNameConcatPortOut,"port");
 end

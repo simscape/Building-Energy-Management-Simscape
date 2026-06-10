@@ -117,34 +117,4 @@ function dataStruct = readBuildingDataXML(NameValueArgs)
             dataStruct = addBackFloorPlanToRoom(dataStruct,i,j);
         end
     end
-
-    % % re-construct geoLocation()
-    % location = fileContent.README.Location;
-    % degLatitude = fileContent.README.Latitude;
-    % degLongitude = fileContent.README.Longitude;
-    % stdTimeZone = fileContent.README.StdTimeZone;
-    % geoLocation = table(degLatitude,degLongitude,stdTimeZone,...
-    %     'VariableNames',{'Latitude','Longitude','Meredian (Time Zone)'},...
-    %     'RowNames',location);
-    % 
-    % t1 = fileContent.README.StartTime;
-    % t2 = fileContent.README.EndTime;
-    % datetimeVec = t1:hours(1):t2;
-    % 
-    % disp(strcat('Location:',geoLocation.Row));
-    % disp('Simulation Duration:');
-    % disp(strcat('*** Start Time : ',string(datetimeVec(1,1))));
-    % disp(strcat('*** End Time   : ',string(datetimeVec(1,end))));
-    % % dateStringDisp = strcat(': ',string(datetimeVec(1,1)),' --> ',string(datetimeVec(1,end)));
-
-    % roomNameList = [];
-    % for j = 1:nRooms(1,1)
-    %     if j>1
-    %         roomNameList = strcat(dataStruct.apartment1.("room"+j).name,', ',roomNameList);
-    %     else
-    %         roomNameList = dataStruct.apartment1.("room"+j).name;
-    %     end
-    % end
-    % roomNameList = strcat("*** Room Names in Building : ",roomNameList);
-    % disp(roomNameList);
 end

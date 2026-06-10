@@ -9,10 +9,17 @@ function roomJvert = getNonRotatedRoomVertices(NameValueArgs)
         NameValueArgs.NumberRoom (1,1) {mustBeNonnegative}
     end
 
-    theta = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom (1,1)).geometry.dim.theta;
-    if theta == 0
-        roomJvert = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom (1,1)).floorPlan.Vertices;
+    tht = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom).geometry.dim.theta;
+    if NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom).geometry.dim.floorPlanRotation == 0
+        len = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom).geometry.dim.length;
+        wid = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom).geometry.dim.width;
+        vrt = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom).geometry.dim.vertex;
+        roomModel = addNewRoomToFloorPlan(vrt,wid,len,tht,"Temp");
+        roomJvert = roomModel.floorPlan.Vertices;
     else
-        roomJvert = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom (1,1)).floorPlan.rotate(-theta).Vertices;
+        % Entire floor plan might have been rotated and hence this step
+        % (and not re-creating vertices as when tht is zero). The rotation
+        % vertex and the room vertex may not necessarily be the same.
+        roomJvert = NameValueArgs.Apartment.("apartment"+NameValueArgs.NumberApartment).("room"+NameValueArgs.NumberRoom).floorPlan.rotate(360-tht).Vertices;
     end
 end

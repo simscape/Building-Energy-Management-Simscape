@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <struct>
     <README>
-        <FileGeneratedOn>09-Jun-2026 19:27:20</FileGeneratedOn>
+        <FileGeneratedOn>10-Jun-2026 13:12:33</FileGeneratedOn>
         <BuildingInfo>The building model contains 3-apartments and a total of 15-rooms.</BuildingInfo>
         <nApt>3</nApt>
         <nRooms>5</nRooms>
@@ -18,7 +18,7 @@
                 </physics>
                 <geometry>
                     <dim>
-                        <numWalls>4</numWalls>
+                        <height>3.048</height>
                         <plotInternalWallVert2DMatSize>21</plotInternalWallVert2DMatSize>
                         <plotInternalWallVert2DMatSize>9</plotInternalWallVert2DMatSize>
                         <plotWallVert2DMatSize>42</plotWallVert2DMatSize>
@@ -851,8 +851,8 @@
                         <plotWallVert2D>14</plotWallVert2D>
                         <plotWallVert2D>12</plotWallVert2D>
                         <partOfBuilding>BuildingUnit</partOfBuilding>
+                        <numWalls>4</numWalls>
                         <length>2.4384</length>
-                        <height>3.048</height>
                         <floorLevel>1</floorLevel>
                         <topFloorLevelNum>3</topFloorLevelNum>
                         <allExtWallVentFrac>1</allExtWallVentFrac>
@@ -899,6 +899,7 @@
                         <allExtWallVertices>-2.1239</allExtWallVertices>
                         <allExtWallVertices>-2.4395</allExtWallVertices>
                         <allExtWallVertices>-0.96743</allExtWallVertices>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <theta>15</theta>
                         <vertex>-0.053918</vertex>
                         <vertex>-0.80965</vertex>
@@ -1073,6 +1074,7 @@
                         <vertex>3.048</vertex>
                         <vertex>-0.6096</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -1294,6 +1296,7 @@
                         <vertex>1.0082</vertex>
                         <vertex>-2.4184</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -1515,6 +1518,7 @@
                         <vertex>0.19822</vertex>
                         <vertex>1.7823</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -1728,6 +1732,7 @@
                         <vertex>-0.24831</vertex>
                         <vertex>-2.4395</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -1943,6 +1948,7 @@
                         <vertex>-0.053918</vertex>
                         <vertex>-0.80965</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -2164,6 +2170,7 @@
                         <vertex>3.048</vertex>
                         <vertex>-0.6096</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -2385,6 +2392,7 @@
                         <vertex>1.0082</vertex>
                         <vertex>-2.4184</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -2606,6 +2614,7 @@
                         <vertex>0.19822</vertex>
                         <vertex>1.7823</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -2819,6 +2828,7 @@
                         <vertex>-0.24831</vertex>
                         <vertex>-2.4395</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -3034,6 +3044,7 @@
                         <vertex>-0.053918</vertex>
                         <vertex>-0.80965</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -3255,6 +3266,7 @@
                         <vertex>3.048</vertex>
                         <vertex>-0.6096</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -3476,6 +3488,7 @@
                         <vertex>1.0082</vertex>
                         <vertex>-2.4184</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -3697,6 +3710,7 @@
                         <vertex>0.19822</vertex>
                         <vertex>1.7823</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>
@@ -3910,6 +3924,7 @@
                         <vertex>-0.24831</vertex>
                         <vertex>-2.4395</vertex>
                         <theta>15</theta>
+                        <floorPlanRotation>15</floorPlanRotation>
                         <allExtWallVertices>-0.053918</allExtWallVertices>
                         <allExtWallVertices>-0.68502</allExtWallVertices>
                         <allExtWallVertices>0.19822</allExtWallVertices>

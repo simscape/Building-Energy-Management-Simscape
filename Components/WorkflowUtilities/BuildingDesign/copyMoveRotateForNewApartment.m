@@ -44,6 +44,7 @@ function newApartment = copyMoveRotateForNewApartment(NameValueArgs)
             end
             roomName   = NameValueArgs.Apartment.("room"+num2str(i)).name;
             roomModel  = addNewRoomToFloorPlan(vertex,width,length,theta,roomName);
+            roomModel.geometry.dim.floorPlanRotation = degVal;
             oneAptUnit = [oneAptUnit,roomModel];
         end
         newApartment = defineSingleApartmentUnit(Apartment=oneAptUnit,Tol=NameValueArgs.Tol);

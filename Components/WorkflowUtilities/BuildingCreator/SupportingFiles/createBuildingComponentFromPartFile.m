@@ -19,6 +19,7 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
     msgDisplayCount = displayDiagnostics(ErrorMsg="Completed reading building part file",ErrorMsgNum=msgDisplayCount,Diagnostics=NameValueArgs.Diagnostics);
     
     [nApt, nRooms] = getNumAptAndRoomsFromFloorPlan(apartment3D);
+
     if NameValueArgs.ModelType == "Heat Load Analysis"
         for i = 1:nApt
             for j = 1:nRooms(i,1)
@@ -55,7 +56,7 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
     msgDisplayCount = displayDiagnostics(ErrorMsg=strcat("Opened model ",NameValueArgs.BuildingLibraryName,".slx to create building library"),ErrorMsgNum=msgDisplayCount,Diagnostics=NameValueArgs.Diagnostics);
 
     topFloorLevelNum = apartment3D.apartment1.room1.geometry.dim.topFloorLevelNum;
-    
+
     % Initialize data to store block paths for the model
     mdlBlkPath = initializeModelBlockPathMatrices(BuildingModel=apartment3D);
     % Create subsystem for ground, roof, floors, and building floor level plans
@@ -90,7 +91,6 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         for idx = 1:size(listofRooms,1)
             i = listofRooms(idx,1);
             j = listofRooms(idx,2);
-
             % mdlBlkPath.nodesPerFloorLvl(:,i): i=1 stores # Thermal Nodes
             %                                   i=2 stores # TL nodes
             mdlBlkPath.nodesPerFloorLvl(floorLevelNum,1) = mdlBlkPath.nodesPerFloorLvl(floorLevelNum,1)+1;
@@ -98,15 +98,19 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
             % it is important to realign them to X-Y axis.
             roomJvert = getNonRotatedRoomVertices(Apartment=apartment3D,NumberApartment=i,NumberRoom=j);
             mdlBlkPath.areaNameRoom(i,j) = strcat(mdlBlkPath.blkNameFloorLevel(floorLevelNum,1),"/A",num2str(i),"R",num2str(j)," (",apartment3D.("apartment"+i).("room"+j).name,")");
-            nonRotatedLoc = [roomJvert(1,:),roomJvert(3,:)]*scaleToPlot;
+            min_X = min(roomJvert(:,1));min_Y = min(roomJvert(:,2));
+            max_X = max(roomJvert(:,1));max_Y = max(roomJvert(:,2));
+            nonRotatedLoc = [min_X,min_Y,max_X,max_Y]*scaleToPlot;
+            % nonRotatedLoc = [roomJvert(1,:),roomJvert(3,:)]*scaleToPlot;
             mdlBlkPath.areaNameRoomLoc(i,j) = num2str(nonRotatedLoc);
             areaColor = [0.99*max(0.9,rand(1)) 0.88*max(0.9,rand(1)) 0.99*max(0.9,rand(1)) 0.88*max(0.9,rand(1))];
             add_block("built-in/Area",mdlBlkPath.areaNameRoom(i,j),"Position",nonRotatedLoc,"BackgroundColor", mat2str(areaColor));
             % To plot rooms, you must first find their non-rotated vertices and data 
             % that align along the X and Y axes.
-            delX = (nonRotatedLoc(1,3)-nonRotatedLoc(1,1))*accomodateWall; % Calculate delX from diagonal vertices
-            delY = (nonRotatedLoc(1,4)-nonRotatedLoc(1,2))*accomodateWall; % Calculate delY from diagonal vertices
+            delX = abs(nonRotatedLoc(1,3)-nonRotatedLoc(1,1))*accomodateWall; % Calculate delX from diagonal vertices
+            delY = abs(nonRotatedLoc(1,4)-nonRotatedLoc(1,2))*accomodateWall; % Calculate delY from diagonal vertices
             roomJvertNonRotated = [nonRotatedLoc(1,1)+delX, nonRotatedLoc(1,2)+delY,nonRotatedLoc(1,3)-delX, nonRotatedLoc(1,4)-delY];
+            
             roomNameDisp = apartment3D.("apartment"+i).("room"+j).name;
             if floorLevelNum == 1
                 mdlBlkPath.areaNameGround(i,j) = addFloorOrRoofElement(WallName=strcat("Ground_A",num2str(i),"R",num2str(j),"(",roomNameDisp,")"),...
@@ -413,7 +417,7 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         mdlBlkPath.blkNameWallExternal(rangeExtWalls,1) = mdlBlkPath.blkNameExtWall(:,1);
         
     end
-    
+
     if sum(mdlBlkPath.nodesPerFloorLvl(:,2)) > 0
         noTLnodesDefined = false;
     else
@@ -447,7 +451,7 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         
         msgDisplayCount = displayDiagnostics(ErrorMsg="Added pipe network to supply coolant/heating fluid to building",ErrorMsgNum=msgDisplayCount,Diagnostics=NameValueArgs.Diagnostics);
     end
-    
+
     % Add connection between floors, through wall elements
     connectLevelThroughFloors(ListOfFloors=mdlBlkPath.blkNameFloorConn(:,1),...
                               listofLevels=mdlBlkPath.blkNameFloorLevel(:,1));
@@ -514,8 +518,6 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         simscape.addConnection(mdlBlkPath.nameArrayNodesInletBldg,"Amb",portA,"port","autorouting","off");
         simscape.addConnection(mdlBlkPath.nameArrayNodesOutletBldg,"Amb",portA,"port","autorouting","off");
     end
-    % simscape.addConnection(mdlBlkPath.blkNameFloorConn(topFloorLevelNum+1,1),"Top",portA,"port","autorouting","smart");
-    
     
     collateBuildingTemperatureData(CanvasPath=mdlBlkPath.libBuildingPath,...
         ConnectToBlock=mdlBlkPath.blkNameFloorLevel,ConnectToBlockPort="T",...
@@ -524,7 +526,7 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         BlockIndices=[(1:topFloorLevelNum)',ones(1,topFloorLevelNum)'],ConnectionOrder="reverse");
 
     displayDiagnostics(ErrorMsg="Collate temperature signals for all rooms of the building",ErrorMsgNum=msgDisplayCount,Diagnostics=NameValueArgs.Diagnostics);
-    
+
     % Rotate ports for main library block and add icon.
     hndl = get_param(mdlBlkPath.libBuildingPath,"PortHandles");
     if ~noTLnodesDefined
