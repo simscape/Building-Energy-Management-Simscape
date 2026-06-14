@@ -15,6 +15,8 @@ customBlkPath.thermal = "TemperatureSource_lib/Temperature Source (LUT)";
 customBlkPath.heatSourceControl = "HeatSourceControl/Heat Source Control";
 customBlkPath.dailyScheduler = "DayScheduler_lib/Day Scheduler";
 customBlkPath.heatPumpTL = "AirWaterHeatPumpTL/Air Water Heat Pump (TL)";
+customBlkPath.inputVectorLim = "RoomLevelControl_lib/Room Level Control";
+
 
 %% Define product library path
 libBlkPath.thermalRes = "fl_lib/Thermal/Thermal Elements/Thermal Resistance";

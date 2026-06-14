@@ -472,10 +472,28 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
     portS = addPortToCanvas(CanvasLocation=mdlBlkPath.libBuildingPath,...
             PortName="S",PortSide="left",...
             PortLocation=portRlocation+2*[0,sizeArrayNodeConn,0,sizeArrayNodeConn]);
+    % Add block to check S port input value length
+    portSvec = strcat(mdlBlkPath.libBuildingPath,"/Sv");
+    add_block(customBlkPath.inputVectorLim,portSvec,"Position",...
+        portRlocation+2*[30,sizeArrayNodeConn,30,sizeArrayNodeConn],...
+        "portOption","roomControlOption.heat");
+    simscape.addConnection(portSvec,"Si",portS,"port","autorouting","off");
+    portSvecMat = getBuildingRoomInputIndex(BuildingModel=apartment3D,OutputType="Array");
+    set_param(portSvec,"roomMapping",mat2str(portSvecMat));
+
     if ~noTLnodesDefined
         portV = addPortToCanvas(CanvasLocation=mdlBlkPath.libBuildingPath,...
                 PortName="V",PortSide="left",...
                 PortLocation=portRlocation+[0,sizeArrayNodeConn,0,sizeArrayNodeConn]);
+        % Add block to check V port input value length
+        portVvec = strcat(mdlBlkPath.libBuildingPath,"/Vv");
+        add_block(customBlkPath.inputVectorLim,portVvec,"Position",...
+            portRlocation+[60,sizeArrayNodeConn,60,sizeArrayNodeConn],...
+            "portOption","roomControlOption.valve");
+        simscape.addConnection(portVvec,"Vi",portV,"port","autorouting","off");
+        portVvecMat = getBuildingRoomInputIndex(BuildingModel=apartment3D,OutputType="Array");
+        set_param(portVvec,"roomMapping",mat2str(portVvecMat));
+
         portTLA = addPortToCanvas(CanvasLocation=mdlBlkPath.libBuildingPath,...
                   PortName="TL_A",PortSide="left",...
                   PortLocation=portRlocation+3*[0,sizeArrayNodeConn,0,sizeArrayNodeConn]);
@@ -508,9 +526,9 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         simscape.addConnection(mdlBlkPath.blkNameFloorLevel(i,1),"Solar",portR,"port","autorouting","off");
         simscape.addConnection(mdlBlkPath.blkNameFloorLevel(i,1),"Amb",portA,"port","autorouting","off");
         if mdlBlkPath.nodesPerFloorLvl(i,2) > 0 && ~noTLnodesDefined
-            simscape.addConnection(mdlBlkPath.blkNameFloorLevel(i,1),"V",portV,"port","autorouting","off");
+            simscape.addConnection(mdlBlkPath.blkNameFloorLevel(i,1),"V",portVvec,"Vo","autorouting","off");
         end
-        simscape.addConnection(mdlBlkPath.blkNameFloorLevel(i,1),"S",portS,"port","autorouting","off");
+        simscape.addConnection(mdlBlkPath.blkNameFloorLevel(i,1),"S",portSvec,"So","autorouting","off");
     end
     if ~noTLnodesDefined
         simscape.addConnection(mdlBlkPath.nameArrayNodesInletBldg,"in",portTLA,"port");
@@ -523,7 +541,7 @@ function [mdlBlkPath,msgDisplayCount] = createBuildingComponentFromPartFile(Name
         ConnectToBlock=mdlBlkPath.blkNameFloorLevel,ConnectToBlockPort="T",...
         SizeParameters=[spacingVal,wallSubsystemDim,sizeVal,sizeArrayNodeConn],...
         BaselineLocation=portRlocation,NumBlocksToConnect=topFloorLevelNum,...
-        BlockIndices=[(1:topFloorLevelNum)',ones(1,topFloorLevelNum)'],ConnectionOrder="reverse");
+        BlockIndices=[(1:topFloorLevelNum)',ones(1,topFloorLevelNum)']);
 
     displayDiagnostics(ErrorMsg="Collate temperature signals for all rooms of the building",ErrorMsgNum=msgDisplayCount,Diagnostics=NameValueArgs.Diagnostics);
 

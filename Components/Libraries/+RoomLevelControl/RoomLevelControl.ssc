@@ -1,0 +1,46 @@
+component(Propagation=Blocks) RoomLevelControl
+    % Room Level Control:2.5
+
+    % Copyright 2026 The MathWorks, Inc.
+
+    parameters
+        portOption  = roomControlOption.heat; % Port option
+        % N           = 5;                      % Total number of rooms
+        roomMapping = ones(5,4);              % Apartment and room mapping matrix
+    end
+
+    % parameters(ExternalAccess=none)
+    %     N = size(roomMapping,1);
+    % end
+
+    equations
+        % assert(size(Si,1)==N);
+        % assert(size(Vi,1)==N);
+        Si == So;
+        Vi == Vo;
+    end
+    
+    inputs
+        Si = {zeros(1,size(roomMapping,1)), "W"}; % Si
+        Vi = {ones(1,size(roomMapping,1)), "1"}; % Vi
+    end
+
+    outputs
+        So = {zeros(1,size(roomMapping,1)), "W"}; % So
+        Vo = {ones(1,size(roomMapping,1)), "1"}; % Vo
+    end
+
+    annotations
+        Icon = "iconRoomLevelControl.png";
+    end
+
+    if portOption == roomControlOption.heat
+        annotations
+            [Vi,Vo] : ExternalAccess=none;
+        end
+    else
+        annotations
+            [Si,So] : ExternalAccess=none;
+        end
+    end
+end
