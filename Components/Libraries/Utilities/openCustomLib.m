@@ -1,5 +1,5 @@
 %% Open Simscape Library
-libraryhandle = slLibraryBrowser;
-refresh(libraryhandle);
-sl_refresh_customizations;
-libraryhandle.show;
+
+% Copyright 2024 - 2026 The MathWorks, Inc.
+
+ssc_highlightlibrary("Simscape Custom Libraries");

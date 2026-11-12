@@ -188,9 +188,9 @@
         <li><a href="#overview">Overview</a></li>
         <li><a href="#get-started">Get Started</a></li>
         <li><a href="#Workflow">Workflow</a></li>
-        <li class="sub"><a href="#app-DefineBuilding">Define Building</a></li>
-        <li class="sub"><a href="#app-CreateBuildingComponent">Create Building Component</a></li>
-        <li class="sub"><a href="#app-HVACAnalysis">HVAC Analysis</a></li>
+        <li class="sub"><a href="#app-CreateBuildingDefinition">Create Building Definition</a></li>
+        <li class="sub"><a href="#app-CreateBuildingLibrary">Create Building Library</a></li>
+        <li class="sub"><a href="#app-ThermalAnalysis">Thermal Analysis</a></li>
         <li><a href="#components">Components</a></li>
         <li><a href="#test">Testing</a></li>
         <li><a href="#requirements">Requirements</a></li>
@@ -230,8 +230,8 @@
         live-scripts.
     </p>
 
-    <!-- Sub-section: DefineBuilding (collapsible, with example grid) -->
-    <h2 id="app-DefineBuilding" class="collapsible" onclick="toggle(this)">Define Building</h2>
+    <!-- Sub-section: CreateBuildingDefinition (collapsible, with example grid) -->
+    <h2 id="app-CreateBuildingDefinition" class="collapsible" onclick="toggle(this)">Create Building Definition</h2>
     <div class="collapse-body">
         <div class="card-grid">
             <div class="model-card">
@@ -260,21 +260,21 @@
             </div>
             <div class="model-card">
                 <div class="card-header-bar"></div>
-                <img class="card-image" src="Images/iconCreateBuildingUsingCustomLibraryBlocks.png" alt="Create Building Manually">
+                <img class="card-image" src="Images/iconCreateFloorPlanUsingApp.png" alt="Use App">
                 <div class="card-content">
-                    <h3>Create Building from Custom Libraries</h3>
-                    <p>Learn how to create a building model in Simscape using custom libraries provided in the project.</p>
+                    <h3>Create Floor Plan using App</h3>
+                    <p>Learn how to create a building floorplan interactively using App and save the data in a file for further use.</p>
                     <div class="card-actions">
-                        <a href="matlab:edit('CreateBuildingUsingCustomLibraryBlocks.m')" class="btn-load btn-primary">Open Live Script</a>
-                        <button class="btn-load btn-secondary" onclick="copyCommand(this, &quot;edit('CreateBuildingUsingCustomLibraryBlocks.m')&quot;)">Copy Command</button>
+                        <a href="matlab:edit('CreateFloorPlanUsingApp.m')" class="btn-load btn-primary">Open Live Script</a>
+                        <button class="btn-load btn-secondary" onclick="copyCommand(this, &quot;edit('CreateFloorPlanUsingApp.m')&quot;)">Copy Command</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Sub-section: CreateBuildingComponent (collapsible, with example grid) -->
-    <h2 id="app-CreateBuildingComponent" class="collapsible" onclick="toggle(this)">Create Building Component</h2>
+    <!-- Sub-section: CreateBuildingLibrary (collapsible, with example grid) -->
+    <h2 id="app-CreateBuildingLibrary" class="collapsible" onclick="toggle(this)">Create Building Library</h2>
     <div class="collapse-body">
         <div class="card-grid">
             <div class="model-card">
@@ -301,11 +301,23 @@
                     </div>
                 </div>
             </div>
+            <div class="model-card">
+                <div class="card-header-bar"></div>
+                <img class="card-image" src="Images/iconCreateBuildingUsingCustomLibraryBlocks.png" alt="Create Building Manually">
+                <div class="card-content">
+                    <h3>Create Building from Custom Libraries</h3>
+                    <p>Learn how to create a building model in Simscape using custom libraries provided in the project.</p>
+                    <div class="card-actions">
+                        <a href="matlab:edit('CreateBuildingUsingCustomLibraryBlocks.m')" class="btn-load btn-primary">Open Live Script</a>
+                        <button class="btn-load btn-secondary" onclick="copyCommand(this, &quot;edit('CreateBuildingUsingCustomLibraryBlocks.m')&quot;)">Copy Command</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Sub-section: HVACAnalysis (collapsible, with example grid) -->
-    <h2 id="app-HVACAnalysis" class="collapsible" onclick="toggle(this)">HVAC Analysis</h2>
+    <!-- Sub-section: ThermalAnalysis (collapsible, with example grid) -->
+    <h2 id="app-ThermalAnalysis" class="collapsible" onclick="toggle(this)">Thermal Analysis</h2>
     <div class="collapse-body">
         <div class="card-grid">
             <div class="model-card">

@@ -19,7 +19,7 @@ disp(strcat("Number of hours of simulation ~ ",num2str(house.operational.datetim
 %[text] Load the system model.
 load_system("DetailedHouse.slx");
 %[text] Set desired room temperature for HVAC.
-setT = simscape.Value(295,"K");
+setT = simscape.Value(290,"K");
 set_param("DetailedHouse/Tset","Value",num2str(value(setT,"K")));
 %[text] The model provides heat to the room (for heating or cooling) based on the difference in the maximum room temperature and the room desired set point temperature, though the port ***S***.
 %[text] %[text:anchor:H_4672D37F] ## Run Simulation
@@ -52,5 +52,5 @@ disp(strcat("Average Cooling Requirement ~ ",num2str(abs(simRes.AvgPow)),"W")); 
 %   data: {"dataType":"text","outputData":{"text":"Number of hours of simulation ~ 720hrs\n","truncated":false}}
 %---
 %[output:660f4e98]
-%   data: {"dataType":"text","outputData":{"text":"Average Cooling Requirement ~ 192.7473W\n","truncated":false}}
+%   data: {"dataType":"text","outputData":{"text":"Average Cooling Requirement ~ 1451.5448W\n","truncated":false}}
 %---

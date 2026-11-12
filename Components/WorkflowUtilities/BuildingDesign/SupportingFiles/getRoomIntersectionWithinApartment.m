@@ -6,6 +6,7 @@ function [result, errMsg] = getRoomIntersectionWithinApartment(apartmentUnit)
     nRooms = numel(fieldnames(apartmentUnit));
     result = false;
     errMsg = "";
+
     for j = 1:nRooms-1
         for k = j+1:nRooms
             intersectionPoly = intersect(apartmentUnit.("room"+num2str(j)).floorPlan,apartmentUnit.("room"+num2str(k)).floorPlan);
