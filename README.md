@@ -21,29 +21,23 @@
  
 <table>
   <tr>
-    <td class="text-column" width=1200></td>
-  </tr>
-</table>
-
-<table>
-  <tr>
     <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingAnimationREADME.gif" alt="CreateBuilding"></td>
     <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingHeatLoadREADME.png" alt="Building Heat Load Analysis Canvas"></td>
     <td class="image-column" width=400><img src="ScriptsData/Images/SimscapeBuildingSimulationREADME.gif" alt="Building Heat Load Analysis Results"></td>
   </tr>
 </table>
  
-<table>
-  <tr>
-    <td class="text-column" width=1200></td>
-  </tr>
-</table>
-
 <hr color="gray" size="10">
 
 ## To Get Started 
 * Clone the project repository.
 * Open BuildingEnergyManagement.prj to get started with the project. 
-* Requires MATLAB&reg; release R2026a, Simulink&reg;, Simscape&trade;, and Simscape Fluids&trade;.
+
+## Requirement(s)
+* MATLAB&reg; release R2026a
+* Simulink&reg;
+* Simscape&trade;
+* Simscape Fluids&trade;
+
  
 Copyright 2024 - 2026 The MathWorks, Inc.
